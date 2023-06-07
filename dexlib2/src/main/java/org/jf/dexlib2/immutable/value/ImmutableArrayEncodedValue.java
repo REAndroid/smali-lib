@@ -32,6 +32,7 @@
 package org.jf.dexlib2.immutable.value;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.base.value.BaseArrayEncodedValue;
 import org.jf.dexlib2.iface.value.ArrayEncodedValue;
 import org.jf.dexlib2.iface.value.EncodedValue;

@@ -32,6 +32,7 @@
 package org.jf.dexlib2;
 
 import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import com.google.common.collect.ImmutableSet.Builder;
 
 import java.util.HashMap;

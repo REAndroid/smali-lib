@@ -32,6 +32,7 @@
 package org.jf.dexlib2.writer.pool;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.writer.DexWriter;
 import org.jf.dexlib2.writer.TypeListSection;
 import org.jf.dexlib2.writer.pool.TypeListPool.Key;
@@ -64,7 +65,7 @@ public class TypeListPool extends BaseNullableOffsetPool<Key<? extends Collectio
     @Nonnull @Override
     public Collection<? extends CharSequence> getTypes(Key<? extends Collection<? extends CharSequence>> typesKey) {
         if (typesKey == null) {
-            return ImmutableList.of();
+            return EmptyList.of();
         }
         return typesKey.types;
     }

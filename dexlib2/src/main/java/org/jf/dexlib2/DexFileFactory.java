@@ -33,6 +33,7 @@ package org.jf.dexlib2;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import com.google.common.collect.Lists;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;

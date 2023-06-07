@@ -32,6 +32,7 @@
 package org.jf.dexlib2.immutable.util;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import org.jf.util.ImmutableConverter;
 
 import javax.annotation.Nonnull;

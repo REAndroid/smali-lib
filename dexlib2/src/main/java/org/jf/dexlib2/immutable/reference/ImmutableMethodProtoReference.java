@@ -32,6 +32,7 @@
 package org.jf.dexlib2.immutable.reference;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.base.reference.BaseMethodProtoReference;
 import org.jf.dexlib2.iface.reference.MethodProtoReference;
 import org.jf.dexlib2.immutable.util.CharSequenceConverter;

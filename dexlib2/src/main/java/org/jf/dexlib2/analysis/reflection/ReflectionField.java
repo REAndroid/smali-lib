@@ -32,6 +32,7 @@
 package org.jf.dexlib2.analysis.reflection;
 
 import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.analysis.reflection.util.ReflectionUtils;
 import org.jf.dexlib2.base.reference.BaseFieldReference;
@@ -59,7 +60,7 @@ public class ReflectionField extends BaseFieldReference implements Field {
     }
 
     @Nonnull @Override public Set<? extends Annotation> getAnnotations() {
-        return ImmutableSet.of();
+        return EmptySet.of();
     }
 
     @Nonnull @Override public String getDefiningClass() {
@@ -75,6 +76,6 @@ public class ReflectionField extends BaseFieldReference implements Field {
     }
 
     @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
-        return ImmutableSet.of();
+        return EmptySet.of();
     }
 }

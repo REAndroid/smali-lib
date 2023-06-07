@@ -32,6 +32,7 @@
 package org.jf.dexlib2.analysis.reflection;
 
 import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.analysis.reflection.util.ReflectionUtils;
 import org.jf.dexlib2.base.BaseMethodParameter;
@@ -62,7 +63,7 @@ public class ReflectionMethod extends BaseMethodReference implements Method {
             @Override public MethodParameter get(final int index) {
                 return new BaseMethodParameter() {
                     @Nonnull @Override public Set<? extends Annotation> getAnnotations() {
-                        return ImmutableSet.of();
+                        return EmptySet.of();
                     }
 
                     @Nullable @Override public String getName() {
@@ -86,7 +87,7 @@ public class ReflectionMethod extends BaseMethodReference implements Method {
     }
 
     @Nonnull @Override public Set<? extends Annotation> getAnnotations() {
-        return ImmutableSet.of();
+        return EmptySet.of();
     }
 
     @Nullable @Override public MethodImplementation getImplementation() {
@@ -120,6 +121,6 @@ public class ReflectionMethod extends BaseMethodReference implements Method {
     }
 
     @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
-        return ImmutableSet.of();
+        return EmptySet.of();
     }
 }

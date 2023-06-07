@@ -32,6 +32,7 @@
 package org.jf.dexlib2.writer.builder;
 
 import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.writer.DexWriter;
 
 import javax.annotation.Nonnull;

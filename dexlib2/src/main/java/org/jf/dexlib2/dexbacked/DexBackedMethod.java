@@ -31,8 +31,9 @@
 
 package org.jf.dexlib2.dexbacked;
 
-import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.base.reference.BaseMethodReference;
 import org.jf.dexlib2.dexbacked.raw.MethodIdItem;
@@ -153,7 +154,7 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
                 }
             };
         }
-        return ImmutableList.of();
+        return EmptyList.of();
     }
 
     @Nonnull
@@ -167,7 +168,7 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
         if (methodImpl != null) {
             return methodImpl.getParameterNames(null);
         }
-        return ImmutableSet.<String>of().iterator();
+        return EmptySet.<String>of().iterator();
     }
 
     @Nonnull
@@ -186,7 +187,7 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
                 @Override public int size() { return parameterCount; }
             };
         }
-        return ImmutableList.of();
+        return EmptyList.of();
     }
 
     @Nonnull
@@ -199,7 +200,7 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
     @Override
     public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
         if (hiddenApiRestrictions == DexBackedClassDef.NO_HIDDEN_API_RESTRICTIONS) {
-            return ImmutableSet.of();
+            return EmptySet.of();
         } else {
             return EnumSet.copyOf(HiddenApiRestriction.getAllFlags(hiddenApiRestrictions));
         }

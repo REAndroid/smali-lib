@@ -32,6 +32,7 @@
 package org.jf.dexlib2.immutable.value;
 
 import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.base.value.BaseAnnotationEncodedValue;
 import org.jf.dexlib2.iface.AnnotationElement;
 import org.jf.dexlib2.iface.value.AnnotationEncodedValue;

@@ -47,6 +47,7 @@ import org.jf.dexlib2.writer.DexWriter;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.*;
 import org.jf.dexlib2.writer.util.StaticInitializerUtil;
 import org.jf.util.ExceptionWithContext;
+import org.jf.util.collection.EmptyList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -221,7 +222,7 @@ public class DexBuilder extends DexWriter<BuilderStringReference, BuilderStringR
     @Nonnull private List<BuilderMethodParameter> internMethodParameters(
             @Nullable List<? extends MethodParameter> methodParameters) {
         if (methodParameters == null) {
-            return ImmutableList.of();
+            return EmptyList.of();
         }
         return ImmutableList.copyOf(Iterators.transform(methodParameters.iterator(),
                 new Function<MethodParameter, BuilderMethodParameter>() {

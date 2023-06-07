@@ -33,6 +33,7 @@ package org.jf.dexlib2.writer.builder;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 import org.jf.dexlib2.writer.DexWriter;

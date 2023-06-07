@@ -48,6 +48,7 @@ import org.jf.dexlib2.util.AlignmentUtils;
 import org.jf.dexlib2.util.MethodUtil;
 import org.jf.util.ExceptionWithContext;
 import org.jf.util.SparseArray;
+import org.jf.util.collection.EmptySet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -274,7 +275,7 @@ public class ClassProto implements TypeProto {
     @Nonnull
     protected Set<String> getUnresolvedInterfaces() {
         if (unresolvedInterfaces == null) {
-            return ImmutableSet.of();
+            return EmptySet.of();
         }
         return unresolvedInterfaces;
     }

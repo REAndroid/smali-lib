@@ -152,7 +152,11 @@ public class ImmutableClassDef extends BaseTypeReference implements ClassDef {
     @Nonnull @Override public String getType() { return type; }
     @Override public int getAccessFlags() { return accessFlags; }
     @Nullable @Override public String getSuperclass() { return superclass; }
-    @Nonnull @Override public ImmutableList<String> getInterfaces() { return interfaces; }
+    @Nonnull
+    @Override
+    public ImmutableList<String> getInterfaces() {
+        return interfaces;
+    }
     @Nullable @Override public String getSourceFile() { return sourceFile; }
     @Nonnull @Override public ImmutableSet<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
     @Nonnull @Override public ImmutableSet<? extends ImmutableField> getStaticFields() { return staticFields; }

@@ -37,6 +37,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import com.google.common.collect.Lists;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.analysis.reflection.ReflectionClassDef;

@@ -32,6 +32,7 @@
 package org.jf.dexlib2.dexbacked.reference;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.base.reference.BaseMethodReference;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 import org.jf.dexlib2.dexbacked.raw.MethodIdItem;
@@ -85,7 +86,7 @@ public class DexBackedMethodReference extends BaseMethodReference {
                 @Override public int size() { return parameterCount; }
             };
         }
-        return ImmutableList.of();
+        return EmptyList.of();
     }
 
     @Nonnull

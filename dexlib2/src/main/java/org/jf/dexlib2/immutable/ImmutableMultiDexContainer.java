@@ -32,6 +32,7 @@
 package org.jf.dexlib2.immutable;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import com.google.common.collect.ImmutableMap;
 import org.jf.dexlib2.iface.MultiDexContainer;
 

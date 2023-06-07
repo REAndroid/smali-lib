@@ -32,6 +32,7 @@
 package org.jf.dexlib2.dexbacked.util;
 
 import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.base.BaseMethodParameter;
 import org.jf.dexlib2.iface.Annotation;
 import org.jf.dexlib2.iface.MethodParameter;
@@ -67,7 +68,7 @@ public class ParameterIterator implements Iterator<MethodParameter> {
         if (parameterAnnotations.hasNext()) {
             annotations = parameterAnnotations.next();
         } else {
-            annotations = ImmutableSet.of();
+            annotations = EmptySet.of();
         }
 
         if (parameterNames.hasNext()) {

@@ -33,6 +33,7 @@ package org.jf.dexlib2.analysis;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import com.google.common.collect.Lists;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.Opcode;

@@ -32,6 +32,7 @@
 package org.jf.dexlib2.immutable.reference;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.base.reference.BaseTypeReference;
 import org.jf.dexlib2.iface.reference.TypeReference;
 import org.jf.util.ImmutableConverter;

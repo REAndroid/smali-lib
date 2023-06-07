@@ -33,6 +33,7 @@ package org.jf.dexlib2.immutable.value;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.ValueType;
 import org.jf.dexlib2.iface.value.*;
 import org.jf.util.ExceptionWithContext;

@@ -1,6 +1,6 @@
 package org.jf.dexlib2.builder;
 
-import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,7 +16,7 @@ public abstract class LocatedItems<T extends ItemWithLocation> {
     @Nonnull
     private List<T> getItems() {
         if (items == null) {
-            return ImmutableList.of();
+            return EmptyList.of();
         }
         return items;
     }

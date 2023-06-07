@@ -32,7 +32,9 @@
 package org.jf.dexlib2.dexbacked.util;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.dexbacked.DexBackedAnnotation;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 
@@ -43,7 +45,7 @@ import java.util.Set;
 public abstract class AnnotationsDirectory {
     public static final AnnotationsDirectory EMPTY = new AnnotationsDirectory() {
         @Override public int getFieldAnnotationCount() { return 0; }
-        @Nonnull @Override public Set<? extends DexBackedAnnotation> getClassAnnotations() { return ImmutableSet.of(); }
+        @Nonnull @Override public Set<? extends DexBackedAnnotation> getClassAnnotations() { return EmptySet.of(); }
         @Nonnull @Override public AnnotationIterator getFieldAnnotationIterator() { return AnnotationIterator.EMPTY; }
         @Nonnull @Override public AnnotationIterator getMethodAnnotationIterator() { return AnnotationIterator.EMPTY; }
         @Nonnull @Override public AnnotationIterator getParameterAnnotationIterator() {return AnnotationIterator.EMPTY;}
@@ -112,7 +114,7 @@ public abstract class AnnotationsDirectory {
             };
         }
 
-        return ImmutableSet.of();
+        return EmptySet.of();
     }
 
     @Nonnull
@@ -133,7 +135,7 @@ public abstract class AnnotationsDirectory {
                 @Override public int size() { return size; }
             };
         }
-        return ImmutableList.of();
+        return EmptyList.of();
     }
 
     private static class AnnotationsDirectoryImpl extends AnnotationsDirectory {

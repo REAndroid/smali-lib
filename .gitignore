@@ -1,4 +1,5 @@
 /.gradle
+/.idea
 /baksmali/build
 /dexlib/build
 /dexlib2/build

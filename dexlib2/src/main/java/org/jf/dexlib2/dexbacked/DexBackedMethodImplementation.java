@@ -32,6 +32,7 @@
 package org.jf.dexlib2.dexbacked;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.dexbacked.instruction.DexBackedInstruction;
 import org.jf.dexlib2.dexbacked.raw.CodeItem;
 import org.jf.dexlib2.dexbacked.util.DebugInfo;
@@ -134,7 +135,7 @@ public class DexBackedMethodImplementation implements MethodImplementation {
                 }
             };
         }
-        return ImmutableList.of();
+        return EmptyList.of();
     }
 
     protected int getDebugOffset() {

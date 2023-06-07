@@ -35,6 +35,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Ordering;
 import org.jf.dexlib2.DebugItemType;
@@ -404,7 +405,7 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         if (impl != null) {
             return impl.getTryBlocks();
         }
-        return ImmutableList.of();
+        return EmptyList.of();
     }
 
     @Nullable @Override public CharSequence getExceptionType(@Nonnull ExceptionHandler handler) {

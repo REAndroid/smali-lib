@@ -31,7 +31,7 @@
 
 package org.jf.dexlib2.dexbacked;
 
-import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.base.reference.BaseFieldReference;
 import org.jf.dexlib2.dexbacked.raw.FieldIdItem;
@@ -136,7 +136,7 @@ public class DexBackedField extends BaseFieldReference implements Field {
     @Override
     public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
         if (hiddenApiRestrictions == DexBackedClassDef.NO_HIDDEN_API_RESTRICTIONS) {
-            return ImmutableSet.of();
+            return EmptySet.of();
         } else {
             return EnumSet.copyOf(HiddenApiRestriction.getAllFlags(hiddenApiRestrictions));
         }

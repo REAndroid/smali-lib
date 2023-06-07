@@ -53,6 +53,7 @@ import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderArrayEncodedVal
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderEncodedValue;
 import org.jf.util.AbstractForwardSequentialList;
 import org.jf.util.ExceptionWithContext;
+import org.jf.util.collection.EmptyList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -302,7 +303,7 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     public List<? extends TryBlock<? extends ExceptionHandler>> getTryBlocks(@Nonnull BuilderMethod builderMethod) {
         MethodImplementation impl = builderMethod.getImplementation();
         if (impl == null) {
-            return ImmutableList.of();
+            return EmptyList.of();
         }
         return impl.getTryBlocks();
     }

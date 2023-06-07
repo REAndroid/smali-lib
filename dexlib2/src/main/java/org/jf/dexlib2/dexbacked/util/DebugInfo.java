@@ -31,7 +31,7 @@
 
 package org.jf.dexlib2.dexbacked.util;
 
-import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.DebugItemType;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
@@ -79,11 +79,11 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
         private EmptyDebugInfo() {}
 
         @Nonnull @Override public Iterator<DebugItem> iterator() {
-            return ImmutableSet.<DebugItem>of().iterator();
+            return EmptySet.<DebugItem>of().iterator();
         }
 
         @Nonnull @Override public Iterator<String> getParameterNames(@Nullable DexReader reader) {
-            return ImmutableSet.<String>of().iterator();
+            return EmptySet.<String>of().iterator();
         }
 
         @Override

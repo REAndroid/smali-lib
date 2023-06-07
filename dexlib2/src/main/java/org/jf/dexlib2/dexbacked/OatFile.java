@@ -33,6 +33,7 @@ package org.jf.dexlib2.dexbacked;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import com.google.common.collect.Iterators;
 import com.google.common.io.ByteStreams;
 import org.jf.dexlib2.DexFileFactory;
@@ -166,11 +167,11 @@ public class OatFile extends DexBuffer implements MultiDexContainer<DexBackedDex
     @Nonnull
     public List<String> getBootClassPath() {
         if (getOatVersion() < 75) {
-            return ImmutableList.of();
+            return EmptyList.of();
         }
         String bcp = oatHeader.getKeyValue("bootclasspath");
         if (bcp == null) {
-            return ImmutableList.of();
+            return EmptyList.of();
         }
         return Arrays.asList(bcp.split(":"));
     }

@@ -32,6 +32,7 @@
 package org.jf.dexlib2.immutable.debug;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.DebugItemType;
 import org.jf.dexlib2.iface.debug.*;
 import org.jf.util.ExceptionWithContext;

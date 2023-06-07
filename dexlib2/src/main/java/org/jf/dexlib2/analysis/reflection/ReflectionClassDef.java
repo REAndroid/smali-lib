@@ -34,7 +34,9 @@ package org.jf.dexlib2.analysis.reflection;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import com.google.common.collect.Iterators;
 import org.jf.dexlib2.analysis.reflection.util.ReflectionUtils;
 import org.jf.dexlib2.base.reference.BaseTypeReference;
@@ -98,7 +100,7 @@ public class ReflectionClassDef extends BaseTypeReference implements ClassDef {
     }
 
     @Nonnull @Override public Set<? extends Annotation> getAnnotations() {
-        return ImmutableSet.of();
+        return EmptySet.of();
     }
 
     @Nonnull @Override public Iterable<? extends Field> getStaticFields() {

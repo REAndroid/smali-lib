@@ -31,8 +31,7 @@
 
 package org.jf.dexlib2.dexbacked;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import com.google.common.collect.Iterables;
 import org.jf.dexlib2.base.reference.BaseTypeReference;
 import org.jf.dexlib2.dexbacked.raw.ClassDefItem;
@@ -46,13 +45,11 @@ import org.jf.dexlib2.iface.reference.FieldReference;
 import org.jf.dexlib2.iface.reference.MethodReference;
 import org.jf.dexlib2.immutable.reference.ImmutableFieldReference;
 import org.jf.dexlib2.immutable.reference.ImmutableMethodReference;
+import org.jf.util.collection.EmptyList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.AbstractList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.jf.dexlib2.writer.DexWriter.NO_OFFSET;
 
@@ -148,7 +145,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
                 @Override public int size() { return size; }
             };
         }
-        return ImmutableList.of();
+        return EmptyList.of();
     }
 
     @Nonnull
@@ -227,7 +224,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             };
         } else {
             instanceFieldsOffset = staticFieldsOffset;
-            return ImmutableSet.of();
+            return EmptySet.of();
         }
     }
 
@@ -297,7 +294,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             if (instanceFieldsOffset > 0) {
                 directMethodsOffset = instanceFieldsOffset;
             }
-            return ImmutableSet.of();
+            return EmptySet.of();
         }
     }
 
@@ -376,7 +373,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             if (directMethodsOffset > 0) {
                 virtualMethodsOffset = directMethodsOffset;
             }
-            return ImmutableSet.of();
+            return EmptySet.of();
         }
     }
 
@@ -438,7 +435,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
                 }
             };
         } else {
-            return ImmutableSet.of();
+            return EmptySet.of();
         }
     }
 

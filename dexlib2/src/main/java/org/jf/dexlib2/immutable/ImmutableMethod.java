@@ -32,7 +32,9 @@
 package org.jf.dexlib2.immutable;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import com.google.common.collect.ImmutableSet;
+import org.jf.util.collection.EmptySet;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Ordering;
 import org.jf.dexlib2.HiddenApiRestriction;

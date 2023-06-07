@@ -32,6 +32,7 @@
 package org.jf.dexlib2.writer.builder;
 
 import com.google.common.collect.ImmutableList;
+import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.base.reference.BaseCallSiteReference;
 import org.jf.dexlib2.iface.value.StringEncodedValue;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderArrayEncodedValue;
@@ -73,7 +74,7 @@ public class BuilderCallSiteReference extends BaseCallSiteReference implements B
 
     @Nonnull @Override public List<? extends BuilderEncodedValue> getExtraArguments() {
         if (encodedCallSite.elements.size() <= 3) {
-            return ImmutableList.of();
+            return EmptyList.of();
         }
         return encodedCallSite.elements.subList(3, encodedCallSite.elements.size());
     }
