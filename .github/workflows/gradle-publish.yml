@@ -27,5 +27,5 @@ jobs:
         arguments: jar
     - uses: actions/upload-artifact@v3
       with:
-        name: smali-lib
-        path: build/libs
+        name: smali
+        path: smali/build
