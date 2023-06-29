@@ -31,29 +31,85 @@
 
 package org.jf.dexlib2.analysis.reflection.util;
 
-import com.google.common.collect.ImmutableBiMap;
 
 public class ReflectionUtils {
 
-    private static ImmutableBiMap<String, String> primitiveMap = ImmutableBiMap.<String, String>builder()
-            .put("boolean", "Z")
-            .put("int", "I")
-            .put("long", "J")
-            .put("double", "D")
-            .put("void", "V")
-            .put("float", "F")
-            .put("char", "C")
-            .put("short", "S")
-            .put("byte", "B")
-            .build();
+    private static String getPrimitive(String java){
+        if(java == null){
+            return null;
+        }
+        if(java.equals("boolean")){
+            return "Z";
+        }
+        if(java.equals("int")){
+            return "I";
+        }
+        if(java.equals("long")){
+            return "J";
+        }
+        if(java.equals("double")){
+            return "D";
+        }
+        if(java.equals("void")){
+            return "V";
+        }
+        if(java.equals("float")){
+            return "F";
+        }
+        if(java.equals("char")){
+            return "C";
+        }
+        if(java.equals("short")){
+            return "S";
+        }
+        if(java.equals("byte")){
+            return "B";
+        }
+        return null;
+    }
+    private static String getJava(String primitive){
+        if(primitive == null){
+            return null;
+        }
+        if(primitive.equals("Z")){
+            return "boolean";
+        }
+        if(primitive.equals("I")){
+            return "int";
+        }
+        if(primitive.equals("J")){
+            return "long";
+        }
+        if(primitive.equals("D")){
+            return "double";
+        }
+        if(primitive.equals("V")){
+            return "void";
+        }
+        if(primitive.equals("F")){
+            return "float";
+        }
+        if(primitive.equals("C")){
+            return "char";
+        }
+        if(primitive.equals("S")){
+            return "short";
+        }
+        if(primitive.equals("B")){
+            return "byte";
+        }
+        return null;
+    }
+
 
     public static String javaToDexName(String javaName) {
         if (javaName.charAt(0) == '[') {
             return javaName.replace('.', '/');
         }
 
-        if (primitiveMap.containsKey(javaName)) {
-            return primitiveMap.get(javaName);
+        String primitive = getPrimitive(javaName);
+        if (primitive != null) {
+            return primitive;
         }
 
         return 'L' + javaName.replace('.', '/') + ';';
@@ -63,9 +119,10 @@ public class ReflectionUtils {
         if (dexName.charAt(0) == '[') {
             return dexName.replace('/', '.');
         }
+        String java = getJava(dexName);
 
-        if (primitiveMap.inverse().containsKey(dexName)) {
-            return primitiveMap.inverse().get(dexName);
+        if (java != null) {
+            return java;
         }
 
         return dexName.replace('/', '.').substring(1, dexName.length()-1);

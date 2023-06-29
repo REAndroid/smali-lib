@@ -33,8 +33,6 @@ package org.jf.baksmali;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.DexFileFactory;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
@@ -45,6 +43,7 @@ import org.jf.util.jcommander.ExtendedParameter;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,7 +61,7 @@ public abstract class DexInputCommand extends Command {
             "files, you can specify the specific entry to use as if the apk/oat file was a directory. " +
             "e.g. \"app.apk/classes2.dex\". For more information, see \"baksmali help input\".")
     @ExtendedParameter(argumentNames = "file")
-    protected List<String> inputList = Lists.newArrayList();
+    protected List<String> inputList = new ArrayList<>();
 
     protected File inputFile;
     protected String inputEntry;
@@ -132,7 +131,7 @@ public abstract class DexInputCommand extends Command {
             opcodes = Opcodes.forApi(apiLevel);
         }
 
-        if (!Strings.isNullOrEmpty(dexEntryName)) {
+        if (dexEntryName != null && dexEntryName.length()>0) {
             boolean exactMatch = false;
             if (dexEntryName.length() > 2 && dexEntryName.charAt(0) == '"' && dexEntryName.charAt(dexEntryName.length() - 1) == '"') {
                 dexEntryName = dexEntryName.substring(1, dexEntryName.length() - 1);

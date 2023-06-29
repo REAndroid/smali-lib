@@ -2,8 +2,9 @@ package org.jf.util.collection;
 
 import java.util.*;
 
-public class ArraySet<T> implements Set<T> {
+public class ArraySet<T> implements Set<T>, Comparator<T>{
     private final ArrayList<T> items;
+    private Comparator<? super T> comparator;
     public ArraySet(){
         this.items = new ArrayList<>();
     }
@@ -13,11 +14,31 @@ public class ArraySet<T> implements Set<T> {
     public ArraySet(Collection<? extends T> collection){
         this.items = new ArrayList<>(collection);
     }
+
+    public Comparator<? super T> comparator() {
+        return comparator;
+    }
+    public void setComparator(Comparator<? super T> comparator) {
+        this.comparator = comparator;
+        if(comparator != null){
+            sort(comparator);
+        }
+    }
+
     public void trimToSize() {
         items.trimToSize();
     }
+    public boolean addAll(Iterable<? extends T> iterable) {
+        if(iterable == null){
+            return false;
+        }
+        if(iterable instanceof Collection){
+            return addAll((Collection<? extends T>)iterable);
+        }
+        return addAll(iterable.iterator());
+    }
     public boolean addAll(Iterator<? extends T> iterator) {
-        if(!iterator.hasNext()){
+        if(iterator == null || !iterator.hasNext()){
             return false;
         }
         while (iterator.hasNext()){
@@ -25,6 +46,22 @@ public class ArraySet<T> implements Set<T> {
         }
         trimToSize();
         return true;
+    }
+    public boolean addAll(T... elements) {
+        if(elements == null || elements.length == 0){
+            return false;
+        }
+        boolean added = false;
+        for(T item : elements){
+            if(item == null){
+                continue;
+            }
+            added = items.add(item) || added;
+        }
+        if(added){
+            trimToSize();
+        }
+        return added;
     }
     @Override
     public int size() {
@@ -64,6 +101,9 @@ public class ArraySet<T> implements Set<T> {
     }
     @Override
     public boolean addAll(Collection<? extends T> collection) {
+        if(collection == null){
+            return false;
+        }
         boolean result = items.addAll(collection);
         if(result){
             trimToSize();
@@ -85,8 +125,44 @@ public class ArraySet<T> implements Set<T> {
         items.clear();
         trimToSize();
     }
+    @Override
+    public int compare(T t1, T t2) {
+        if(t1 instanceof Comparable && t2 instanceof Comparable){
+            Comparable comparable1 = (Comparable) t1;
+            return comparable1.compareTo(t2);
+        }
+        return 0;
+    }
+    public ArraySet<T> sort(){
+        return sort(this);
+    }
+    public ArraySet<T> sort(Comparator<? super T> comparator){
+        items.sort(comparator);
+        return this;
+    }
 
-    public static <E> Set<E> copyOf(Iterator<? extends E> elements) {
+    public static <E> ArraySet<E> sortedCopy(Iterator<? extends E> elements) {
+        ArraySet<E> arraySet = copyOf(elements);
+        arraySet.sort();
+        return arraySet;
+    }
+    public static <E> ArraySet<E> copyOf(Iterable<? extends E> elements) {
+        if (elements == null) {
+            return EmptySet.of();
+        }
+        ArraySet<E> arraySet = new ArraySet<>();
+        arraySet.addAll(elements);
+        return arraySet;
+    }
+    public static <E> ArraySet<E> copyOf(Collection<? extends E> elements) {
+        if (elements == null) {
+            return EmptySet.of();
+        }
+        ArraySet<E> arraySet = new ArraySet<>();
+        arraySet.addAll(elements);
+        return arraySet;
+    }
+    public static <E> ArraySet<E> copyOf(Iterator<? extends E> elements) {
         if (!elements.hasNext()) {
             return EmptySet.of();
         }
@@ -94,4 +170,16 @@ public class ArraySet<T> implements Set<T> {
         arraySet.addAll(elements);
         return arraySet;
     }
+    public static <E> ArraySet<E> of() {
+        return EmptySet.of();
+    }
+    public static <E> ArraySet<E> of(E... elements) {
+        if (elements == null || elements.length == 0) {
+            return EmptySet.of();
+        }
+        ArraySet<E> arraySet = new ArraySet<>();
+        arraySet.addAll(elements);
+        return arraySet;
+    }
+
 }

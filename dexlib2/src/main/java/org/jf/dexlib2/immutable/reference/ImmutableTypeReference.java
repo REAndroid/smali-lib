@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.immutable.reference;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.base.reference.BaseTypeReference;
 import org.jf.dexlib2.iface.reference.TypeReference;
 import org.jf.util.ImmutableConverter;
@@ -59,7 +57,7 @@ public class ImmutableTypeReference extends BaseTypeReference implements Immutab
     @Nonnull @Override public String getType() { return type; }
 
     @Nonnull
-    public static ImmutableList<ImmutableTypeReference> immutableListOf(@Nullable List<? extends TypeReference> list) {
+    public static List<ImmutableTypeReference> immutableListOf(@Nullable List<? extends TypeReference> list) {
         return CONVERTER.toList(list);
     }
 

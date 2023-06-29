@@ -2,9 +2,8 @@ package org.jf.util.collection;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Set;
 
-public class EmptySet<T> implements Set<T>, Empty {
+public class EmptySet<T> extends ArraySet<T> implements Empty {
     public EmptySet(){
     }
     @Override

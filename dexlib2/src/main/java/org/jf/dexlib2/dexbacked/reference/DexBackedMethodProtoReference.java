@@ -31,13 +31,12 @@
 
 package org.jf.dexlib2.dexbacked.reference;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.base.reference.BaseMethodProtoReference;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 import org.jf.dexlib2.dexbacked.raw.ProtoIdItem;
 import org.jf.dexlib2.dexbacked.raw.TypeListItem;
 import org.jf.dexlib2.dexbacked.util.FixedSizeList;
+import org.jf.util.collection.EmptyList;
 
 import javax.annotation.Nonnull;
 import java.util.List;

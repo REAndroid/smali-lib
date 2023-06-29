@@ -31,12 +31,11 @@
 
 package org.jf.dexlib2.builder.instruction;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.Format;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.builder.BuilderInstruction;
 import org.jf.dexlib2.iface.instruction.formats.ArrayPayload;
+import org.jf.util.collection.EmptyList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -52,7 +51,7 @@ public class BuilderArrayPayload extends BuilderInstruction implements ArrayPayl
                                @Nullable List<Number> arrayElements) {
         super(OPCODE);
         this.elementWidth = elementWidth;
-        this.arrayElements = arrayElements==null?ImmutableList.<Number>of():arrayElements;
+        this.arrayElements = arrayElements==null?EmptyList.<Number>of():arrayElements;
     }
 
     @Override public int getElementWidth() { return elementWidth; }

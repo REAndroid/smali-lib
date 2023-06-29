@@ -31,7 +31,6 @@
 
 package org.jf.smali;
 
-import com.google.common.collect.Iterables;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenSource;
@@ -42,6 +41,7 @@ import org.jf.dexlib2.dexbacked.DexBackedClassDef;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 import org.jf.dexlib2.writer.builder.DexBuilder;
 import org.jf.dexlib2.writer.io.MemoryDataStore;
+import org.jf.util.collection.Iterables;
 
 import java.io.IOException;
 import java.io.Reader;

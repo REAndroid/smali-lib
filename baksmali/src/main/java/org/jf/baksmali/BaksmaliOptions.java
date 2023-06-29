@@ -73,9 +73,25 @@ public class BaksmaliOptions {
     public int registerInfo = 0;
 
     public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
+    private CommentProvider commentProvider;
     public InlineMethodResolver inlineResolver = null;
     public ClassPath classPath = null;
     public SyntheticAccessorResolver syntheticAccessorResolver = null;
+
+    public BaksmaliOptions(){
+    }
+
+    public CommentProvider getCommentProvider(){
+        CommentProvider commentProvider = this.commentProvider;
+        if(commentProvider == null){
+            commentProvider = new CommentProvider.CommentMap(resourceIds);
+            this.commentProvider = commentProvider;
+        }
+        return commentProvider;
+    }
+    public void setCommentProvider(CommentProvider commentProvider) {
+        this.commentProvider = commentProvider;
+    }
 
     /**
      * Load the resource ids from a set of public.xml files.

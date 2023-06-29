@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.writer.util;
 
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.base.value.BaseArrayEncodedValue;
 import org.jf.dexlib2.base.value.BaseMethodHandleEncodedValue;
 import org.jf.dexlib2.base.value.BaseMethodTypeEncodedValue;
@@ -41,6 +40,7 @@ import org.jf.dexlib2.iface.reference.MethodProtoReference;
 import org.jf.dexlib2.iface.value.ArrayEncodedValue;
 import org.jf.dexlib2.iface.value.EncodedValue;
 import org.jf.dexlib2.immutable.value.ImmutableStringEncodedValue;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -51,7 +51,7 @@ public class CallSiteUtil {
             @Nonnull
             @Override
             public List<? extends EncodedValue> getValue() {
-                List<EncodedValue> encodedCallSite = Lists.newArrayList();
+                List<EncodedValue> encodedCallSite = ListUtil.newArrayList();
 
                 encodedCallSite.add(new BaseMethodHandleEncodedValue() {
                     @Nonnull

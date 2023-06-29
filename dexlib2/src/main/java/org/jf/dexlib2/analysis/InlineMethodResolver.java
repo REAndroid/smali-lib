@@ -31,16 +31,16 @@
 
 package org.jf.dexlib2.analysis;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.iface.Method;
 import org.jf.dexlib2.iface.instruction.InlineIndexInstruction;
 import org.jf.dexlib2.iface.instruction.VariableRegisterInstruction;
 import org.jf.dexlib2.immutable.ImmutableMethod;
 import org.jf.dexlib2.immutable.ImmutableMethodParameter;
 import org.jf.dexlib2.immutable.util.ParamUtil;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public abstract class InlineMethodResolver {
     // These are the possible values for the accessFlag field on a resolved inline method
@@ -67,7 +67,7 @@ public abstract class InlineMethodResolver {
     @Nonnull
     private static Method inlineMethod(int accessFlags, @Nonnull String cls, @Nonnull String name,
                                        @Nonnull String params, @Nonnull String returnType) {
-        ImmutableList<ImmutableMethodParameter> paramList = ImmutableList.copyOf(ParamUtil.parseParamString(params));
+        List<ImmutableMethodParameter> paramList = ListUtil.copyOf(ParamUtil.parseParamString(params));
         return new ImmutableMethod(cls, name, paramList, returnType, accessFlags, null, null, null);
     }
 

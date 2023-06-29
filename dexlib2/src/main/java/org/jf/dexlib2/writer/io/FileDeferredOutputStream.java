@@ -1,6 +1,7 @@
 package org.jf.dexlib2.writer.io;
 
-import com.google.common.io.ByteStreams;
+
+import org.jf.util.io.ByteStreams;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

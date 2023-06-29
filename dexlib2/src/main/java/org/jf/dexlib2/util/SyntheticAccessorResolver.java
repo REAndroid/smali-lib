@@ -31,10 +31,6 @@
 
 package org.jf.dexlib2.util;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.iface.ClassDef;
@@ -44,11 +40,14 @@ import org.jf.dexlib2.iface.instruction.Instruction;
 import org.jf.dexlib2.iface.instruction.ReferenceInstruction;
 import org.jf.dexlib2.iface.reference.MethodReference;
 import org.jf.dexlib2.iface.reference.Reference;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SyntheticAccessorResolver {
     public static final int METHOD = 0;
@@ -72,17 +71,17 @@ public class SyntheticAccessorResolver {
 
     private final SyntheticAccessorFSM syntheticAccessorFSM;
     private final Map<String, ClassDef> classDefMap;
-    private final Map<MethodReference, AccessedMember> resolvedAccessors = Maps.newConcurrentMap();
+    private final Map<MethodReference, AccessedMember> resolvedAccessors = new ConcurrentHashMap<>();
 
     public SyntheticAccessorResolver(@Nonnull Opcodes opcodes, @Nonnull Iterable<? extends ClassDef> classDefs) {
         this.syntheticAccessorFSM = new SyntheticAccessorFSM(opcodes);
-        ImmutableMap.Builder<String, ClassDef> builder = ImmutableMap.builder();
+        Map<String, ClassDef> builder = new HashMap<>();
 
         for (ClassDef classDef: classDefs) {
             builder.put(classDef.getType(), classDef);
         }
 
-        this.classDefMap = builder.build();
+        this.classDefMap = builder;
     }
 
     public static boolean looksLikeSyntheticAccessor(String methodName) {
@@ -124,7 +123,7 @@ public class SyntheticAccessorResolver {
             return null;
         }
 
-        List<Instruction> instructions = ImmutableList.copyOf(matchedMethodImpl.getInstructions());
+        List<Instruction> instructions = ListUtil.copyOf(matchedMethodImpl.getInstructions());
 
 
         int accessType = syntheticAccessorFSM.test(instructions);

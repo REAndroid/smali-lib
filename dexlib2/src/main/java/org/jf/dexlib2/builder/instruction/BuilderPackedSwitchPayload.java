@@ -31,17 +31,16 @@
 
 package org.jf.dexlib2.builder.instruction;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.Format;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.builder.BuilderSwitchPayload;
 import org.jf.dexlib2.builder.Label;
 import org.jf.dexlib2.iface.instruction.formats.PackedSwitchPayload;
+import org.jf.util.collection.EmptyList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BuilderPackedSwitchPayload extends BuilderSwitchPayload implements PackedSwitchPayload {
@@ -53,9 +52,9 @@ public class BuilderPackedSwitchPayload extends BuilderSwitchPayload implements 
                                       @Nullable List<? extends Label> switchElements) {
         super(OPCODE);
         if (switchElements == null) {
-            this.switchElements = ImmutableList.of();
+            this.switchElements = EmptyList.of();
         } else {
-            this.switchElements = Lists.newArrayList();
+            this.switchElements = new ArrayList<>(switchElements.size());
             int key = startKey;
             for (Label target: switchElements) {
                 this.switchElements.add(new BuilderSwitchElement(this, key++, target));

@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.base.value;
 
-import com.google.common.primitives.Ints;
 import org.jf.dexlib2.ValueType;
 import org.jf.dexlib2.formatter.DexFormatter;
 import org.jf.dexlib2.iface.value.EncodedValue;
@@ -56,7 +55,7 @@ public abstract class BaseStringEncodedValue implements StringEncodedValue {
 
     @Override
     public int compareTo(@Nonnull EncodedValue o) {
-        int res = Ints.compare(getValueType(), o.getValueType());
+        int res = Integer.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
         return getValue().compareTo(((StringEncodedValue)o).getValue());
     }

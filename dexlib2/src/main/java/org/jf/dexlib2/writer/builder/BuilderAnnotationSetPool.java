@@ -31,25 +31,25 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.collect.Maps;
 import org.jf.dexlib2.iface.Annotation;
 import org.jf.dexlib2.writer.AnnotationSetSection;
 import org.jf.dexlib2.writer.DexWriter;
 import org.jf.util.collection.ArraySet;
-import org.jf.util.collection.IteratorUtil;
+import org.jf.util.collection.Iterables;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Function;
 
 class BuilderAnnotationSetPool extends BaseBuilderPool
         implements AnnotationSetSection<BuilderAnnotation, BuilderAnnotationSet> {
     @Nonnull private final ConcurrentMap<Set<? extends Annotation>, BuilderAnnotationSet> internedItems =
-            Maps.newConcurrentMap();
+            new ConcurrentHashMap<>();
 
     public BuilderAnnotationSetPool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
@@ -66,7 +66,7 @@ class BuilderAnnotationSetPool extends BaseBuilderPool
         }
 
         BuilderAnnotationSet annotationSet = new BuilderAnnotationSet(
-                ArraySet.copyOf(IteratorUtil.transform(annotations.iterator(),
+                ArraySet.copyOf(Iterables.transform(annotations.iterator(),
                         new Function<Annotation, BuilderAnnotation>() {
                             @Nullable
                             @Override

@@ -34,7 +34,6 @@ package org.jf.baksmali;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.DexFileFactory;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
@@ -46,6 +45,7 @@ import org.jf.util.jcommander.ExtendedParameters;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Parameters(commandDescription = "Lists the dex files in an apk/oat file.")
@@ -60,7 +60,7 @@ public class ListDexCommand extends Command {
 
     @Parameter(description = "An apk or oat file.")
     @ExtendedParameter(argumentNames = "file")
-    private List<String> inputList = Lists.newArrayList();
+    private List<String> inputList = new ArrayList<>();
 
     public ListDexCommand(@Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);

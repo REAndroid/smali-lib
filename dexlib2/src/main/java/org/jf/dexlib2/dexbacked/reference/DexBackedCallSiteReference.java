@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.dexbacked.reference;
 
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.ValueType;
 import org.jf.dexlib2.base.reference.BaseCallSiteReference;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
@@ -45,6 +44,7 @@ import org.jf.dexlib2.iface.value.StringEncodedValue;
 import org.jf.util.ExceptionWithContext;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DexBackedCallSiteReference extends BaseCallSiteReference {
@@ -125,7 +125,7 @@ public class DexBackedCallSiteReference extends BaseCallSiteReference {
     @Nonnull
     @Override
     public List<? extends EncodedValue> getExtraArguments() {
-        List<EncodedValue> values = Lists.newArrayList();
+        List<EncodedValue> values = new ArrayList<>();
 
         EncodedArrayItemIterator iter = getCallSiteIterator();
         if (iter.getItemCount() < 3) {

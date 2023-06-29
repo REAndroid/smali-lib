@@ -31,22 +31,24 @@
 
 package org.jf.dexlib2.util;
 
-import com.google.common.base.Predicate;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.iface.Field;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 public final class FieldUtil {
     public static Predicate<Field> FIELD_IS_STATIC = new Predicate<Field>() {
-        @Override public boolean apply(@Nullable Field input) {
+        @Override
+        public boolean test(@Nullable Field input) {
             return input!=null && isStatic(input);
         }
     };
 
     public static Predicate<Field> FIELD_IS_INSTANCE = new Predicate<Field>() {
-        @Override public boolean apply(@Nullable Field input) {
+        @Override
+        public boolean test(@Nullable Field input) {
             return input!= null && !isStatic(input);
         }
     };

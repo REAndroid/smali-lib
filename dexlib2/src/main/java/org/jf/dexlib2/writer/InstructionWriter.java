@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.writer;
 
-import com.google.common.collect.Ordering;
-import com.google.common.primitives.Ints;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.ReferenceType;
@@ -42,6 +40,7 @@ import org.jf.dexlib2.iface.instruction.SwitchElement;
 import org.jf.dexlib2.iface.instruction.formats.*;
 import org.jf.dexlib2.iface.reference.*;
 import org.jf.util.ExceptionWithContext;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -494,8 +493,8 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         try {
             writer.writeUbyte(0);
             writer.writeUbyte(getOpcodeValue(instruction.getOpcode()) >> 8);
-            List<? extends SwitchElement> elements = Ordering.from(switchElementComparator).immutableSortedCopy(
-                    instruction.getSwitchElements());
+            List<? extends SwitchElement> elements = ListUtil.sortedCopy(instruction.getSwitchElements(), switchElementComparator);
+
             writer.writeUshort(elements.size());
             for (SwitchElement element: elements) {
                 writer.writeInt(element.getKey());
@@ -509,8 +508,9 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
     }
 
     private final Comparator<SwitchElement> switchElementComparator = new Comparator<SwitchElement>() {
-        @Override public int compare(SwitchElement element1, SwitchElement element2) {
-            return Ints.compare(element1.getKey(), element2.getKey());
+        @Override
+        public int compare(SwitchElement element1, SwitchElement element2) {
+            return Integer.compare(element1.getKey(), element2.getKey());
         }
     };
 

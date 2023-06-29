@@ -31,12 +31,6 @@
 
 package org.jf.dexlib2.immutable;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
-import com.google.common.collect.ImmutableSortedSet;
-import com.google.common.collect.Ordering;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.base.reference.BaseMethodReference;
 import org.jf.dexlib2.iface.Annotation;
@@ -45,19 +39,23 @@ import org.jf.dexlib2.iface.MethodImplementation;
 import org.jf.dexlib2.iface.MethodParameter;
 import org.jf.util.ImmutableConverter;
 import org.jf.util.ImmutableUtils;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.ListUtil;
+import org.jf.util.collection.SetUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Set;
 
 public class ImmutableMethod extends BaseMethodReference implements Method {
     @Nonnull protected final String definingClass;
     @Nonnull protected final String name;
-    @Nonnull protected final ImmutableList<? extends ImmutableMethodParameter> parameters;
+    @Nonnull protected final List<? extends ImmutableMethodParameter> parameters;
     @Nonnull protected final String returnType;
     protected final int accessFlags;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nonnull protected final Set<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final Set<HiddenApiRestriction> hiddenApiRestrictions;
     @Nullable protected final ImmutableMethodImplementation methodImplementation;
 
     public ImmutableMethod(@Nonnull String definingClass,
@@ -75,21 +73,21 @@ public class ImmutableMethod extends BaseMethodReference implements Method {
         this.accessFlags = accessFlags;
         this.annotations = ImmutableAnnotation.immutableSetOf(annotations);
         this.hiddenApiRestrictions =
-                hiddenApiRestrictions == null ? ImmutableSet.of() : ImmutableSet.copyOf(hiddenApiRestrictions);
+                hiddenApiRestrictions == null ? SetUtil.of() : ArraySet.copyOf(hiddenApiRestrictions);
         this.methodImplementation = ImmutableMethodImplementation.of(methodImplementation);
     }
 
     public ImmutableMethod(@Nonnull String definingClass,
                            @Nonnull String name,
-                           @Nullable ImmutableList<? extends ImmutableMethodParameter> parameters,
+                           @Nullable List<? extends ImmutableMethodParameter> parameters,
                            @Nonnull String returnType,
                            int accessFlags,
-                           @Nullable ImmutableSet<? extends ImmutableAnnotation> annotations,
-                           @Nullable ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions,
+                           @Nullable Set<? extends ImmutableAnnotation> annotations,
+                           @Nullable Set<HiddenApiRestriction> hiddenApiRestrictions,
                            @Nullable ImmutableMethodImplementation methodImplementation) {
         this.definingClass = definingClass;
         this.name = name;
-        this.parameters = ImmutableUtils.nullToEmptyList(parameters);
+        this.parameters = ListUtil.nullToEmptyList(parameters);
         this.returnType = returnType;
         this.accessFlags = accessFlags;
         this.annotations = ImmutableUtils.nullToEmptySet(annotations);
@@ -114,17 +112,19 @@ public class ImmutableMethod extends BaseMethodReference implements Method {
 
     @Override @Nonnull public String getDefiningClass() { return definingClass; }
     @Override @Nonnull public String getName() { return name; }
-    @Override @Nonnull public ImmutableList<? extends CharSequence> getParameterTypes() { return parameters; }
-    @Override @Nonnull public ImmutableList<? extends ImmutableMethodParameter> getParameters() { return parameters; }
+    @Override @Nonnull public List<? extends CharSequence> getParameterTypes() { return parameters; }
+    @Override @Nonnull public List<? extends ImmutableMethodParameter> getParameters() {
+        return parameters;
+    }
     @Override @Nonnull public String getReturnType() { return returnType; }
     @Override public int getAccessFlags() { return accessFlags; }
-    @Override @Nonnull public ImmutableSet<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
+    @Override @Nonnull public Set<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
     @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() { return hiddenApiRestrictions; }
     @Override @Nullable public ImmutableMethodImplementation getImplementation() { return methodImplementation; }
 
     @Nonnull
-    public static ImmutableSortedSet<ImmutableMethod> immutableSetOf(@Nullable Iterable<? extends Method> list) {
-        return CONVERTER.toSortedSet(Ordering.natural(), list);
+    public static Set<ImmutableMethod> immutableSetOf(@Nullable Iterable<? extends Method> list) {
+        return CONVERTER.toSortedSet(list);
     }
 
     private static final ImmutableConverter<ImmutableMethod, Method> CONVERTER =

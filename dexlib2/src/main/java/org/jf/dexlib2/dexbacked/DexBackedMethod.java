@@ -31,9 +31,6 @@
 
 package org.jf.dexlib2.dexbacked;
 
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.base.reference.BaseMethodReference;
 import org.jf.dexlib2.dexbacked.raw.MethodIdItem;
@@ -47,6 +44,8 @@ import org.jf.dexlib2.iface.Annotation;
 import org.jf.dexlib2.iface.Method;
 import org.jf.dexlib2.iface.MethodParameter;
 import org.jf.util.AbstractForwardSequentialList;
+import org.jf.util.collection.EmptyList;
+import org.jf.util.collection.EmptySet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

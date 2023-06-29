@@ -31,12 +31,12 @@
 
 package org.jf.dexlib2.dexbacked.raw;
 
-import com.google.common.base.Joiner;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 import org.jf.dexlib2.dexbacked.DexReader;
 import org.jf.dexlib2.dexbacked.raw.util.DexAnnotator;
 import org.jf.dexlib2.util.AnnotatedBytes;
+import org.jf.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -136,7 +136,7 @@ public class ClassDataItem {
 
                 int accessFlags = reader.readSmallUleb128();
                 out.annotateTo(reader.getOffset(), "access_flags = 0x%x: %s", accessFlags,
-                        Joiner.on('|').join(AccessFlags.getAccessFlagsForField(accessFlags)));
+                        StringUtils.join("|", AccessFlags.getAccessFlagsForField(accessFlags)));
 
                 return fieldIndex;
             }
@@ -152,7 +152,7 @@ public class ClassDataItem {
 
                 int accessFlags = reader.readSmallUleb128();
                 out.annotateTo(reader.getOffset(), "access_flags = 0x%x: %s", accessFlags,
-                        Joiner.on('|').join(AccessFlags.getAccessFlagsForMethod(accessFlags)));
+                        StringUtils.join("|", AccessFlags.getAccessFlagsForMethod(accessFlags)));
 
                 int codeOffset = reader.readSmallUleb128();
                 if (codeOffset == 0) {

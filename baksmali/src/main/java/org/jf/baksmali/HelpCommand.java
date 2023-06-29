@@ -34,12 +34,12 @@ package org.jf.baksmali;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.google.common.collect.Lists;
 import org.jf.util.ConsoleUtil;
 import org.jf.util.StringWrapper;
 import org.jf.util.jcommander.*;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Parameters(commandDescription = "Shows usage information")
@@ -54,7 +54,7 @@ public class HelpCommand extends Command {
 
     @Parameter(description = "If specified, show the detailed usage information for the given commands")
     @ExtendedParameter(argumentNames = "commands")
-    private List<String> commands = Lists.newArrayList();
+    private List<String> commands = new ArrayList<>();
 
     public void run() {
         JCommander parentJc = commandAncestors.get(commandAncestors.size() - 1);

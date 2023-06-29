@@ -31,7 +31,8 @@
 
 package org.jf.util;
 
-import com.google.common.collect.Lists;
+
+import org.jf.util.collection.ListUtil;
 
 import java.io.FilterWriter;
 import java.io.IOException;
@@ -77,7 +78,7 @@ public class WrappedIndentingWriter extends FilterWriter {
     }
 
     private void wrapLine() throws IOException {
-        List<String> wrapped = Lists.newArrayList(StringWrapper.wrapStringOnBreaks(line.toString(), maxWidth));
+        List<String> wrapped = ListUtil.newArrayList(StringWrapper.wrapStringOnBreaks(line.toString(), maxWidth));
         out.write(wrapped.get(0), 0, wrapped.get(0).length());
         out.write('\n');
 

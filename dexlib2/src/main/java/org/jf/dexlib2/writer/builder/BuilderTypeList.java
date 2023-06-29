@@ -31,16 +31,15 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.writer.DexWriter;
+import org.jf.util.collection.EmptyList;
 
 import javax.annotation.Nonnull;
 import java.util.AbstractList;
 import java.util.List;
 
 public class BuilderTypeList extends AbstractList<BuilderTypeReference> {
-    static final BuilderTypeList EMPTY = new BuilderTypeList(ImmutableList.<BuilderTypeReference>of());
+    static final BuilderTypeList EMPTY = new BuilderTypeList(EmptyList.<BuilderTypeReference>of());
 
     @Nonnull final List<? extends BuilderTypeReference> types;
     int offset = DexWriter.NO_OFFSET;

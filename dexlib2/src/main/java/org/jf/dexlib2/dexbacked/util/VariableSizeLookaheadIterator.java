@@ -31,9 +31,9 @@
 
 package org.jf.dexlib2.dexbacked.util;
 
-import com.google.common.collect.AbstractIterator;
 import org.jf.dexlib2.dexbacked.DexBuffer;
 import org.jf.dexlib2.dexbacked.DexReader;
+import org.jf.util.collection.AbstractIterator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -43,6 +43,7 @@ public abstract class VariableSizeLookaheadIterator<T> extends AbstractIterator<
     @Nonnull private final DexReader reader;
 
     protected VariableSizeLookaheadIterator(@Nonnull DexBuffer buffer, int offset) {
+        super();
         this.reader = buffer.readerAt(offset);
     }
 
@@ -53,10 +54,11 @@ public abstract class VariableSizeLookaheadIterator<T> extends AbstractIterator<
      *
      * @return The item that was read. If endOfData was called, the return value is ignored.
      */
-    @Nullable protected abstract T readNextItem(@Nonnull DexReader reader);
+    @Nullable
+    protected abstract T readNextItem(@Nonnull DexReader reader);
 
     @Override
-    protected T computeNext() {
+    public T computeNext() {
         return readNextItem(reader);
     }
 

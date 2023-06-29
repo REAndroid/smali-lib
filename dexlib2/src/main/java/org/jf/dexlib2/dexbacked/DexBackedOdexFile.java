@@ -31,11 +31,11 @@
 
 package org.jf.dexlib2.dexbacked;
 
-import com.google.common.io.ByteStreams;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.dexbacked.raw.OdexHeaderItem;
 import org.jf.dexlib2.dexbacked.util.VariableSizeList;
 import org.jf.dexlib2.util.DexUtil;
+import org.jf.util.io.ByteStreams;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;

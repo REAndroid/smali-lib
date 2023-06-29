@@ -31,9 +31,6 @@
 
 package org.jf.dexlib2.immutable.value;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.ValueType;
 import org.jf.dexlib2.iface.value.*;
 import org.jf.util.ExceptionWithContext;
@@ -41,6 +38,7 @@ import org.jf.util.ImmutableConverter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class ImmutableEncodedValueFactory {
     @Nonnull
@@ -83,7 +81,6 @@ public class ImmutableEncodedValueFactory {
             case ValueType.METHOD_TYPE:
                 return ImmutableMethodTypeEncodedValue.of((MethodTypeEncodedValue) encodedValue);
             default:
-                Preconditions.checkArgument(false);
                 return null;
         }
     }
@@ -124,7 +121,7 @@ public class ImmutableEncodedValueFactory {
     }
 
     @Nonnull
-    public static ImmutableList<ImmutableEncodedValue> immutableListOf
+    public static List<ImmutableEncodedValue> immutableListOf
             (@Nullable Iterable<? extends EncodedValue> list) {
         return CONVERTER.toList(list);
     }

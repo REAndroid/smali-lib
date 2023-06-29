@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.immutable.debug;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.DebugItemType;
 import org.jf.dexlib2.iface.debug.*;
 import org.jf.util.ExceptionWithContext;
@@ -40,6 +38,7 @@ import org.jf.util.ImmutableConverter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public abstract class ImmutableDebugItem implements DebugItem {
     protected final int codeAddress;
@@ -76,7 +75,7 @@ public abstract class ImmutableDebugItem implements DebugItem {
     @Override public int getCodeAddress() { return codeAddress; }
 
     @Nonnull
-    public static ImmutableList<ImmutableDebugItem> immutableListOf(@Nullable Iterable<? extends DebugItem> list) {
+    public static List<ImmutableDebugItem> immutableListOf(@Nullable Iterable<? extends DebugItem> list) {
         return CONVERTER.toList(list);
     }
 

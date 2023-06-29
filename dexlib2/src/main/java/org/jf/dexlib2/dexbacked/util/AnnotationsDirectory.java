@@ -31,12 +31,10 @@
 
 package org.jf.dexlib2.dexbacked.util;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.dexbacked.DexBackedAnnotation;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
+import org.jf.util.collection.EmptyList;
+import org.jf.util.collection.EmptySet;
 
 import javax.annotation.Nonnull;
 import java.util.List;

@@ -31,11 +31,11 @@
 
 package org.jf.dexlib2.writer.util;
 
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.base.BaseTryBlock;
 import org.jf.dexlib2.iface.ExceptionHandler;
 import org.jf.dexlib2.iface.TryBlock;
 import org.jf.util.ExceptionWithContext;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -102,7 +102,7 @@ public class TryListBuilder<EH extends ExceptionHandler>
 
         public int startCodeAddress;
         public int endCodeAddress;
-        @Nonnull public List<EH> exceptionHandlers = Lists.newArrayList();
+        @Nonnull public List<EH> exceptionHandlers = ListUtil.newArrayList();
 
         public MutableTryBlock(int startCodeAddress, int endCodeAddress) {
             this.startCodeAddress = startCodeAddress;
@@ -113,7 +113,7 @@ public class TryListBuilder<EH extends ExceptionHandler>
                                @Nonnull List<EH> exceptionHandlers) {
             this.startCodeAddress = startCodeAddress;
             this.endCodeAddress = endCodeAddress;
-            this.exceptionHandlers = Lists.newArrayList(exceptionHandlers);
+            this.exceptionHandlers = ListUtil.newArrayList(exceptionHandlers);
         }
 
         @Override public int getStartCodeAddress() {
@@ -313,7 +313,7 @@ public class TryListBuilder<EH extends ExceptionHandler>
     }
 
     public List<TryBlock<EH>> getTryBlocks() {
-        return Lists.newArrayList(new Iterator<TryBlock<EH>>() {
+        return ListUtil.newArrayList(new Iterator<TryBlock<EH>>() {
             // The next TryBlock to return. This has already been merged, if needed.
             @Nullable private MutableTryBlock<EH> next;
 

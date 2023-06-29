@@ -31,36 +31,35 @@
 
 package org.jf.dexlib2.immutable;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.ImmutableMap;
 import org.jf.dexlib2.iface.MultiDexContainer;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ImmutableMultiDexContainer implements MultiDexContainer<ImmutableDexFile> {
 
-    private final ImmutableMap<String, ImmutableDexEntry> entries;
+    private final Map<String, ImmutableDexEntry> entries;
 
     public ImmutableMultiDexContainer(Map<String, ImmutableDexFile> entries) {
-        ImmutableMap.Builder<String, ImmutableDexEntry> builder = ImmutableMap.builder();
+        Map<String, ImmutableDexEntry> builder = new HashMap<>();
 
         for (Map.Entry<String, ImmutableDexFile> entry : entries.entrySet()) {
             ImmutableDexEntry dexEntry = new ImmutableDexEntry(entry.getKey(), entry.getValue());
             builder.put(dexEntry.getEntryName(), dexEntry);
         }
 
-        this.entries = builder.build();
+        this.entries = builder;
     }
 
 
     @Nonnull
     @Override
     public List<String> getDexEntryNames() {
-        return ImmutableList.copyOf(entries.keySet());
+        return ListUtil.copyOf(entries.keySet());
     }
 
     @Nullable

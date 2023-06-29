@@ -31,9 +31,6 @@
 
 package org.jf.dexlib2.analysis;
 
-import com.google.common.base.Objects;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.iface.instruction.*;
 import org.jf.dexlib2.iface.instruction.formats.Instruction22c;
@@ -41,6 +38,7 @@ import org.jf.dexlib2.iface.reference.MethodReference;
 import org.jf.dexlib2.iface.reference.Reference;
 import org.jf.dexlib2.iface.reference.TypeReference;
 import org.jf.util.ExceptionWithContext;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -291,7 +289,7 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
     protected boolean overridePredecessorRegisterType(@Nonnull AnalyzedInstruction predecessor, int registerNumber,
                                                       @Nonnull RegisterType registerType, BitSet verifiedInstructions) {
         if (predecessorRegisterOverrides == null) {
-            predecessorRegisterOverrides = Maps.newHashMap();
+            predecessorRegisterOverrides = new HashMap<>();
         }
         predecessorRegisterOverrides.put(new PredecessorOverrideKey(predecessor, registerNumber), registerType);
 
@@ -472,7 +470,7 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
     }
 
     public List<Integer> getSetRegisters() {
-        List<Integer> setRegisters = Lists.newArrayList();
+        List<Integer> setRegisters = ListUtil.newArrayList();
 
         if (instruction.getOpcode().setsRegister()) {
             setRegisters.add(getDestinationRegister());
@@ -657,12 +655,12 @@ public class AnalyzedInstruction implements Comparable<AnalyzedInstruction> {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             PredecessorOverrideKey that = (PredecessorOverrideKey)o;
-            return com.google.common.base.Objects.equal(registerNumber, that.registerNumber) &&
-                    Objects.equal(analyzedInstruction, that.analyzedInstruction);
+            return Objects.equals(registerNumber, that.registerNumber) &&
+                    Objects.equals(analyzedInstruction, that.analyzedInstruction);
         }
 
         @Override public int hashCode() {
-            return Objects.hashCode(analyzedInstruction, registerNumber);
+            return Objects.hash(analyzedInstruction, registerNumber);
         }
     }
 }

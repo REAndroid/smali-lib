@@ -31,18 +31,16 @@
 
 package org.jf.dexlib2.dexbacked;
 
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.Iterators;
-import com.google.common.io.ByteStreams;
 import org.jf.dexlib2.DexFileFactory;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.dexbacked.OatFile.SymbolTable.Symbol;
 import org.jf.dexlib2.dexbacked.raw.HeaderItem;
 import org.jf.dexlib2.iface.MultiDexContainer;
 import org.jf.dexlib2.util.DexUtil;
-import org.jf.util.AbstractForwardSequentialList;
+import org.jf.util.collection.EmptyList;
+import org.jf.util.collection.Iterables;
+import org.jf.util.collection.ListUtil;
+import org.jf.util.io.ByteStreams;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -51,6 +49,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.*;
+import java.util.function.Function;
 
 public class OatFile extends DexBuffer implements MultiDexContainer<DexBackedDexFile> {
     private static final byte[] ELF_MAGIC = new byte[] { 0x7f, 'E', 'L', 'F' };
@@ -178,39 +177,27 @@ public class OatFile extends DexBuffer implements MultiDexContainer<DexBackedDex
 
     @Nonnull
     public List<DexBackedDexFile> getDexFiles() {
-        return new AbstractForwardSequentialList<DexBackedDexFile>() {
-            @Override public int size() {
-                return Iterators.size(Iterators.filter(new DexEntryIterator(), Objects::nonNull));
-            }
-
-            @Nonnull @Override public Iterator<DexBackedDexFile> iterator() {
-                return Iterators.transform(
-                    Iterators.filter(new DexEntryIterator(), Objects::nonNull),
-                        new Function<OatDexEntry, DexBackedDexFile>() {
-                            @Nullable @Override public DexBackedDexFile apply(OatDexEntry dexEntry) {
-                                return dexEntry.getDexFile();
-                            }
-                        });
-            }
-        };
+        return ListUtil.copyOf(Iterables.transform(
+                Iterables.filter(new DexEntryIterator(), Objects::nonNull),
+                new Function<OatDexEntry, DexBackedDexFile>() {
+                    @Nullable
+                    @Override
+                    public DexBackedDexFile apply(OatDexEntry dexEntry) {
+                        return dexEntry.getDexFile();
+                    }
+                }));
     }
 
     @Nonnull @Override public List<String> getDexEntryNames() throws IOException {
-        return new AbstractForwardSequentialList<String>() {
-            @Override public int size() {
-                return Iterators.size(Iterators.filter(new DexEntryIterator(), Objects::nonNull));
-            }
-
-            @Nonnull @Override public Iterator<String> iterator() {
-                return Iterators.transform(
-                    Iterators.filter(new DexEntryIterator(), Objects::nonNull),
-                        new Function<OatDexEntry, String>() {
-                            @Nullable @Override public String apply(OatDexEntry dexEntry) {
-                                return dexEntry.entryName;
-                            }
-                        });
-            }
-        };
+        return ListUtil.copyOf(Iterables.transform(
+                Iterables.filter(new DexEntryIterator(), Objects::nonNull),
+                new Function<OatDexEntry, String>() {
+                    @Nullable
+                    @Override
+                    public String apply(OatDexEntry dexEntry) {
+                        return dexEntry.entryName;
+                    }
+                }));
     }
 
     @Nullable

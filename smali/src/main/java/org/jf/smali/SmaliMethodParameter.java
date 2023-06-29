@@ -32,7 +32,6 @@
 package org.jf.smali;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.primitives.Ints;
 import org.jf.dexlib2.base.BaseMethodParameter;
 import org.jf.dexlib2.iface.Annotation;
 
@@ -61,7 +60,7 @@ public class SmaliMethodParameter extends BaseMethodParameter implements WithReg
 
     public static final Comparator<WithRegister> COMPARATOR = new Comparator<WithRegister>() {
         @Override public int compare(WithRegister o1, WithRegister o2) {
-            return Ints.compare(o1.getRegister(), o2.getRegister());
+            return Integer.compare(o1.getRegister(), o2.getRegister());
         }
     };
 }

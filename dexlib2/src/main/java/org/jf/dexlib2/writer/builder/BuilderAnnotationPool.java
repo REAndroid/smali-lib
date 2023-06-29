@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.collect.Maps;
 import org.jf.dexlib2.iface.Annotation;
 import org.jf.dexlib2.writer.AnnotationSection;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderEncodedValue;
@@ -39,12 +38,13 @@ import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderEncodedValue;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 class BuilderAnnotationPool extends BaseBuilderPool implements AnnotationSection<BuilderStringReference,
         BuilderTypeReference, BuilderAnnotation, BuilderAnnotationElement, BuilderEncodedValue> {
     @Nonnull private final ConcurrentMap<Annotation, BuilderAnnotation> internedItems =
-            Maps.newConcurrentMap();
+            new ConcurrentHashMap<>();
 
     public BuilderAnnotationPool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);

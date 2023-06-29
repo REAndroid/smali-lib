@@ -31,8 +31,6 @@
 
 package org.jf.baksmali;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import org.jf.baksmali.Adaptors.ClassDefinition;
 import org.jf.baksmali.Adaptors.Format.InstructionMethodItem;
 import org.jf.baksmali.Adaptors.MethodDefinition;
@@ -50,6 +48,8 @@ import org.jf.dexlib2.iface.debug.DebugItem;
 import org.jf.dexlib2.iface.instruction.Instruction;
 import org.jf.dexlib2.iface.instruction.formats.Instruction21c;
 import org.jf.dexlib2.iface.reference.Reference;
+import org.jf.util.collection.ListUtil;
+import org.jf.util.collection.SetUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -114,19 +114,19 @@ public class InstructionMethodItemTest {
             @Nonnull
             @Override
             public Iterable<? extends Instruction> getInstructions() {
-                return ImmutableList.of(instruction);
+                return ListUtil.of(instruction);
             }
 
             @Nonnull
             @Override
             public List<? extends TryBlock<? extends ExceptionHandler>> getTryBlocks() {
-                return ImmutableList.of();
+                return ListUtil.of();
             }
 
             @Nonnull
             @Override
             public Iterable<? extends DebugItem> getDebugItems() {
-                return ImmutableList.of();
+                return ListUtil.of();
             }
         };
 
@@ -157,7 +157,7 @@ public class InstructionMethodItemTest {
         @Nonnull
         @Override
         public List<? extends MethodParameter> getParameters() {
-            return ImmutableList.of();
+            return ListUtil.of();
         }
 
         @Override
@@ -168,7 +168,7 @@ public class InstructionMethodItemTest {
         @Nonnull
         @Override
         public Set<? extends Annotation> getAnnotations() {
-            return ImmutableSet.of();
+            return SetUtil.of();
         }
 
         @Nullable
@@ -192,7 +192,7 @@ public class InstructionMethodItemTest {
         @Nonnull
         @Override
         public List<? extends CharSequence> getParameterTypes() {
-            return ImmutableList.of();
+            return ListUtil.of();
         }
 
         @Nonnull
@@ -201,8 +201,10 @@ public class InstructionMethodItemTest {
             return "V";
         }
 
-        @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
-            return ImmutableSet.of();
+        @Nonnull
+        @Override
+        public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
+            return SetUtil.of();
         }
     }
 
@@ -221,7 +223,7 @@ public class InstructionMethodItemTest {
         @Nonnull
         @Override
         public List<String> getInterfaces() {
-            return ImmutableList.of();
+            return ListUtil.of();
         }
 
         @Nullable
@@ -233,43 +235,43 @@ public class InstructionMethodItemTest {
         @Nonnull
         @Override
         public Set<? extends Annotation> getAnnotations() {
-            return ImmutableSet.of();
+            return SetUtil.of();
         }
 
         @Nonnull
         @Override
         public Iterable<? extends Field> getStaticFields() {
-            return ImmutableList.of();
+            return ListUtil.of();
         }
 
         @Nonnull
         @Override
         public Iterable<? extends Field> getInstanceFields() {
-            return ImmutableList.of();
+            return ListUtil.of();
         }
 
         @Nonnull
         @Override
         public Iterable<? extends Field> getFields() {
-            return ImmutableList.of();
+            return ListUtil.of();
         }
 
         @Nonnull
         @Override
         public Iterable<? extends Method> getDirectMethods() {
-            return ImmutableList.of();
+            return ListUtil.of();
         }
 
         @Nonnull
         @Override
         public Iterable<? extends Method> getVirtualMethods() {
-            return ImmutableList.of();
+            return ListUtil.of();
         }
 
         @Nonnull
         @Override
         public Iterable<? extends Method> getMethods() {
-            return ImmutableList.of();
+            return ListUtil.of();
         }
 
         @Nonnull

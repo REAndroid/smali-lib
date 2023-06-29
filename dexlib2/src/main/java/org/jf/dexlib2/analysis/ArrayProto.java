@@ -31,13 +31,13 @@
 
 package org.jf.dexlib2.analysis;
 
-import com.google.common.base.Strings;
 import org.jf.dexlib2.iface.Method;
 import org.jf.dexlib2.iface.reference.FieldReference;
 import org.jf.dexlib2.iface.reference.MethodReference;
 import org.jf.dexlib2.immutable.reference.ImmutableFieldReference;
 import org.jf.dexlib2.util.TypeUtils;
 import org.jf.util.ExceptionWithContext;
+import org.jf.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -142,7 +142,7 @@ public class ArrayProto implements TypeProto {
         return other.getCommonSuperclass(this);
     }
 
-    private static final String BRACKETS = Strings.repeat("[", 256);
+    private static final String BRACKETS = StringUtils.repeat("[", 256);
 
     @Nonnull
     private static String makeArrayType(@Nonnull String elementType, int dimensions) {

@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.writer.pool;
 
-import com.google.common.base.Function;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.base.reference.BaseMethodReference;
 import org.jf.dexlib2.iface.Annotation;
@@ -43,15 +42,18 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
 
 class PoolMethod extends BaseMethodReference implements Method {
-    @Nonnull private final Method method;
+    @Nonnull
+    private final Method method;
     protected int annotationSetRefListOffset = DexPool.NO_OFFSET;
     protected int codeItemOffset = DexPool.NO_OFFSET;
 
     public static final Function<Method, PoolMethod> TRANSFORM = new Function<Method, PoolMethod>() {
-        @Override public PoolMethod apply(Method method) {
+        @Override
+        public PoolMethod apply(Method method) {
             return new PoolMethod(method);
         }
     };

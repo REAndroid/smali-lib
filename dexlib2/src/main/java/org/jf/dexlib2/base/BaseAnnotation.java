@@ -31,7 +31,7 @@
 
 package org.jf.dexlib2.base;
 
-import com.google.common.primitives.Ints;
+
 import org.jf.dexlib2.iface.Annotation;
 import org.jf.util.CollectionUtils;
 
@@ -58,7 +58,7 @@ public abstract class BaseAnnotation implements Annotation {
 
     @Override
     public int compareTo(Annotation o) {
-        int res = Ints.compare(getVisibility(), o.getVisibility());
+        int res = Integer.compare(getVisibility(), o.getVisibility());
         if (res != 0) return res;
         res = getType().compareTo(o.getType());
         if (res != 0) return res;

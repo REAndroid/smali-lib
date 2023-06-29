@@ -31,8 +31,7 @@
 
 package org.jf.dexlib2.base.value;
 
-import com.google.common.primitives.Ints;
-import com.google.common.primitives.Longs;
+
 import org.jf.dexlib2.ValueType;
 import org.jf.dexlib2.formatter.DexFormatter;
 import org.jf.dexlib2.iface.value.EncodedValue;
@@ -59,9 +58,9 @@ public abstract class BaseLongEncodedValue implements LongEncodedValue {
 
     @Override
     public int compareTo(@Nonnull EncodedValue o) {
-        int res = Ints.compare(getValueType(), o.getValueType());
+        int res = Integer.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
-        return Longs.compare(getValue(), ((LongEncodedValue)o).getValue());
+        return Long.compare(getValue(), ((LongEncodedValue)o).getValue());
     }
 
     public int getValueType() { return ValueType.LONG; }

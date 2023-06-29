@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.immutable;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.iface.ExceptionHandler;
 import org.jf.dexlib2.iface.MethodImplementation;
 import org.jf.dexlib2.iface.TryBlock;
@@ -48,9 +46,9 @@ import java.util.List;
 
 public class ImmutableMethodImplementation implements MethodImplementation {
     protected final int registerCount;
-    @Nonnull protected final ImmutableList<? extends ImmutableInstruction> instructions;
-    @Nonnull protected final ImmutableList<? extends ImmutableTryBlock> tryBlocks;
-    @Nonnull protected final ImmutableList<? extends ImmutableDebugItem> debugItems;
+    @Nonnull protected final List<? extends ImmutableInstruction> instructions;
+    @Nonnull protected final List<? extends ImmutableTryBlock> tryBlocks;
+    @Nonnull protected final List<? extends ImmutableDebugItem> debugItems;
 
     public ImmutableMethodImplementation(int registerCount,
                                          @Nullable Iterable<? extends Instruction> instructions,
@@ -63,9 +61,9 @@ public class ImmutableMethodImplementation implements MethodImplementation {
     }
 
     public ImmutableMethodImplementation(int registerCount,
-                                         @Nullable ImmutableList<? extends ImmutableInstruction> instructions,
-                                         @Nullable ImmutableList<? extends ImmutableTryBlock> tryBlocks,
-                                         @Nullable ImmutableList<? extends ImmutableDebugItem> debugItems) {
+                                         @Nullable List<? extends ImmutableInstruction> instructions,
+                                         @Nullable List<? extends ImmutableTryBlock> tryBlocks,
+                                         @Nullable List<? extends ImmutableDebugItem> debugItems) {
         this.registerCount = registerCount;
         this.instructions = ImmutableUtils.nullToEmptyList(instructions);
         this.tryBlocks = ImmutableUtils.nullToEmptyList(tryBlocks);
@@ -88,7 +86,7 @@ public class ImmutableMethodImplementation implements MethodImplementation {
     }
 
     @Override public int getRegisterCount() { return registerCount; }
-    @Nonnull @Override public ImmutableList<? extends ImmutableInstruction> getInstructions() { return instructions; }
-    @Nonnull @Override public ImmutableList<? extends ImmutableTryBlock> getTryBlocks() { return tryBlocks; }
-    @Nonnull @Override public ImmutableList<? extends ImmutableDebugItem> getDebugItems() { return debugItems; }
+    @Nonnull @Override public List<? extends ImmutableInstruction> getInstructions() { return instructions; }
+    @Nonnull @Override public List<? extends ImmutableTryBlock> getTryBlocks() { return tryBlocks; }
+    @Nonnull @Override public List<? extends ImmutableDebugItem> getDebugItems() { return debugItems; }
 }

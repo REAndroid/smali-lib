@@ -31,14 +31,13 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.base.reference.BaseCallSiteReference;
 import org.jf.dexlib2.iface.value.StringEncodedValue;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderArrayEncodedValue;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderEncodedValue;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderMethodHandleEncodedValue;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderMethodTypeEncodedValue;
+import org.jf.util.collection.EmptyList;
 
 import javax.annotation.Nonnull;
 import java.util.List;

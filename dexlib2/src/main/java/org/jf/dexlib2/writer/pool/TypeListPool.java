@@ -31,11 +31,10 @@
 
 package org.jf.dexlib2.writer.pool;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.writer.DexWriter;
 import org.jf.dexlib2.writer.TypeListSection;
 import org.jf.dexlib2.writer.pool.TypeListPool.Key;
+import org.jf.util.collection.EmptyList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

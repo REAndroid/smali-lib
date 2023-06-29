@@ -31,14 +31,14 @@
 
 package org.jf.util;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSortedSet;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.SortedSet;
 
 public abstract class ImmutableConverter<ImmutableItem, Item> {
@@ -46,13 +46,13 @@ public abstract class ImmutableConverter<ImmutableItem, Item> {
     @Nonnull protected abstract ImmutableItem makeImmutable(@Nonnull Item item);
 
     @Nonnull
-    public ImmutableList<ImmutableItem> toList(@Nullable final Iterable<? extends Item> iterable) {
+    public List<ImmutableItem> toList(@Nullable final Iterable<? extends Item> iterable) {
         if (iterable == null) {
-            return ImmutableList.of();
+            return ListUtil.of();
         }
 
         boolean needsCopy = false;
-        if (iterable instanceof ImmutableList) {
+        if (iterable instanceof List) {
             for (Item element: iterable) {
                 if (!isImmutable(element)) {
                     needsCopy = true;
@@ -64,12 +64,12 @@ public abstract class ImmutableConverter<ImmutableItem, Item> {
         }
 
         if (!needsCopy) {
-            return (ImmutableList<ImmutableItem>)iterable;
+            return (List<ImmutableItem>)iterable;
         }
 
         final Iterator<? extends Item> iter = iterable.iterator();
 
-        return ImmutableList.copyOf(new Iterator<ImmutableItem>() {
+        return ListUtil.copyOf(new Iterator<ImmutableItem>() {
             @Override public boolean hasNext() { return iter.hasNext(); }
             @Override public ImmutableItem next() { return makeImmutable(iter.next()); }
             @Override public void remove() { iter.remove(); }
@@ -77,13 +77,13 @@ public abstract class ImmutableConverter<ImmutableItem, Item> {
     }
 
     @Nonnull
-    public ImmutableSet<ImmutableItem> toSet(@Nullable final Iterable<? extends Item> iterable) {
+    public ArraySet<ImmutableItem> toSet(@Nullable final Iterable<? extends Item> iterable) {
         if (iterable == null) {
-            return ImmutableSet.of();
+            return ArraySet.of();
         }
 
         boolean needsCopy = false;
-        if (iterable instanceof ImmutableSet) {
+        if (iterable instanceof ArraySet) {
             for (Item element: iterable) {
                 if (!isImmutable(element)) {
                     needsCopy = true;
@@ -95,12 +95,12 @@ public abstract class ImmutableConverter<ImmutableItem, Item> {
         }
 
         if (!needsCopy) {
-            return (ImmutableSet<ImmutableItem>)iterable;
+            return (ArraySet<ImmutableItem>)iterable;
         }
 
         final Iterator<? extends Item> iter = iterable.iterator();
 
-        return ImmutableSet.copyOf(new Iterator<ImmutableItem>() {
+        return ArraySet.copyOf(new Iterator<ImmutableItem>() {
             @Override public boolean hasNext() { return iter.hasNext(); }
             @Override public ImmutableItem next() { return makeImmutable(iter.next()); }
             @Override public void remove() { iter.remove(); }
@@ -108,15 +108,13 @@ public abstract class ImmutableConverter<ImmutableItem, Item> {
     }
 
     @Nonnull
-    public ImmutableSortedSet<ImmutableItem> toSortedSet(@Nonnull Comparator<? super ImmutableItem> comparator,
-                                                         @Nullable final Iterable<? extends Item> iterable) {
+    public ArraySet<ImmutableItem> toSortedSet(final Iterable<? extends Item> iterable) {
         if (iterable == null) {
-            return ImmutableSortedSet.of();
+            return ArraySet.of();
         }
 
         boolean needsCopy = false;
-        if (iterable instanceof ImmutableSortedSet &&
-                ((ImmutableSortedSet)iterable).comparator().equals(comparator)) {
+        if (iterable instanceof ArraySet) {
             for (Item element: iterable) {
                 if (!isImmutable(element)) {
                     needsCopy = true;
@@ -128,13 +126,13 @@ public abstract class ImmutableConverter<ImmutableItem, Item> {
         }
 
         if (!needsCopy) {
-            return (ImmutableSortedSet<ImmutableItem>)iterable;
+            return (ArraySet<ImmutableItem>)iterable;
         }
 
         final Iterator<? extends Item> iter = iterable.iterator();
 
 
-        return ImmutableSortedSet.copyOf(comparator, new Iterator<ImmutableItem>() {
+        return ArraySet.copyOf(new Iterator<ImmutableItem>() {
             @Override public boolean hasNext() { return iter.hasNext(); }
             @Override public ImmutableItem next() { return makeImmutable(iter.next()); }
             @Override public void remove() { iter.remove(); }
@@ -145,7 +143,7 @@ public abstract class ImmutableConverter<ImmutableItem, Item> {
     public SortedSet<ImmutableItem> toSortedSet(@Nonnull Comparator<? super ImmutableItem> comparator,
                                                 @Nullable final SortedSet<? extends Item> sortedSet) {
         if (sortedSet == null || sortedSet.size() == 0) {
-            return ImmutableSortedSet.of();
+            return (SortedSet<ImmutableItem>) ArraySortedSet.of((Comparator)comparator, new Object[0]);
         }
 
         @SuppressWarnings("unchecked")

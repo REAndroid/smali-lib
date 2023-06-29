@@ -31,32 +31,34 @@
 
 package org.jf.dexlib2.builder.instruction;
 
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.Format;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.builder.BuilderSwitchPayload;
 import org.jf.dexlib2.builder.SwitchLabelElement;
 import org.jf.dexlib2.iface.instruction.formats.SparseSwitchPayload;
+import org.jf.util.collection.EmptyList;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Function;
 
 public class BuilderSparseSwitchPayload extends BuilderSwitchPayload implements SparseSwitchPayload {
     public static final Opcode OPCODE = Opcode.SPARSE_SWITCH_PAYLOAD;
 
-    @Nonnull protected final List<BuilderSwitchElement> switchElements;
+    @Nonnull
+    protected final List<BuilderSwitchElement> switchElements;
 
     public BuilderSparseSwitchPayload(@Nullable List<? extends SwitchLabelElement> switchElements) {
         super(OPCODE);
         if (switchElements == null) {
-            this.switchElements = ImmutableList.of();
+            this.switchElements = EmptyList.of();
         } else {
-            this.switchElements = Lists.transform(switchElements, new Function<SwitchLabelElement, BuilderSwitchElement>() {
-                @Nullable @Override public BuilderSwitchElement apply(@Nullable SwitchLabelElement element) {
+            this.switchElements = ListUtil.transform(switchElements, new Function<SwitchLabelElement, BuilderSwitchElement>() {
+                @Nullable
+                @Override
+                public BuilderSwitchElement apply(@Nullable SwitchLabelElement element) {
                     assert element != null;
                     return new BuilderSwitchElement(BuilderSparseSwitchPayload.this, element.key, element.target);
                 }

@@ -31,24 +31,19 @@
 
 package org.jf.dexlib2.analysis;
 
-import com.google.common.base.Supplier;
-import com.google.common.base.Suppliers;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.analysis.reflection.ReflectionClassDef;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.immutable.ImmutableDexFile;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ClassPath {
     @Nonnull private final TypeProto unknownClass;
@@ -92,7 +87,7 @@ public class ClassPath {
                      int oatVersion) {
         // add fallbacks for certain special classes that must be present
         unknownClass = new UnknownClassProto(this);
-        loadedClasses.put(unknownClass.getType(), unknownClass);
+        classLoader.put(unknownClass.getType(), unknownClass);
         this.checkPackagePrivateAccess = checkPackagePrivateAccess;
         this.oatVersion = oatVersion;
 
@@ -106,17 +101,17 @@ public class ClassPath {
         loadPrimitiveType("D");
         loadPrimitiveType("L");
 
-        this.classProviders = Lists.newArrayList(classProviders);
+        this.classProviders = ListUtil.newArrayList(classProviders);
         this.classProviders.add(getBasicClasses());
     }
 
     private void loadPrimitiveType(String type) {
-        loadedClasses.put(type, new PrimitiveProto(this, type));
+        classLoader.put(type, new PrimitiveProto(this, type));
     }
 
     private static ClassProvider getBasicClasses() {
         // fallbacks for some special classes that we assume are present
-        return new DexClassProvider(new ImmutableDexFile(Opcodes.getDefault(), ImmutableSet.of(
+        return new DexClassProvider(new ImmutableDexFile(Opcodes.getDefault(), ListUtil.of(
                 new ReflectionClassDef(Class.class),
                 new ReflectionClassDef(Cloneable.class),
                 new ReflectionClassDef(Object.class),
@@ -131,11 +126,21 @@ public class ClassPath {
 
     @Nonnull
     public TypeProto getClass(@Nonnull CharSequence type) {
-        return loadedClasses.getUnchecked(type.toString());
+        return classLoader.get(type.toString());
     }
 
-    private final CacheLoader<String, TypeProto> classLoader = new CacheLoader<String, TypeProto>() {
-        @Override public TypeProto load(String type) throws Exception {
+    private final Map<String, TypeProto> classLoader = new HashMap<String, TypeProto>() {
+        @Override
+        public TypeProto get(Object obj){
+            String type = obj.toString();
+            TypeProto exist = super.get(type);
+            if(exist == null){
+                exist = loadProto(type);
+                super.put(type, exist);
+            }
+            return exist;
+        }
+        private TypeProto loadProto(String type) {
             if (type.charAt(0) == '[') {
                 return new ArrayProto(ClassPath.this, type);
             } else {
@@ -143,8 +148,6 @@ public class ClassPath {
             }
         }
     };
-
-    @Nonnull private LoadingCache<String, TypeProto> loadedClasses = CacheBuilder.newBuilder().build(classLoader);
 
     @Nonnull
     public ClassDef getClassDef(String type) {
@@ -166,15 +169,13 @@ public class ClassPath {
         return checkPackagePrivateAccess;
     }
 
-    private final Supplier<OdexedFieldInstructionMapper> fieldInstructionMapperSupplier = Suppliers.memoize(
-            new Supplier<OdexedFieldInstructionMapper>() {
-                @Override public OdexedFieldInstructionMapper get() {
-                    return new OdexedFieldInstructionMapper(isArt());
-                }
-            });
 
     @Nonnull
     public OdexedFieldInstructionMapper getFieldInstructionMapper() {
-        return fieldInstructionMapperSupplier.get();
+        if(mapper == null){
+            mapper = new OdexedFieldInstructionMapper(isArt());
+        }
+        return mapper;
     }
+    private OdexedFieldInstructionMapper mapper;
 }

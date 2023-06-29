@@ -31,11 +31,11 @@
 
 package org.jf.dexlib2.base.reference;
 
-import com.google.common.collect.Ordering;
 import org.jf.dexlib2.formatter.DexFormatter;
 import org.jf.dexlib2.iface.reference.MethodReference;
 import org.jf.util.CharSequenceUtils;
 import org.jf.util.CollectionUtils;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -69,7 +69,7 @@ public abstract class BaseMethodReference extends BaseReference implements Metho
         if (res != 0) return res;
         res = getReturnType().compareTo(o.getReturnType());
         if (res != 0) return res;
-        return CollectionUtils.compareAsIterable(Ordering.usingToString(), getParameterTypes(), o.getParameterTypes());
+        return CollectionUtils.compareAsIterable(ListUtil.toStringComparator(), getParameterTypes(), o.getParameterTypes());
     }
 
     @Override public String toString() {

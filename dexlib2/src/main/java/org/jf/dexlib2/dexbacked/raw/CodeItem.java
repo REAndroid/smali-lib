@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.dexbacked.raw;
 
-import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.ReferenceType;
 import org.jf.dexlib2.VerificationError;
 import org.jf.dexlib2.dexbacked.CDexBackedDexFile;
@@ -47,6 +45,7 @@ import org.jf.dexlib2.iface.reference.StringReference;
 import org.jf.dexlib2.util.AnnotatedBytes;
 import org.jf.util.ExceptionWithContext;
 import org.jf.util.NumberUtils;
+import org.jf.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -439,7 +438,7 @@ public class CodeItem {
         }
 
         private void annotateInstruction35c(@Nonnull AnnotatedBytes out, @Nonnull Instruction35c instruction) {
-            List<String> args = Lists.newArrayList();
+            List<String> args = new ArrayList<>();
 
             int registerCount = instruction.getRegisterCount();
             if (registerCount == 1) {
@@ -464,8 +463,9 @@ public class CodeItem {
                 args.add(formatRegister(instruction.getRegisterG()));
             }
 
+
             out.annotate(6, String.format("%s {%s}, %s",
-                    instruction.getOpcode().name, Joiner.on(", ").join(args), instruction.getReference()));
+                    instruction.getOpcode().name, StringUtils.join(", ", args), instruction.getReference()));
         }
 
         private void annotateInstruction3rc(@Nonnull AnnotatedBytes out, @Nonnull Instruction3rc instruction) {
@@ -477,7 +477,7 @@ public class CodeItem {
         }
 
         private void annotateDefaultInstruction(@Nonnull AnnotatedBytes out, @Nonnull Instruction instruction) {
-            List<String> args = Lists.newArrayList();
+            List<String> args = new ArrayList<>();
 
             if (instruction instanceof OneRegisterInstruction) {
                 args.add(formatRegister(((OneRegisterInstruction)instruction).getRegisterA()));
@@ -539,7 +539,7 @@ public class CodeItem {
             }
 
             out.annotate(instruction.getCodeUnits()*2, "%s %s",
-                    instruction.getOpcode().name, Joiner.on(", ").join(args));
+                    instruction.getOpcode().name, StringUtils.join(", ", args));
         }
 
         private void annotateArrayPayload(@Nonnull AnnotatedBytes out, @Nonnull ArrayPayload instruction) {

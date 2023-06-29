@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.immutable;
 
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.base.BaseAnnotationElement;
 import org.jf.dexlib2.iface.AnnotationElement;
 import org.jf.dexlib2.iface.value.EncodedValue;
@@ -42,6 +40,7 @@ import org.jf.util.ImmutableConverter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Set;
 
 public class ImmutableAnnotationElement extends BaseAnnotationElement {
     @Nonnull protected final String name;
@@ -72,7 +71,7 @@ public class ImmutableAnnotationElement extends BaseAnnotationElement {
     @Nonnull @Override public EncodedValue getValue() { return value; }
 
     @Nonnull
-    public static ImmutableSet<ImmutableAnnotationElement> immutableSetOf(
+    public static Set<ImmutableAnnotationElement> immutableSetOf(
             @Nullable Iterable<? extends AnnotationElement> list) {
         return CONVERTER.toSet(list);
     }

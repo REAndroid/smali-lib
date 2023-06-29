@@ -31,7 +31,8 @@
 
 package org.jf.util;
 
-import com.google.common.collect.Iterators;
+
+import org.jf.util.collection.Iterables;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -69,7 +70,7 @@ public class ArraySortedSet<T> implements SortedSet<T> {
     @Override
     @SuppressWarnings("unchecked")
     public Iterator<T> iterator() {
-        return Iterators.forArray((T[])arr);
+        return Iterables.forArray((T[])arr);
     }
 
     @Override
@@ -184,7 +185,7 @@ public class ArraySortedSet<T> implements SortedSet<T> {
             if (arr.length != other.size()) {
                 return false;
             }
-            return Iterators.elementsEqual(iterator(), other.iterator());
+            return elementsEqual(iterator(), other.iterator());
         }
         if (o instanceof Set) {
             Set other = (Set)o;
@@ -194,5 +195,18 @@ public class ArraySortedSet<T> implements SortedSet<T> {
             return this.containsAll(other);
         }
         return false;
+    }
+    public static boolean elementsEqual(Iterator<?> iterator1, Iterator<?> iterator2) {
+        while (iterator1.hasNext()) {
+            if (!iterator2.hasNext()) {
+                return false;
+            }
+            Object o1 = iterator1.next();
+            Object o2 = iterator2.next();
+            if (!Objects.equals(o1, o2)) {
+                return false;
+            }
+        }
+        return !iterator2.hasNext();
     }
 }

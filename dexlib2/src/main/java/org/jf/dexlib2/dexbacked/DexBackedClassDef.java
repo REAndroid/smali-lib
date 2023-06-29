@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.dexbacked;
 
-import org.jf.util.collection.EmptySet;
-import com.google.common.collect.Iterables;
 import org.jf.dexlib2.base.reference.BaseTypeReference;
 import org.jf.dexlib2.dexbacked.raw.ClassDefItem;
 import org.jf.dexlib2.dexbacked.raw.TypeIdItem;
@@ -46,10 +44,15 @@ import org.jf.dexlib2.iface.reference.MethodReference;
 import org.jf.dexlib2.immutable.reference.ImmutableFieldReference;
 import org.jf.dexlib2.immutable.reference.ImmutableMethodReference;
 import org.jf.util.collection.EmptyList;
+import org.jf.util.collection.EmptySet;
+import org.jf.util.collection.Iterables;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.AbstractList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import static org.jf.dexlib2.writer.DexWriter.NO_OFFSET;
 

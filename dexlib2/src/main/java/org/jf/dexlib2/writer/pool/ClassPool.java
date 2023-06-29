@@ -31,13 +31,6 @@
 
 package org.jf.dexlib2.writer.pool;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Ordering;
 import org.jf.dexlib2.DebugItemType;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.ReferenceType;
@@ -56,12 +49,17 @@ import org.jf.dexlib2.writer.DebugWriter;
 import org.jf.dexlib2.writer.util.StaticInitializerUtil;
 import org.jf.util.AbstractForwardSequentialList;
 import org.jf.util.ExceptionWithContext;
+import org.jf.util.collection.EmptyList;
+import org.jf.util.collection.Iterables;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSection<CharSequence, CharSequence,
         TypeListPool.Key<? extends Collection<? extends CharSequence>>, PoolClassDef, Field, PoolMethod,
@@ -209,10 +207,10 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         }
     }
 
-    private ImmutableList<PoolClassDef> sortedClasses = null;
+    private List<PoolClassDef> sortedClasses = null;
     @Nonnull @Override public Collection<? extends PoolClassDef> getSortedClasses() {
         if (sortedClasses == null) {
-            sortedClasses = Ordering.natural().immutableSortedCopy(internedItems.values());
+            sortedClasses = ListUtil.sortedCopy(internedItems.values());
         }
         return sortedClasses;
     }
@@ -334,7 +332,7 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
 
     private static final Predicate<MethodParameter> HAS_PARAMETER_ANNOTATIONS = new Predicate<MethodParameter>() {
         @Override
-        public boolean apply(MethodParameter input) {
+        public boolean test(MethodParameter input) {
             return input.getAnnotations().size() > 0;
         }
     };
@@ -354,9 +352,10 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
 
         if (hasParameterAnnotations) {
             return new AbstractForwardSequentialList<Set<? extends Annotation>>() {
-                @Nonnull @Override public Iterator<Set<? extends Annotation>> iterator() {
-                    return FluentIterable.from(parameters)
-                            .transform(PARAMETER_ANNOTATIONS).iterator();
+                @Nonnull
+                @Override
+                public Iterator<Set<? extends Annotation>> iterator() {
+                    return Iterables.transform(parameters, PARAMETER_ANNOTATIONS).iterator();
                 }
 
                 @Override public int size() {

@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.immutable.instruction;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.Format;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.iface.instruction.Instruction;
@@ -41,6 +39,7 @@ import org.jf.dexlib2.util.Preconditions;
 import org.jf.util.ImmutableConverter;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public abstract class ImmutableInstruction implements Instruction {
     @Nonnull protected final Opcode opcode;
@@ -148,7 +147,7 @@ public abstract class ImmutableInstruction implements Instruction {
     }
 
     @Nonnull
-    public static ImmutableList<ImmutableInstruction> immutableListOf(Iterable<? extends Instruction> list) {
+    public static List<ImmutableInstruction> immutableListOf(Iterable<? extends Instruction> list) {
         return CONVERTER.toList(list);
     }
 

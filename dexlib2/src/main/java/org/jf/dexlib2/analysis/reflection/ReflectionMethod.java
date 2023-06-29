@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.analysis.reflection;
 
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.analysis.reflection.util.ReflectionUtils;
 import org.jf.dexlib2.base.BaseMethodParameter;
@@ -41,6 +39,7 @@ import org.jf.dexlib2.iface.Annotation;
 import org.jf.dexlib2.iface.Method;
 import org.jf.dexlib2.iface.MethodImplementation;
 import org.jf.dexlib2.iface.MethodParameter;
+import org.jf.util.collection.EmptySet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

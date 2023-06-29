@@ -31,9 +31,7 @@
 
 package org.jf.dexlib2;
 
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
-import com.google.common.collect.ImmutableSet.Builder;
+import org.jf.util.collection.ArraySet;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -112,16 +110,17 @@ public enum HiddenApiRestriction {
 
         int domainSpecificPart = (value & ~HIDDENAPI_FLAG_MASK);
         if (domainSpecificPart == 0) {
-            return ImmutableSet.of(normalRestriction);
+            return ArraySet.of(normalRestriction);
         }
-        Builder<HiddenApiRestriction> builder = ImmutableSet.builder();
+
+        ArraySet<HiddenApiRestriction> builder = new ArraySet<>();
         builder.add(normalRestriction);
         for (HiddenApiRestriction domainSpecificApiFlag : domainSpecificApiFlags) {
             if (domainSpecificApiFlag.isSet(value)) {
                 builder.add(domainSpecificApiFlag);
             }
         }
-        return builder.build();
+        return builder;
     }
 
     public static String formatHiddenRestrictions(int value) {

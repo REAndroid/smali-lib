@@ -31,11 +31,11 @@
 
 package org.jf.dexlib2;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.ImmutableBiMap;
 import org.jf.util.ExceptionWithContext;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MethodHandleType {
     public static final int STATIC_PUT = 0;
@@ -48,18 +48,33 @@ public class MethodHandleType {
     public static final int INVOKE_DIRECT = 7;
     public static final int INVOKE_INTERFACE = 8;
 
-    private static final BiMap<Integer, String> methodHandleTypeNames = new ImmutableBiMap.Builder<Integer, String>()
-            .put(STATIC_PUT, "static-put")
-            .put(STATIC_GET, "static-get")
-            .put(INSTANCE_PUT, "instance-put")
-            .put(INSTANCE_GET, "instance-get")
-            .put(INVOKE_STATIC, "invoke-static")
-            .put(INVOKE_INSTANCE, "invoke-instance")
-            .put(INVOKE_CONSTRUCTOR, "invoke-constructor")
-            .put(INVOKE_DIRECT, "invoke-direct")
-            .put(INVOKE_INTERFACE, "invoke-interface")
-            .build();
+    private static final Map<Integer, String> methodHandleTypeNames;
+    private static final Map<String, Integer> typeNamesMethodHandle;
 
+    static {
+        methodHandleTypeNames = new HashMap<>();
+        methodHandleTypeNames.put(STATIC_PUT, "static-put");
+        methodHandleTypeNames.put(STATIC_GET, "static-get");
+        methodHandleTypeNames.put(INSTANCE_PUT, "instance-put");
+        methodHandleTypeNames.put(INSTANCE_GET, "instance-get");
+        methodHandleTypeNames.put(INVOKE_STATIC, "invoke-static");
+        methodHandleTypeNames.put(INVOKE_INSTANCE, "invoke-instance");
+        methodHandleTypeNames.put(INVOKE_CONSTRUCTOR, "invoke-constructor");
+        methodHandleTypeNames.put(INVOKE_DIRECT, "invoke-direct");
+        methodHandleTypeNames.put(INVOKE_INTERFACE, "invoke-interface");
+
+
+        typeNamesMethodHandle = new HashMap<>();
+        typeNamesMethodHandle.put("static-put", STATIC_PUT);
+        typeNamesMethodHandle.put("static-get", STATIC_GET);
+        typeNamesMethodHandle.put("instance-put", INSTANCE_PUT);
+        typeNamesMethodHandle.put("instance-get", INSTANCE_GET);
+        typeNamesMethodHandle.put("invoke-static", INVOKE_STATIC);
+        typeNamesMethodHandle.put("invoke-instance", INVOKE_INSTANCE);
+        typeNamesMethodHandle.put("invoke-constructor", INVOKE_CONSTRUCTOR);
+        typeNamesMethodHandle.put("invoke-direct", INVOKE_DIRECT);
+        typeNamesMethodHandle.put("invoke-interface", INVOKE_INTERFACE);
+    }
     @Nonnull public static String toString(int methodHandleType) {
         String val = methodHandleTypeNames.get(methodHandleType);
         if (val == null) {
@@ -69,7 +84,7 @@ public class MethodHandleType {
     }
 
     public static int getMethodHandleType(String methodHandleType) {
-        Integer ret = methodHandleTypeNames.inverse().get(methodHandleType);
+        Integer ret = typeNamesMethodHandle.get(methodHandleType);
         if (ret == null) {
             throw new ExceptionWithContext("Invalid method handle type: %s", methodHandleType);
         }

@@ -31,12 +31,12 @@
 
 package org.jf.dexlib2.writer;
 
-import com.google.common.collect.Ordering;
 import org.jf.dexlib2.ValueType;
 import org.jf.dexlib2.base.BaseAnnotationElement;
 import org.jf.dexlib2.iface.reference.FieldReference;
 import org.jf.dexlib2.iface.reference.MethodHandleReference;
 import org.jf.dexlib2.iface.reference.MethodReference;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -81,8 +81,7 @@ public abstract class EncodedValueWriter<StringKey, TypeKey, FieldRefKey extends
         writer.writeUleb128(typeSection.getItemIndex(annotationType));
         writer.writeUleb128(elements.size());
 
-        Collection<? extends AnnotationElement> sortedElements = Ordering.from(BaseAnnotationElement.BY_NAME)
-                .immutableSortedCopy(elements);
+        Collection<? extends AnnotationElement> sortedElements = ListUtil.sortedCopy(elements, BaseAnnotationElement.BY_NAME);
 
         for (AnnotationElement element: sortedElements) {
             writer.writeUleb128(stringSection.getItemIndex(annotationSection.getElementName(element)));

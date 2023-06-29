@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.immutable.value;
 
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.base.value.BaseAnnotationEncodedValue;
 import org.jf.dexlib2.iface.AnnotationElement;
 import org.jf.dexlib2.iface.value.AnnotationEncodedValue;
@@ -42,10 +40,11 @@ import org.jf.util.ImmutableUtils;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.Set;
 
 public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue implements ImmutableEncodedValue {
     @Nonnull protected final String type;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotationElement> elements;
+    @Nonnull protected final Set<? extends ImmutableAnnotationElement> elements;
 
     public ImmutableAnnotationEncodedValue(@Nonnull String type,
                                            @Nullable Collection<? extends AnnotationElement> elements) {
@@ -54,7 +53,7 @@ public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue 
     }
 
     public ImmutableAnnotationEncodedValue(@Nonnull String type,
-                                           @Nullable ImmutableSet<? extends ImmutableAnnotationElement> elements) {
+                                           @Nullable Set<? extends ImmutableAnnotationElement> elements) {
         this.type = type;
         this.elements = ImmutableUtils.nullToEmptySet(elements);
     }
@@ -69,5 +68,5 @@ public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue 
     }
 
     @Nonnull @Override public String getType() { return type; }
-    @Nonnull @Override public ImmutableSet<? extends ImmutableAnnotationElement> getElements() { return elements; }
+    @Nonnull @Override public Set<? extends ImmutableAnnotationElement> getElements() { return elements; }
 }

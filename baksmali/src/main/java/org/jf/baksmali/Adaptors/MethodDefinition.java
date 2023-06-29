@@ -28,8 +28,6 @@
 
 package org.jf.baksmali.Adaptors;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import org.jf.baksmali.Adaptors.Debug.DebugMethodItem;
 import org.jf.baksmali.Adaptors.Format.InstructionMethodItemFactory;
 import org.jf.baksmali.formatter.BaksmaliWriter;
@@ -53,6 +51,7 @@ import org.jf.dexlib2.util.SyntheticAccessorResolver.AccessedMember;
 import org.jf.dexlib2.util.TypeUtils;
 import org.jf.util.ExceptionWithContext;
 import org.jf.util.SparseIntArray;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -62,10 +61,10 @@ public class MethodDefinition {
     @Nonnull public final ClassDefinition classDef;
     @Nonnull public final Method method;
     @Nonnull public final MethodImplementation methodImpl;
-    @Nonnull public final ImmutableList<Instruction> instructions;
+    @Nonnull public final List<Instruction> instructions;
     @Nonnull public final List<Instruction> effectiveInstructions;
 
-    @Nonnull public final ImmutableList<MethodParameter> methodParameters;
+    @Nonnull public final List<MethodParameter> methodParameters;
     public RegisterFormatter registerFormatter;
 
     @Nonnull private final LabelCache labelCache = new LabelCache();
@@ -83,10 +82,10 @@ public class MethodDefinition {
         try {
             //TODO: what about try/catch blocks inside the dead code? those will need to be commented out too. ugh.
 
-            instructions = ImmutableList.copyOf(methodImpl.getInstructions());
-            methodParameters = ImmutableList.copyOf(method.getParameters());
+            instructions = ListUtil.copyOf(methodImpl.getInstructions().iterator());
+            methodParameters = new ArrayList<>(method.getParameters());
 
-            effectiveInstructions = Lists.newArrayList(instructions);
+            effectiveInstructions = new ArrayList<>(instructions);
 
             packedSwitchMap = new SparseIntArray(0);
             sparseSwitchMap = new SparseIntArray(0);
@@ -162,7 +161,7 @@ public class MethodDefinition {
         writeAccessFlagsAndRestrictions(writer, method.getAccessFlags(), method.getHiddenApiRestrictions());
         writer.write(method.getName());
         writer.write("(");
-        ImmutableList<MethodParameter> methodParameters = ImmutableList.copyOf(method.getParameters());
+        List<MethodParameter> methodParameters = new ArrayList<>(method.getParameters());
         for (MethodParameter parameter: methodParameters) {
             writer.writeType(parameter.getType());
         }

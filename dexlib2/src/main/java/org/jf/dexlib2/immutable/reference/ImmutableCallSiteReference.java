@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.immutable.reference;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.base.reference.BaseCallSiteReference;
 import org.jf.dexlib2.iface.reference.CallSiteReference;
 import org.jf.dexlib2.iface.reference.MethodHandleReference;
@@ -51,7 +49,7 @@ public class ImmutableCallSiteReference extends BaseCallSiteReference implements
     @Nonnull protected final ImmutableMethodHandleReference methodHandle;
     @Nonnull protected final String methodName;
     @Nonnull protected final ImmutableMethodProtoReference methodProto;
-    @Nonnull protected final ImmutableList<? extends ImmutableEncodedValue> extraArguments;
+    @Nonnull protected final List<? extends ImmutableEncodedValue> extraArguments;
 
     public ImmutableCallSiteReference(@Nonnull String name, @Nonnull MethodHandleReference methodHandle,
                                       @Nonnull String methodName, @Nonnull MethodProtoReference methodProto,
@@ -65,7 +63,7 @@ public class ImmutableCallSiteReference extends BaseCallSiteReference implements
 
     public ImmutableCallSiteReference(@Nonnull String name, @Nonnull ImmutableMethodHandleReference methodHandle,
                                       @Nonnull String methodName, @Nonnull ImmutableMethodProtoReference methodProto,
-                                      @Nullable ImmutableList<? extends ImmutableEncodedValue> extraArguments) {
+                                      @Nullable List<? extends ImmutableEncodedValue> extraArguments) {
         this.name = name;
         this.methodHandle = methodHandle;
         this.methodName = methodName;

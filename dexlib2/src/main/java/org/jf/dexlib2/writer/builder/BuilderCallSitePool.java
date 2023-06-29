@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.collect.Maps;
 import org.jf.dexlib2.iface.reference.CallSiteReference;
 import org.jf.dexlib2.writer.CallSiteSection;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderArrayEncodedValue;
@@ -40,12 +39,13 @@ import org.jf.dexlib2.writer.util.CallSiteUtil;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class BuilderCallSitePool extends BaseBuilderPool
         implements CallSiteSection<BuilderCallSiteReference, BuilderArrayEncodedValue> {
     @Nonnull private final ConcurrentMap<CallSiteReference, BuilderCallSiteReference> internedItems =
-            Maps.newConcurrentMap();
+            new ConcurrentHashMap<>();
 
     public BuilderCallSitePool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);

@@ -31,45 +31,33 @@
 
 package org.jf.dexlib2.writer.util;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.FluentIterable;
 import org.jf.dexlib2.base.value.BaseArrayEncodedValue;
 import org.jf.dexlib2.iface.Field;
 import org.jf.dexlib2.iface.value.ArrayEncodedValue;
 import org.jf.dexlib2.iface.value.EncodedValue;
 import org.jf.dexlib2.immutable.value.ImmutableEncodedValueFactory;
 import org.jf.dexlib2.util.EncodedValueUtils;
-import org.jf.util.AbstractForwardSequentialList;
 import org.jf.util.CollectionUtils;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Iterator;
 import java.util.List;
-import java.util.SortedSet;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class StaticInitializerUtil {
 
     @Nullable public static ArrayEncodedValue getStaticInitializers(
-            @Nonnull SortedSet<? extends Field> sortedStaticFields) {
+            @Nonnull Set<? extends Field> sortedStaticFields) {
         final int lastIndex = CollectionUtils.lastIndexOf(sortedStaticFields, HAS_INITIALIZER);
         if (lastIndex > -1) {
             return new BaseArrayEncodedValue() {
                 @Nonnull
                 @Override
                 public List<? extends EncodedValue> getValue() {
-                    return new AbstractForwardSequentialList<EncodedValue>() {
-                        @Nonnull @Override public Iterator<EncodedValue> iterator() {
-                            return FluentIterable.from(sortedStaticFields)
-                                    .limit(lastIndex+1)
-                                    .transform(GET_INITIAL_VALUE).iterator();
-                        }
-
-                        @Override public int size() {
-                            return lastIndex+1;
-                        }
-                    };
+                    return ListUtil.transform(sortedStaticFields, GET_INITIAL_VALUE, lastIndex+1);
                 }
             };
         }
@@ -78,7 +66,7 @@ public class StaticInitializerUtil {
 
     private static final Predicate<Field> HAS_INITIALIZER = new Predicate<Field>() {
         @Override
-        public boolean apply(Field input) {
+        public boolean test(Field input) {
             EncodedValue encodedValue = input.getInitialValue();
             return encodedValue != null && !EncodedValueUtils.isDefaultValue(encodedValue);
         }

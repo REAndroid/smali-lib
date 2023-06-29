@@ -31,17 +31,12 @@
 
 package org.jf.dexlib2;
 
-import com.google.common.collect.Maps;
-import com.google.common.collect.RangeMap;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.HashMap;
 
-import static org.jf.dexlib2.VersionMap.NO_VERSION;
-import static org.jf.dexlib2.VersionMap.mapApiToArtVersion;
-import static org.jf.dexlib2.VersionMap.mapArtVersionToApi;
+import static org.jf.dexlib2.VersionMap.*;
 
 public class Opcodes {
 
@@ -95,7 +90,7 @@ public class Opcodes {
         }
 
         opcodeValues = new EnumMap<Opcode, Short>(Opcode.class);
-        opcodesByName = Maps.newHashMap();
+        opcodesByName = new HashMap<>();
 
         int version;
         if (isArt()) {
@@ -105,8 +100,7 @@ public class Opcodes {
         }
 
         for (Opcode opcode: Opcode.values()) {
-            RangeMap<Integer, Short> versionToValueMap;
-
+            OpcodeVersion.VersionRangeMap versionToValueMap;
             if (isArt()) {
                 versionToValueMap = opcode.artVersionToValueMap;
             } else {

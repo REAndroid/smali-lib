@@ -34,7 +34,6 @@ package org.jf.baksmali;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 import org.jf.dexlib2.dexbacked.DexBackedOdexFile;
@@ -45,6 +44,7 @@ import org.jf.util.jcommander.ExtendedParameters;
 
 import javax.annotation.Nonnull;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Parameters(commandDescription = "Lists the stored dependencies in an odex/oat file.")
@@ -59,7 +59,7 @@ public class ListDependenciesCommand extends Command {
 
     @Parameter(description = "An oat/odex file")
     @ExtendedParameter(argumentNames = "file")
-    private List<String> inputList = Lists.newArrayList();
+    private List<String> inputList = new ArrayList<>();
 
     public ListDependenciesCommand(@Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);

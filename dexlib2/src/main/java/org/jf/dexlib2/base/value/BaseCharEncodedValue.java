@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.base.value;
 
-import com.google.common.primitives.Chars;
-import com.google.common.primitives.Ints;
 import org.jf.dexlib2.ValueType;
 import org.jf.dexlib2.formatter.DexFormatter;
 import org.jf.dexlib2.iface.value.CharEncodedValue;
@@ -57,9 +55,9 @@ public abstract class BaseCharEncodedValue implements CharEncodedValue {
 
     @Override
     public int compareTo(@Nonnull EncodedValue o) {
-        int res = Ints.compare(getValueType(), o.getValueType());
+        int res = Integer.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
-        return Chars.compare(getValue(), ((CharEncodedValue)o).getValue());
+        return Character.compare(getValue(), ((CharEncodedValue)o).getValue());
     }
 
     public int getValueType() { return ValueType.CHAR; }

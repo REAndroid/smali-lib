@@ -33,7 +33,6 @@ package org.jf.baksmali;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.google.common.collect.Lists;
 import org.jf.baksmali.HelpCommand.HlepCommand;
 import org.jf.util.jcommander.Command;
 import org.jf.util.jcommander.ExtendedCommands;
@@ -41,6 +40,7 @@ import org.jf.util.jcommander.ExtendedParameters;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -62,7 +62,7 @@ public class Main extends Command {
     private JCommander jc;
 
     public Main() {
-        super(Lists.<JCommander>newArrayList());
+        super(new ArrayList<JCommander>());
     }
 
     @Override public void run() {

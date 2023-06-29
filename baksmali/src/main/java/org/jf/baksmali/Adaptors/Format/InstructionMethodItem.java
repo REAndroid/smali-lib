@@ -32,6 +32,7 @@ import org.jf.baksmali.Adaptors.MethodDefinition;
 import org.jf.baksmali.Adaptors.MethodDefinition.InvalidSwitchPayload;
 import org.jf.baksmali.Adaptors.MethodItem;
 import org.jf.baksmali.BaksmaliOptions;
+import org.jf.baksmali.CommentProvider;
 import org.jf.baksmali.formatter.BaksmaliWriter;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.VerificationError;
@@ -45,7 +46,6 @@ import org.jf.util.NumberUtils;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.util.Map;
 
 public class InstructionMethodItem<T extends Instruction> extends MethodItem {
     @Nonnull protected final MethodDefinition methodDef;
@@ -531,8 +531,8 @@ public class InstructionMethodItem<T extends Instruction> extends MethodItem {
     }
 
     protected boolean writeCommentIfResourceId(BaksmaliWriter writer, int val) throws IOException {
-        Map<Integer,String> resourceIds = methodDef.classDef.options.resourceIds;
-        String resource = resourceIds.get(Integer.valueOf(val));
+        CommentProvider commentProvider = methodDef.classDef.options.getCommentProvider();
+        String resource = commentProvider.getComment(val);
         if (resource != null) {
             writer.write("    # ");
             writer.write(resource);

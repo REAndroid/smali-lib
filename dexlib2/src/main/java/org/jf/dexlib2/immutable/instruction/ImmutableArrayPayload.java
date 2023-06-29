@@ -31,13 +31,11 @@
 
 package org.jf.dexlib2.immutable.instruction;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.Format;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.iface.instruction.formats.ArrayPayload;
 import org.jf.dexlib2.util.Preconditions;
-import org.jf.util.ImmutableUtils;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,21 +45,14 @@ public class ImmutableArrayPayload extends ImmutableInstruction implements Array
     public static final Opcode OPCODE = Opcode.ARRAY_PAYLOAD;
 
     protected final int elementWidth;
-    @Nonnull protected final ImmutableList<Number> arrayElements;
+    @Nonnull protected final List<Number> arrayElements;
 
     public ImmutableArrayPayload(int elementWidth,
                                  @Nullable List<Number> arrayElements) {
         super(OPCODE);
         this.elementWidth = Preconditions.checkArrayPayloadElementWidth(elementWidth);
         this.arrayElements = Preconditions.checkArrayPayloadElements(elementWidth,
-                arrayElements==null ? ImmutableList.<Number>of() : ImmutableList.copyOf(arrayElements));
-    }
-
-    public ImmutableArrayPayload(int elementWidth,
-                                 @Nullable ImmutableList<Number> arrayElements) {
-        super(OPCODE);
-        this.elementWidth = Preconditions.checkArrayPayloadElementWidth(elementWidth);
-        this.arrayElements = Preconditions.checkArrayPayloadElements(elementWidth, ImmutableUtils.nullToEmptyList(arrayElements));
+                arrayElements==null ? ListUtil.<Number>of() : ListUtil.copyOf(arrayElements));
     }
 
     @Nonnull

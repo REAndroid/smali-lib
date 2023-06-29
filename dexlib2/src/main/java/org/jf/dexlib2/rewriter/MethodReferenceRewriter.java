@@ -31,13 +31,13 @@
 
 package org.jf.dexlib2.rewriter;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.base.reference.BaseMethodReference;
 import org.jf.dexlib2.iface.reference.MethodReference;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.function.Function;
 
 public class MethodReferenceRewriter implements Rewriter<MethodReference> {
     @Nonnull protected final Rewriters rewriters;
@@ -67,9 +67,11 @@ public class MethodReferenceRewriter implements Rewriter<MethodReference> {
 
         @Override @Nonnull public List<? extends CharSequence> getParameterTypes() {
             return RewriterUtils.rewriteList(rewriters.getTypeRewriter(),
-                    Lists.transform(methodReference.getParameterTypes(),
+                    ListUtil.transform(methodReference.getParameterTypes(),
                     new Function<CharSequence, String>() {
-                        @Nonnull @Override public String apply(CharSequence input) {
+                        @Nonnull
+                        @Override
+                        public String apply(CharSequence input) {
                             return input.toString();
                         }
                     }));

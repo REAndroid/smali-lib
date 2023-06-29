@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.collect.Maps;
 import org.jf.dexlib2.MethodHandleType;
 import org.jf.dexlib2.iface.reference.FieldReference;
 import org.jf.dexlib2.iface.reference.MethodHandleReference;
@@ -42,12 +41,13 @@ import org.jf.util.ExceptionWithContext;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class BuilderMethodHandlePool extends BaseBuilderPool
         implements MethodHandleSection<BuilderMethodHandleReference, BuilderFieldReference, BuilderMethodReference> {
     @Nonnull private final ConcurrentMap<MethodHandleReference, BuilderMethodHandleReference> internedItems =
-            Maps.newConcurrentMap();
+            new ConcurrentHashMap<>();
 
     public BuilderMethodHandlePool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);

@@ -31,7 +31,7 @@
 
 package org.jf.dexlib2.base.value;
 
-import com.google.common.primitives.Ints;
+
 import org.jf.dexlib2.ValueType;
 import org.jf.dexlib2.formatter.DexFormatter;
 import org.jf.dexlib2.iface.value.EncodedValue;
@@ -53,7 +53,7 @@ public abstract class BaseNullEncodedValue implements NullEncodedValue {
 
     @Override
     public int compareTo(@Nonnull EncodedValue o) {
-        return Ints.compare(getValueType(), o.getValueType());
+        return Integer.compare(getValueType(), o.getValueType());
     }
 
     public int getValueType() { return ValueType.NULL; }

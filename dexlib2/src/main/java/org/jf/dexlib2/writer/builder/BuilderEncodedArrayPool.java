@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.collect.Maps;
 import org.jf.dexlib2.iface.value.ArrayEncodedValue;
 import org.jf.dexlib2.writer.EncodedArraySection;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderArrayEncodedValue;
@@ -41,12 +40,13 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class BuilderEncodedArrayPool extends BaseBuilderPool implements
         EncodedArraySection<BuilderArrayEncodedValue, BuilderEncodedValue> {
     @Nonnull private final ConcurrentMap<ArrayEncodedValue, BuilderArrayEncodedValue> internedItems =
-            Maps.newConcurrentMap();
+            new ConcurrentHashMap<>();
 
     public BuilderEncodedArrayPool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);

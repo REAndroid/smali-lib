@@ -28,16 +28,16 @@
 
 package org.jf.baksmali;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Ordering;
 import org.jf.baksmali.Adaptors.ClassDefinition;
 import org.jf.baksmali.formatter.BaksmaliWriter;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.iface.DexFile;
 import org.jf.util.ClassFileNameHandler;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nullable;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,12 +55,12 @@ public class Baksmali {
         //name collisions, then we'll use the same name for each class, if the dex file goes through multiple
         //baksmali/smali cycles for some reason. If a class with a colliding name is added or removed, the filenames
         //may still change of course
-        List<? extends ClassDef> classDefs = Ordering.natural().sortedCopy(dexFile.getClasses());
+        List<? extends ClassDef> classDefs = ListUtil.sortedCopy(dexFile.getClasses());
 
         final ClassFileNameHandler fileNameHandler = new ClassFileNameHandler(outputDir, ".smali");
 
         ExecutorService executor = Executors.newFixedThreadPool(jobs);
-        List<Future<Boolean>> tasks = Lists.newArrayList();
+        List<Future<Boolean>> tasks = new ArrayList<>();
 
         Set<String> classSet = null;
         if (classes != null) {

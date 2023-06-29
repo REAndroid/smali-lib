@@ -31,14 +31,11 @@
 
 package org.jf.dexlib2.immutable.instruction;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.Format;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.iface.instruction.SwitchElement;
 import org.jf.dexlib2.iface.instruction.formats.PackedSwitchPayload;
 import org.jf.dexlib2.util.Preconditions;
-import org.jf.util.ImmutableUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,18 +44,13 @@ import java.util.List;
 public class ImmutablePackedSwitchPayload extends ImmutableInstruction implements PackedSwitchPayload {
     public static final Opcode OPCODE = Opcode.PACKED_SWITCH_PAYLOAD;
 
-    @Nonnull protected final ImmutableList<? extends ImmutableSwitchElement> switchElements;
+    @Nonnull protected final List<? extends ImmutableSwitchElement> switchElements;
 
     public ImmutablePackedSwitchPayload(@Nullable List<? extends SwitchElement> switchElements) {
         super(OPCODE);
         this.switchElements = Preconditions.checkSequentialOrderedKeys(ImmutableSwitchElement.immutableListOf(switchElements));
     }
 
-    public ImmutablePackedSwitchPayload(
-            @Nullable ImmutableList<? extends ImmutableSwitchElement> switchElements) {
-        super(OPCODE);
-        this.switchElements = Preconditions.checkSequentialOrderedKeys(ImmutableUtils.nullToEmptyList(switchElements));
-    }
 
     @Nonnull
     public static ImmutablePackedSwitchPayload of(PackedSwitchPayload instruction) {

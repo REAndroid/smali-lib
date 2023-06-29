@@ -32,20 +32,20 @@
 package org.jf.baksmali;
 
 import com.beust.jcommander.Parameter;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.VersionMap;
 import org.jf.dexlib2.analysis.ClassPath;
 import org.jf.dexlib2.analysis.ClassPathResolver;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 import org.jf.dexlib2.dexbacked.OatFile;
 import org.jf.dexlib2.iface.MultiDexContainer;
+import org.jf.util.collection.EmptyList;
 import org.jf.util.jcommander.ColonParameterSplitter;
 import org.jf.util.jcommander.ExtendedParameter;
 
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.jf.dexlib2.analysis.ClassPath.NOT_SPECIFIED;
@@ -66,7 +66,7 @@ public class AnalysisArguments {
                     "dex file. These will be added to the classpath after any bootclasspath entries.",
             splitter = ColonParameterSplitter.class)
     @ExtendedParameter(argumentNames = "classpath")
-    public List<String> classPath = Lists.newArrayList();
+    public List<String> classPath = new ArrayList<>();
 
     @Parameter(names = {"-d", "--classpath-dir", "--cpd", "--dir"},
             description = "A directory to search for classpath files. This option can be used multiple times to " +
@@ -111,10 +111,11 @@ public class AnalysisArguments {
         }
 
         if (classPathDirectories == null || classPathDirectories.size() == 0) {
-            classPathDirectories = Lists.newArrayList(dexFileDir.getPath());
+            classPathDirectories = new ArrayList<>(1);
+            classPathDirectories.add(dexFileDir.getPath());
         }
 
-        List<String> filteredClassPathDirectories = Lists.newArrayList();
+        List<String> filteredClassPathDirectories = new ArrayList<>();
         if (classPathDirectories != null) {
             for (String dir: classPathDirectories) {
                 File file = new File(dir);
@@ -135,7 +136,7 @@ public class AnalysisArguments {
         }  else if (bootClassPath.size() == 1 && bootClassPath.get(0).length() == 0) {
             // --bootclasspath "" is a special case, denoting that no bootclasspath should be used
             resolver = new ClassPathResolver(
-                    ImmutableList.<String>of(), ImmutableList.<String>of(), classPath, dexEntry);
+                    EmptyList.<String>of(), EmptyList.<String>of(), classPath, dexEntry);
         } else {
             resolver = new ClassPathResolver(filteredClassPathDirectories, bootClassPath, classPath, dexEntry);
         }

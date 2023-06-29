@@ -31,13 +31,12 @@
 
 package org.jf.dexlib2.dexbacked.instruction;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 import org.jf.dexlib2.dexbacked.util.FixedSizeList;
 import org.jf.dexlib2.iface.instruction.formats.ArrayPayload;
 import org.jf.util.ExceptionWithContext;
+import org.jf.util.collection.EmptyList;
 
 import javax.annotation.Nonnull;
 import java.util.List;

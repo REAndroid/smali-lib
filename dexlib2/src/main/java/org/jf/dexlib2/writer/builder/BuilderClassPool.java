@@ -31,9 +31,6 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.*;
 import org.jf.dexlib2.DebugItemType;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.builder.MutableMethodImplementation;
@@ -54,19 +51,24 @@ import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderEncodedValue;
 import org.jf.util.AbstractForwardSequentialList;
 import org.jf.util.ExceptionWithContext;
 import org.jf.util.collection.EmptyList;
+import org.jf.util.collection.Iterables;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class BuilderClassPool extends BaseBuilderPool implements ClassSection<BuilderStringReference,
         BuilderTypeReference, BuilderTypeList, BuilderClassDef, BuilderField, BuilderMethod, BuilderAnnotationSet,
         BuilderArrayEncodedValue> {
     @Nonnull private final ConcurrentMap<String, BuilderClassDef> internedItems =
-            Maps.newConcurrentMap();
+            new ConcurrentHashMap<>();
 
     public BuilderClassPool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
@@ -80,10 +82,10 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
         return classDef;
     }
 
-    private ImmutableList<BuilderClassDef> sortedClasses = null;
+    private List<BuilderClassDef> sortedClasses = null;
     @Nonnull @Override public Collection<? extends BuilderClassDef> getSortedClasses() {
         if (sortedClasses == null) {
-            sortedClasses = Ordering.natural().immutableSortedCopy(internedItems.values());
+            sortedClasses = ListUtil.sortedCopy(internedItems.values());
         }
         return sortedClasses;
     }
@@ -136,7 +138,7 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
 
     private static final Predicate<Field> HAS_INITIALIZER = new Predicate<Field>() {
         @Override
-        public boolean apply(Field input) {
+        public boolean test(Field input) {
             EncodedValue encodedValue = input.getInitialValue();
             return encodedValue != null && !EncodedValueUtils.isDefaultValue(encodedValue);
         }
@@ -231,7 +233,7 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     private static final Predicate<BuilderMethodParameter> HAS_PARAMETER_ANNOTATIONS =
             new Predicate<BuilderMethodParameter>() {
                 @Override
-                public boolean apply(BuilderMethodParameter input) {
+                public boolean test(BuilderMethodParameter input) {
                     return input.getAnnotations().size() > 0;
                 }
             };
@@ -247,13 +249,15 @@ public class BuilderClassPool extends BaseBuilderPool implements ClassSection<Bu
     @Nullable @Override public List<? extends BuilderAnnotationSet> getParameterAnnotations(
             @Nonnull final BuilderMethod method) {
         final List<? extends BuilderMethodParameter> parameters = method.getParameters();
+
         boolean hasParameterAnnotations = Iterables.any(parameters, HAS_PARAMETER_ANNOTATIONS);
 
         if (hasParameterAnnotations) {
             return new AbstractForwardSequentialList<BuilderAnnotationSet>() {
-                @Nonnull @Override public Iterator<BuilderAnnotationSet> iterator() {
-                    return FluentIterable.from(parameters)
-                            .transform(PARAMETER_ANNOTATIONS).iterator();
+                @Nonnull
+                @Override
+                public Iterator<BuilderAnnotationSet> iterator() {
+                    return Iterables.transform(parameters, PARAMETER_ANNOTATIONS).iterator();
                 }
 
                 @Override public int size() {

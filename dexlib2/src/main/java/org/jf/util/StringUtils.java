@@ -33,12 +33,47 @@ package org.jf.util;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Iterator;
 
 public class StringUtils {
 
-    /**
-     * @deprecated Use {@link org.jf.baksmali.formatter.BaksmaliWriter#writeCharEncodedValue}
-     */
+    public static String join(String separator, Iterable<?> parts) {
+        return join(separator, parts.iterator());
+    }
+    public static String join(String separator, Object[] parts) {
+        StringBuilder builder = new StringBuilder();
+        boolean appendOnce = false;
+        for (Object obj : parts){
+            if(appendOnce){
+                builder.append(separator);
+            }
+            builder.append(obj);
+            appendOnce = true;
+        }
+        return builder.toString();
+    }
+    public static String join(String separator, Iterator<?> parts) {
+        StringBuilder builder = new StringBuilder();
+        boolean appendOnce = false;
+        while (parts.hasNext()){
+            if(appendOnce){
+                builder.append(separator);
+            }
+            builder.append(parts.next());
+            appendOnce = true;
+        }
+        return builder.toString();
+    }
+    public static String repeat(String string, int count){
+        if(string == null || count <=0 || string.length() == 0){
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        for(int i = 0; i < count; i++){
+            builder.append(string);
+        }
+        return builder.toString();
+    }
     @Deprecated
     public static void writeEscapedChar(Writer writer, char c) throws IOException {
         if ((c >= ' ') && (c < 0x7f)) {

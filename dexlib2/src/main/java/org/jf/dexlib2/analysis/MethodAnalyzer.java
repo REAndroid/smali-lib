@@ -31,10 +31,6 @@
 
 package org.jf.dexlib2.analysis;
 
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.base.reference.BaseMethodReference;
@@ -54,11 +50,13 @@ import org.jf.dexlib2.writer.util.TryListBuilder;
 import org.jf.util.BitSetUtils;
 import org.jf.util.ExceptionWithContext;
 import org.jf.util.SparseArray;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * The MethodAnalyzer performs several functions. It "analyzes" the instructions and infers the register types
@@ -303,8 +301,10 @@ public class MethodAnalyzer {
     }
 
     public List<Instruction> getInstructions() {
-        return Lists.transform(analyzedInstructions.getValues(), new Function<AnalyzedInstruction, Instruction>() {
-            @Nullable @Override public Instruction apply(@Nullable AnalyzedInstruction input) {
+        return ListUtil.transform(analyzedInstructions.getValues(), new Function<AnalyzedInstruction, Instruction>() {
+            @Nullable
+            @Override
+            public Instruction apply(@Nullable AnalyzedInstruction input) {
                 if (input == null) {
                     return null;
                 }
@@ -432,7 +432,7 @@ public class MethodAnalyzer {
     private void buildInstructionList() {
         int registerCount = methodImpl.getRegisterCount();
 
-        ImmutableList<Instruction> instructions = ImmutableList.copyOf(methodImpl.getInstructions());
+        List<Instruction> instructions = ListUtil.copyOf(methodImpl.getInstructions());
 
         analyzedInstructions.ensureCapacity(instructions.size());
 

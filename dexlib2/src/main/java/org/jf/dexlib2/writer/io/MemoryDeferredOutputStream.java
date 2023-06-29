@@ -1,6 +1,6 @@
 package org.jf.dexlib2.writer.io;
 
-import com.google.common.collect.Lists;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.List;
 public class MemoryDeferredOutputStream extends DeferredOutputStream {
     private static final int DEFAULT_BUFFER_SIZE = 16 * 1024;
 
-    private final List<byte[]> buffers = Lists.newArrayList();
+    private final List<byte[]> buffers = ListUtil.newArrayList();
     private byte[] currentBuffer;
     private int currentPosition;
 

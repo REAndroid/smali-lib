@@ -34,8 +34,8 @@ package org.jf.baksmali;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
-import com.google.common.collect.Iterables;
 import org.jf.util.ConsoleUtil;
+import org.jf.util.collection.Iterables;
 import org.jf.util.jcommander.*;
 
 import javax.annotation.Nonnull;

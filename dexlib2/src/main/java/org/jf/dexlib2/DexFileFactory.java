@@ -31,12 +31,6 @@
 
 package org.jf.dexlib2;
 
-import com.google.common.base.Joiner;
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.Lists;
-import com.google.common.io.ByteStreams;
-import com.google.common.io.Files;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile.NotADexFile;
 import org.jf.dexlib2.dexbacked.DexBackedOdexFile;
@@ -49,6 +43,10 @@ import org.jf.dexlib2.iface.DexFile;
 import org.jf.dexlib2.iface.MultiDexContainer;
 import org.jf.dexlib2.writer.pool.DexPool;
 import org.jf.util.ExceptionWithContext;
+import org.jf.util.StringUtils;
+import org.jf.util.collection.ListUtil;
+import org.jf.util.io.ByteStreams;
+import org.jf.util.io.Files;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -400,10 +398,10 @@ public final class DexFileFactory {
             }
 
             // find all full and partial matches
-            List<String> fullMatches = Lists.newArrayList();
-            List<MultiDexContainer.DexEntry<? extends DexBackedDexFile>> fullEntries = Lists.newArrayList();
-            List<String> partialMatches = Lists.newArrayList();
-            List<MultiDexContainer.DexEntry<? extends DexBackedDexFile>> partialEntries = Lists.newArrayList();
+            List<String> fullMatches = ListUtil.newArrayList();
+            List<MultiDexContainer.DexEntry<? extends DexBackedDexFile>> fullEntries = ListUtil.newArrayList();
+            List<String> partialMatches = ListUtil.newArrayList();
+            List<MultiDexContainer.DexEntry<? extends DexBackedDexFile>> partialEntries = ListUtil.newArrayList();
             for (String entry: dexContainer.getDexEntryNames()) {
                 if (fullEntryMatch(entry, targetEntry)) {
                     // We want to grab all full matches, regardless of whether they're actually a dex file.
@@ -433,9 +431,10 @@ public final class DexFileFactory {
             if (fullEntries.size() > 1) {
                 // This should be quite rare. This would only happen if an oat file has two entries that differ
                 // only by an initial path separator. e.g. "/blah/blah.dex" and "blah/blah.dex"
+
                 throw new MultipleMatchingDexEntriesException(String.format(
                         "Multiple entries in %s match %s: %s", filename, targetEntry,
-                        Joiner.on(", ").join(fullMatches)));
+                        StringUtils.join(", ", fullMatches)));
             }
 
             if (partialEntries.size() == 0) {
@@ -445,7 +444,7 @@ public final class DexFileFactory {
             if (partialEntries.size() > 1) {
                 throw new MultipleMatchingDexEntriesException(String.format(
                         "Multiple dex entries in %s match %s: %s", filename, targetEntry,
-                        Joiner.on(", ").join(partialMatches)));
+                        StringUtils.join(", ",partialMatches)));
             }
             return partialEntries.get(0);
         }
@@ -461,7 +460,7 @@ public final class DexFileFactory {
         }
 
         @Nonnull @Override public List<String> getDexEntryNames() {
-            return ImmutableList.of(entryName);
+            return ListUtil.of(entryName);
         }
 
         @Nullable @Override public DexEntry<DexBackedDexFile> getEntry(@Nonnull String entryName) {
@@ -499,7 +498,7 @@ public final class DexFileFactory {
 
         public FilenameVdexProvider(File oatFile) {
             File oatParent = oatFile.getAbsoluteFile().getParentFile();
-            String baseName = Files.getNameWithoutExtension(oatFile.getAbsolutePath());
+            String baseName = Files.getNameWithoutExtension(oatFile);
             vdexFile = new File(oatParent, baseName + ".vdex");
         }
 

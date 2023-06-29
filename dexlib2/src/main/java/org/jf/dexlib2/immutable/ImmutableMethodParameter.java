@@ -31,23 +31,19 @@
 
 package org.jf.dexlib2.immutable;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.base.BaseMethodParameter;
 import org.jf.dexlib2.iface.Annotation;
 import org.jf.dexlib2.iface.MethodParameter;
 import org.jf.util.ImmutableConverter;
-import org.jf.util.ImmutableUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Set;
 
 public class ImmutableMethodParameter extends BaseMethodParameter {
     @Nonnull protected final String type;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final Set<? extends ImmutableAnnotation> annotations;
     @Nullable protected final String name;
 
     public ImmutableMethodParameter(@Nonnull String type,
@@ -55,14 +51,6 @@ public class ImmutableMethodParameter extends BaseMethodParameter {
                                     @Nullable String name) {
         this.type = type;
         this.annotations = ImmutableAnnotation.immutableSetOf(annotations);
-        this.name = name;
-    }
-
-    public ImmutableMethodParameter(@Nonnull String type,
-                                    @Nullable ImmutableSet<? extends ImmutableAnnotation> annotations,
-                                    @Nullable String name) {
-        this.type = type;
-        this.annotations = ImmutableUtils.nullToEmptySet(annotations);
         this.name = name;
     }
 
@@ -84,7 +72,7 @@ public class ImmutableMethodParameter extends BaseMethodParameter {
     @Nullable @Override public String getSignature() { return null; }
 
     @Nonnull
-    public static ImmutableList<ImmutableMethodParameter> immutableListOf(
+    public static List<ImmutableMethodParameter> immutableListOf(
             @Nullable Iterable<? extends MethodParameter> list) {
         return CONVERTER.toList(list);
     }

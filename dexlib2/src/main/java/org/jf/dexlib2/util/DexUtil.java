@@ -31,12 +31,12 @@
 
 package org.jf.dexlib2.util;
 
-import com.google.common.io.ByteStreams;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile.NotADexFile;
 import org.jf.dexlib2.dexbacked.DexBackedOdexFile.NotAnOdexFile;
 import org.jf.dexlib2.dexbacked.raw.CdexHeaderItem;
 import org.jf.dexlib2.dexbacked.raw.HeaderItem;
 import org.jf.dexlib2.dexbacked.raw.OdexHeaderItem;
+import org.jf.util.io.ByteStreams;
 
 import javax.annotation.Nonnull;
 import java.io.EOFException;

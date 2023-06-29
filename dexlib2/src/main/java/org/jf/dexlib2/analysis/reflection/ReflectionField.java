@@ -31,14 +31,13 @@
 
 package org.jf.dexlib2.analysis.reflection;
 
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.analysis.reflection.util.ReflectionUtils;
 import org.jf.dexlib2.base.reference.BaseFieldReference;
 import org.jf.dexlib2.iface.Annotation;
 import org.jf.dexlib2.iface.Field;
 import org.jf.dexlib2.iface.value.EncodedValue;
+import org.jf.util.collection.EmptySet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

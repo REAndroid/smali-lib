@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.dexbacked;
 
-import com.google.common.collect.Lists;
-import com.google.common.io.ByteStreams;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile.NotADexFile;
 import org.jf.dexlib2.iface.DexFile;
@@ -40,6 +38,7 @@ import org.jf.dexlib2.iface.MultiDexContainer;
 import org.jf.dexlib2.util.DexUtil;
 import org.jf.dexlib2.util.DexUtil.InvalidFile;
 import org.jf.dexlib2.util.DexUtil.UnsupportedFile;
+import org.jf.util.io.ByteStreams;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,6 +46,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -75,8 +75,10 @@ public class ZipDexContainer implements MultiDexContainer<DexBackedDexFile> {
      *
      * @return A list of the names of dex files in this zip file
      */
-    @Nonnull @Override public List<String> getDexEntryNames() throws IOException {
-        List<String> entryNames = Lists.newArrayList();
+    @Nonnull
+    @Override
+    public List<String> getDexEntryNames() throws IOException {
+        List<String> entryNames = new ArrayList<>();
         ZipFile zipFile = getZipFile();
         try {
             Enumeration<? extends ZipEntry> entriesEnumeration = zipFile.entries();

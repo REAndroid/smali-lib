@@ -31,16 +31,16 @@
 
 package org.jf.dexlib2.analysis;
 
-import com.google.common.collect.Maps;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.iface.DexFile;
 
 import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.Map;
 
 public class DexClassProvider implements ClassProvider {
     private final DexFile dexFile;
-    private Map<String, ClassDef> classMap = Maps.newHashMap();
+    private Map<String, ClassDef> classMap = new HashMap<>();
 
     public DexClassProvider(DexFile dexFile) {
         this.dexFile = dexFile;

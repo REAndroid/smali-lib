@@ -31,7 +31,7 @@
 
 package org.jf.dexlib2.base.reference;
 
-import com.google.common.primitives.Ints;
+
 import org.jf.dexlib2.formatter.DexFormatter;
 import org.jf.dexlib2.iface.reference.FieldReference;
 import org.jf.dexlib2.iface.reference.MethodHandleReference;
@@ -60,7 +60,7 @@ public abstract class BaseMethodHandleReference extends BaseReference implements
 
     @Override
     public int compareTo(@Nonnull MethodHandleReference o) {
-        int res = Ints.compare(getMethodHandleType(), o.getMethodHandleType());
+        int res = Integer.compare(getMethodHandleType(), o.getMethodHandleType());
         if (res != 0) return res;
 
         Reference reference = getMemberReference();

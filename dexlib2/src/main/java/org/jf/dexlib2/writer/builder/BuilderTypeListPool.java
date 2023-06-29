@@ -31,24 +31,23 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.base.Function;
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
 import org.jf.dexlib2.writer.DexWriter;
 import org.jf.dexlib2.writer.TypeListSection;
+import org.jf.util.collection.Iterables;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.function.Function;
 
 class BuilderTypeListPool extends BaseBuilderPool implements TypeListSection<BuilderTypeReference, BuilderTypeList> {
     @Nonnull private final ConcurrentMap<List<? extends CharSequence>, BuilderTypeList> internedItems =
-            Maps.newConcurrentMap();
+            new ConcurrentHashMap<>();
 
     public BuilderTypeListPool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
@@ -65,8 +64,10 @@ class BuilderTypeListPool extends BaseBuilderPool implements TypeListSection<Bui
         }
 
         BuilderTypeList typeList = new BuilderTypeList(
-                ImmutableList.copyOf(Iterables.transform(types, new Function<CharSequence, BuilderTypeReference>() {
-                    @Nonnull @Override public BuilderTypeReference apply(CharSequence input) {
+                ListUtil.copyOf(Iterables.transform(types, new Function<CharSequence, BuilderTypeReference>() {
+                    @Nonnull
+                    @Override
+                    public BuilderTypeReference apply(CharSequence input) {
                         return dexBuilder.typeSection.internType(input.toString());
                     }
                 })));

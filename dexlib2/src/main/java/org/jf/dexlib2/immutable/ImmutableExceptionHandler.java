@@ -31,14 +31,13 @@
 
 package org.jf.dexlib2.immutable;
 
-import com.google.common.collect.ImmutableList;
-import org.jf.util.collection.EmptyList;
 import org.jf.dexlib2.base.BaseExceptionHandler;
 import org.jf.dexlib2.iface.ExceptionHandler;
 import org.jf.util.ImmutableConverter;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class ImmutableExceptionHandler extends BaseExceptionHandler implements ExceptionHandler {
     @Nullable protected final String exceptionType;
@@ -63,7 +62,7 @@ public class ImmutableExceptionHandler extends BaseExceptionHandler implements E
     @Override public int getHandlerCodeAddress() { return handlerCodeAddress; }
 
     @Nonnull
-    public static ImmutableList<ImmutableExceptionHandler> immutableListOf(
+    public static List<ImmutableExceptionHandler> immutableListOf(
             @Nullable Iterable<? extends ExceptionHandler> list) {
         return CONVERTER.toList(list);
     }

@@ -31,13 +31,11 @@
 
 package org.jf.util;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableSortedSet;
-import com.google.common.collect.Ordering;
-import com.google.common.primitives.Ints;
+import org.jf.util.collection.ArraySet;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class CollectionUtils {
     public static <T> int listHashCode(@Nonnull Iterable<T> iterable) {
@@ -52,7 +50,7 @@ public class CollectionUtils {
         int index = 0;
         int lastMatchingIndex = -1;
         for (T item: iterable) {
-            if (predicate.apply(item)) {
+            if (predicate.test(item)) {
                 lastMatchingIndex = index;
             }
             index++;
@@ -62,7 +60,7 @@ public class CollectionUtils {
 
     public static <T extends Comparable<? super T>> int compareAsList(@Nonnull Collection<? extends T> list1,
                                                                       @Nonnull Collection<? extends T> list2) {
-        int res = Ints.compare(list1.size(), list2.size());
+        int res = Integer.compare(list1.size(), list2.size());
         if (res != 0) return res;
         Iterator<? extends T> elements2 = list2.iterator();
         for (T element1: list1) {
@@ -112,7 +110,7 @@ public class CollectionUtils {
     public static <T> int compareAsList(@Nonnull Comparator<? super T> elementComparator,
                                         @Nonnull Collection<? extends T> list1,
                                         @Nonnull Collection<? extends T> list2) {
-        int res = Ints.compare(list1.size(), list2.size());
+        int res = Integer.compare(list1.size(), list2.size());
         if (res != 0) return res;
         Iterator<? extends T> elements2 = list2.iterator();
         for (T element1: list1) {
@@ -134,37 +132,30 @@ public class CollectionUtils {
     }
 
     public static <T> boolean isNaturalSortedSet(@Nonnull Iterable<? extends T> it) {
-        if (it instanceof SortedSet) {
-            SortedSet<? extends T> sortedSet = (SortedSet<? extends T>)it;
-            Comparator<?> comparator = sortedSet.comparator();
-            return (comparator == null) || comparator.equals(Ordering.natural());
+        if (it instanceof ArraySet) {
+            return true;
         }
         return false;
     }
 
     public static <T> boolean isSortedSet(@Nonnull Comparator<? extends T> elementComparator,
                                           @Nonnull Iterable<? extends T> it) {
-        if (it instanceof SortedSet) {
-            SortedSet<? extends T> sortedSet = (SortedSet<? extends T>)it;
-            Comparator<?> comparator = sortedSet.comparator();
-            if (comparator == null) {
-                return elementComparator.equals(Ordering.natural());
-            }
-            return elementComparator.equals(comparator);
+        if (it instanceof ArraySet) {
+            return true;
         }
         return false;
     }
 
     @Nonnull
-    private static <T> SortedSet<? extends T> toNaturalSortedSet(@Nonnull Collection<? extends T> collection) {
+    private static <T> Set<? extends T> toNaturalSortedSet(@Nonnull Collection<? extends T> collection) {
         if (isNaturalSortedSet(collection)) {
             return (SortedSet<? extends T>)collection;
         }
-        return ImmutableSortedSet.copyOf(collection);
+        return ArraySet.sortedCopy(collection.iterator());
     }
 
     @Nonnull
-    private static <T> SortedSet<? extends T> toSortedSet(@Nonnull Comparator<? super T> elementComparator,
+    private static <T> Set<? extends T> toSortedSet(@Nonnull Comparator<? super T> elementComparator,
                                                           @Nonnull Collection<? extends T> collection) {
         if (collection instanceof SortedSet) {
             SortedSet<? extends T> sortedSet = (SortedSet<? extends T>)collection;
@@ -173,7 +164,9 @@ public class CollectionUtils {
                 return sortedSet;
             }
         }
-        return ImmutableSortedSet.copyOf(elementComparator, collection);
+        ArraySet<? extends T> arraySet = new ArraySet<>(collection);
+        arraySet.sort(elementComparator);
+        return arraySet;
     }
 
     @Nonnull
@@ -189,11 +182,8 @@ public class CollectionUtils {
 
     public static <T extends Comparable<T>> int compareAsSet(@Nonnull Collection<? extends T> set1,
                                                              @Nonnull Collection<? extends T> set2) {
-        int res = Ints.compare(set1.size(), set2.size());
+        int res = Integer.compare(set1.size(), set2.size());
         if (res != 0) return res;
-
-        SortedSet<? extends T> sortedSet1 = toNaturalSortedSet(set1);
-        SortedSet<? extends T> sortedSet2 = toNaturalSortedSet(set2);
 
         Iterator<? extends T> elements2 = set2.iterator();
         for (T element1: set1) {
@@ -206,11 +196,11 @@ public class CollectionUtils {
     public static <T> int compareAsSet(@Nonnull Comparator<? super T> elementComparator,
                                        @Nonnull Collection<? extends T> list1,
                                        @Nonnull Collection<? extends T> list2) {
-        int res = Ints.compare(list1.size(), list2.size());
+        int res = Integer.compare(list1.size(), list2.size());
         if (res != 0) return res;
 
-        SortedSet<? extends T> set1 = toSortedSet(elementComparator, list1);
-        SortedSet<? extends T> set2 = toSortedSet(elementComparator, list2);
+        Set<? extends T> set1 = toSortedSet(elementComparator, list1);
+        Set<? extends T> set2 = toSortedSet(elementComparator, list2);
 
         Iterator<? extends T> elements2 = set2.iterator();
         for (T element1: set1) {

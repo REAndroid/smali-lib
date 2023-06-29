@@ -31,11 +31,11 @@
 
 package org.jf.dexlib2.dexbacked.raw;
 
-import com.google.common.base.Joiner;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 import org.jf.dexlib2.dexbacked.raw.util.DexAnnotator;
 import org.jf.dexlib2.util.AnnotatedBytes;
+import org.jf.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -73,7 +73,7 @@ public class ClassDefItem {
 
                 int accessFlags = dexFile.getBuffer().readInt(out.getCursor());
                 out.annotate(4, "access_flags = 0x%x: %s", accessFlags,
-                        Joiner.on('|').join(AccessFlags.getAccessFlagsForClass(accessFlags)));
+                        StringUtils.join("|", AccessFlags.getAccessFlagsForClass(accessFlags)));
 
                 int superclassIndex = dexFile.getBuffer().readOptionalUint(out.getCursor());
                 out.annotate(4, "superclass_idx = %s",

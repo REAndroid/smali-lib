@@ -36,8 +36,6 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.ParametersDelegate;
 import com.beust.jcommander.validators.PositiveInteger;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import org.jf.dexlib2.util.SyntheticAccessorResolver;
 import org.jf.util.ConsoleUtil;
 import org.jf.util.StringWrapper;
@@ -48,6 +46,8 @@ import org.xml.sax.SAXException;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -81,7 +81,7 @@ public class DisassembleCommand extends DexInputCommand {
                     "--resolve-resources android.R framework/res/values/public.xml. This option can be specified " +
                     "multiple times to provide resources from multiple packages.")
     @ExtendedParameter(argumentNames = {"resource prefix", "public.xml file"})
-    private List<String> resourceIdFiles = Lists.newArrayList();
+    private List<String> resourceIdFiles = new ArrayList<>();
 
     @Parameter(names = {"-j", "--jobs"},
             description = "The number of threads to use. Defaults to the number of cores available.",
@@ -121,7 +121,7 @@ public class DisassembleCommand extends DexInputCommand {
                     "The value is a comma-separated list of any of ALL, ALLPRE, ALLPOST, ARGS, DEST, MERGE and " +
                     "FULLMERGE. See \"baksmali help register-info\" for more information.")
     @ExtendedParameter(argumentNames = "register info specifier")
-    private List<String> registerInfoTypes = Lists.newArrayList();
+    private List<String> registerInfoTypes = new ArrayList<>();
 
     @Parameter(names = {"--sequential-labels", "--seq", "--sl"},
             description = "Create label names using a sequential numbering scheme per label type, rather than " +
@@ -177,7 +177,8 @@ public class DisassembleCommand extends DexInputCommand {
         }
 
         if (analysisArguments.classPathDirectories == null || analysisArguments.classPathDirectories.isEmpty()) {
-            analysisArguments.classPathDirectories = Lists.newArrayList(inputFile.getAbsoluteFile().getParent());
+            analysisArguments.classPathDirectories = new ArrayList<>(1);
+            analysisArguments.classPathDirectories.add(inputFile.getAbsoluteFile().getParent());
         }
 
         if (!Baksmali.disassembleDexFile(dexFile, outputDirectoryFile, jobs, getOptions(), classes)) {
@@ -216,7 +217,7 @@ public class DisassembleCommand extends DexInputCommand {
         }
 
         if (!resourceIdFiles.isEmpty()) {
-            Map<String, File> resourceFiles = Maps.newHashMap();
+            Map<String, File> resourceFiles = new HashMap<>();
 
             assert (resourceIdFiles.size() % 2) == 0;
             for (int i=0; i<resourceIdFiles.size(); i+=2) {

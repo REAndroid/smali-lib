@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.base.Function;
-import com.google.common.collect.*;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.ValueType;
@@ -47,14 +45,19 @@ import org.jf.dexlib2.writer.DexWriter;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.*;
 import org.jf.dexlib2.writer.util.StaticInitializerUtil;
 import org.jf.util.ExceptionWithContext;
+import org.jf.util.collection.ArraySet;
 import org.jf.util.collection.EmptyList;
+import org.jf.util.collection.Iterables;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
 public class DexBuilder extends DexWriter<BuilderStringReference, BuilderStringReference, BuilderTypeReference,
         BuilderTypeReference, BuilderMethodProtoReference, BuilderFieldReference, BuilderMethodReference,
@@ -95,7 +98,7 @@ public class DexBuilder extends DexWriter<BuilderStringReference, BuilderStringR
                                                @Nonnull Set<HiddenApiRestriction> hiddenApiRestrictions,
                                                @Nullable MethodImplementation methodImplementation) {
         if (parameters == null) {
-            parameters = ImmutableList.of();
+            parameters = ListUtil.of();
         }
         return new BuilderMethod(methodSection.internMethod(definingClass, name, parameters, returnType),
                 internMethodParameters(parameters),
@@ -114,9 +117,9 @@ public class DexBuilder extends DexWriter<BuilderStringReference, BuilderStringR
                                                    @Nullable Iterable<? extends BuilderField> fields,
                                                    @Nullable Iterable<? extends BuilderMethod> methods) {
         if (interfaces == null) {
-            interfaces = ImmutableList.of();
+            interfaces = ListUtil.of();
         } else {
-            Set<String> interfaces_copy = Sets.newHashSet(interfaces);
+            Set<String> interfaces_copy = new HashSet<>(interfaces);
             Iterator<String> interfaceIterator = interfaces.iterator();
             while (interfaceIterator.hasNext()) {
                 String iface = interfaceIterator.next();
@@ -128,12 +131,12 @@ public class DexBuilder extends DexWriter<BuilderStringReference, BuilderStringR
             }
         }
 
-        ImmutableSortedSet<BuilderField> staticFields = null;
-        ImmutableSortedSet<BuilderField> instanceFields = null;
+        Set<BuilderField> staticFields = null;
+        Set<BuilderField> instanceFields = null;
         BuilderArrayEncodedValue internedStaticInitializers = null;
         if (fields != null) {
-            staticFields = ImmutableSortedSet.copyOf(Iterables.filter(fields, FieldUtil.FIELD_IS_STATIC));
-            instanceFields = ImmutableSortedSet.copyOf(Iterables.filter(fields, FieldUtil.FIELD_IS_INSTANCE));
+            staticFields = ArraySet.copyOf(Iterables.filter(fields, FieldUtil.FIELD_IS_STATIC));
+            instanceFields = ArraySet.copyOf(Iterables.filter(fields, FieldUtil.FIELD_IS_INSTANCE));
             ArrayEncodedValue staticInitializers = StaticInitializerUtil.getStaticInitializers(staticFields);
             if (staticInitializers != null) {
                 internedStaticInitializers = encodedArraySection.internArrayEncodedValue(staticInitializers);
@@ -224,9 +227,11 @@ public class DexBuilder extends DexWriter<BuilderStringReference, BuilderStringR
         if (methodParameters == null) {
             return EmptyList.of();
         }
-        return ImmutableList.copyOf(Iterators.transform(methodParameters.iterator(),
+        return ListUtil.copyOf(Iterables.transform(methodParameters.iterator(),
                 new Function<MethodParameter, BuilderMethodParameter>() {
-                    @Nullable @Override public BuilderMethodParameter apply(MethodParameter input) {
+                    @Nullable
+                    @Override
+                    public BuilderMethodParameter apply(MethodParameter input) {
                         return internMethodParameter(input);
                     }
                 }));
@@ -305,8 +310,8 @@ public class DexBuilder extends DexWriter<BuilderStringReference, BuilderStringR
 
     @Nonnull Set<? extends BuilderAnnotationElement> internAnnotationElements(
             @Nonnull Set<? extends AnnotationElement> elements) {
-        return ImmutableSet.copyOf(
-                Iterators.transform(elements.iterator(),
+        return ArraySet.copyOf(
+                Iterables.transform(elements.iterator(),
                         new Function<AnnotationElement, BuilderAnnotationElement>() {
                             @Nullable @Override
                             public BuilderAnnotationElement apply(AnnotationElement input) {
@@ -371,18 +376,22 @@ public class DexBuilder extends DexWriter<BuilderStringReference, BuilderStringR
         }
     }
 
-    @Nonnull private BuilderAnnotationEncodedValue internAnnotationEncodedValue(@Nonnull AnnotationEncodedValue value) {
+    @Nonnull
+    private BuilderAnnotationEncodedValue internAnnotationEncodedValue(@Nonnull AnnotationEncodedValue value) {
         return new BuilderAnnotationEncodedValue(
                 typeSection.internType(value.getType()),
                 internAnnotationElements(value.getElements()));
     }
 
-    @Nonnull private BuilderArrayEncodedValue internArrayEncodedValue(@Nonnull ArrayEncodedValue value) {
+    @Nonnull
+    private BuilderArrayEncodedValue internArrayEncodedValue(@Nonnull ArrayEncodedValue value) {
         return new BuilderArrayEncodedValue(
-                ImmutableList.copyOf(
-                        Iterators.transform(value.getValue().iterator(),
+                ListUtil.copyOf(
+                        Iterables.transform(value.getValue().iterator(),
                                 new Function<EncodedValue, BuilderEncodedValue>() {
-                                    @Nullable @Override public BuilderEncodedValue apply(EncodedValue input) {
+                                    @Nullable
+                                    @Override
+                                    public BuilderEncodedValue apply(EncodedValue input) {
                                         return internEncodedValue(input);
                                     }
                                 })));

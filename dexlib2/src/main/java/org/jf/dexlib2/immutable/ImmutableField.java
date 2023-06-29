@@ -31,10 +31,6 @@
 
 package org.jf.dexlib2.immutable;
 
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
-import com.google.common.collect.ImmutableSortedSet;
-import com.google.common.collect.Ordering;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.base.reference.BaseFieldReference;
 import org.jf.dexlib2.iface.Annotation;
@@ -44,6 +40,8 @@ import org.jf.dexlib2.immutable.value.ImmutableEncodedValue;
 import org.jf.dexlib2.immutable.value.ImmutableEncodedValueFactory;
 import org.jf.util.ImmutableConverter;
 import org.jf.util.ImmutableUtils;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.SetUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -56,8 +54,8 @@ public class ImmutableField extends BaseFieldReference implements Field {
     @Nonnull protected final String type;
     protected final int accessFlags;
     @Nullable protected final ImmutableEncodedValue initialValue;
-    @Nonnull protected final ImmutableSet<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nonnull protected final Set<? extends ImmutableAnnotation> annotations;
+    @Nonnull protected final Set<HiddenApiRestriction> hiddenApiRestrictions;
 
     public ImmutableField(@Nonnull String definingClass,
                           @Nonnull String name,
@@ -73,7 +71,7 @@ public class ImmutableField extends BaseFieldReference implements Field {
         this.initialValue = ImmutableEncodedValueFactory.ofNullable(initialValue);
         this.annotations = ImmutableAnnotation.immutableSetOf(annotations);
         this.hiddenApiRestrictions =
-                hiddenApiRestrictions == null ? ImmutableSet.of() : ImmutableSet.copyOf(hiddenApiRestrictions);
+                hiddenApiRestrictions == null ? SetUtil.of() : ArraySet.copyOf(hiddenApiRestrictions);
     }
 
     public ImmutableField(@Nonnull String definingClass,
@@ -81,8 +79,8 @@ public class ImmutableField extends BaseFieldReference implements Field {
                           @Nonnull String type,
                           int accessFlags,
                           @Nullable ImmutableEncodedValue initialValue,
-                          @Nullable ImmutableSet<? extends ImmutableAnnotation> annotations,
-                          @Nullable ImmutableSet<HiddenApiRestriction> hiddenApiRestrictions) {
+                          @Nullable Set<? extends ImmutableAnnotation> annotations,
+                          @Nullable Set<HiddenApiRestriction> hiddenApiRestrictions) {
         this.definingClass = definingClass;
         this.name = name;
         this.type = type;
@@ -111,12 +109,12 @@ public class ImmutableField extends BaseFieldReference implements Field {
     @Nonnull @Override public String getType() { return type; }
     @Override public int getAccessFlags() { return accessFlags; }
     @Override public EncodedValue getInitialValue() { return initialValue;}
-    @Nonnull @Override public ImmutableSet<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
+    @Nonnull @Override public Set<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
     @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() { return hiddenApiRestrictions; }
 
     @Nonnull
-    public static ImmutableSortedSet<ImmutableField> immutableSetOf(@Nullable Iterable<? extends Field> list) {
-        return CONVERTER.toSortedSet(Ordering.natural(), list);
+    public static Set<ImmutableField> immutableSetOf(@Nullable Iterable<? extends Field> list) {
+        return CONVERTER.toSortedSet(list);
     }
 
     private static final ImmutableConverter<ImmutableField, Field> CONVERTER =

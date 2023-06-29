@@ -31,9 +31,8 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.collect.ImmutableSet;
-import org.jf.util.collection.EmptySet;
 import org.jf.dexlib2.writer.DexWriter;
+import org.jf.util.collection.EmptySet;
 
 import javax.annotation.Nonnull;
 import java.util.AbstractSet;
@@ -42,7 +41,7 @@ import java.util.Set;
 
 public class BuilderAnnotationSet extends AbstractSet<BuilderAnnotation> {
     public static final BuilderAnnotationSet EMPTY =
-            new BuilderAnnotationSet(ImmutableSet.<BuilderAnnotation>of());
+            new BuilderAnnotationSet(EmptySet.<BuilderAnnotation>of());
 
     @Nonnull final Set<BuilderAnnotation> annotations;
     int offset = DexWriter.NO_OFFSET;

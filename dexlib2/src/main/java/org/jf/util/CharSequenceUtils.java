@@ -31,21 +31,30 @@
 
 package org.jf.util;
 
-import com.google.common.base.Function;
-import com.google.common.base.Functions;
-import com.google.common.collect.Lists;
+
+import org.jf.util.collection.ListUtil;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class CharSequenceUtils {
-    private static final Function<Object, String> TO_STRING = Functions.toStringFunction();
+    private static final Function<Object, String> TO_STRING = new Function<Object, String>() {
+        @Override
+        public String apply(Object obj) {
+            return String.valueOf(obj);
+        }
+    };
 
     public static int listHashCode(List<? extends CharSequence> list) {
-        return Lists.transform(list, TO_STRING).hashCode();
+        return ListUtil.transform(list, TO_STRING).hashCode();
     }
 
     public static boolean listEquals(List<? extends CharSequence> list1, List<? extends CharSequence> list2) {
-        return Lists.transform(list1, TO_STRING).equals(
-                Lists.transform(list2, TO_STRING));
+        if(list1.size() != list2.size()){
+            return false;
+        }
+        List<String> listStr1 = ListUtil.transform(list1, TO_STRING);
+        List<String> listStr2 = ListUtil.transform(list1, TO_STRING);
+        return listStr1.containsAll(listStr2) && listStr2.containsAll(listStr1);
     }
 }

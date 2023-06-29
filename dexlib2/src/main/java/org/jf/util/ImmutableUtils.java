@@ -31,34 +31,29 @@
 
 package org.jf.util;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSortedSet;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.ListUtil;
+import org.jf.util.collection.SetUtil;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Set;
 
 public class ImmutableUtils {
     @Nonnull
-    public static <T> ImmutableList<T> nullToEmptyList(@Nullable ImmutableList<T> list) {
-        if (list == null) {
-            return ImmutableList.of();
-        }
-        return list;
+    public static <T> List<T> nullToEmptyList(List<T> list) {
+        return ListUtil.nullToEmptyList(list);
     }
 
     @Nonnull
-    public static <T> ImmutableSet<T> nullToEmptySet(@Nullable ImmutableSet<T> set) {
-        if (set == null) {
-            return ImmutableSet.of();
-        }
-        return set;
+    public static <T> Set<T> nullToEmptySet(Set<T> set) {
+        return SetUtil.nullToEmptySet(set);
     }
 
     @Nonnull
-    public static <T> ImmutableSortedSet<T> nullToEmptySortedSet(@Nullable ImmutableSortedSet<T> set) {
+    public static <T> Set<T> nullToEmptySortedSet(Set<T> set) {
         if (set == null) {
-            return ImmutableSortedSet.of();
+            return ArraySet.of();
         }
         return set;
     }

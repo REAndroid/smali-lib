@@ -31,15 +31,11 @@
 
 package org.jf.dexlib2.writer.builder;
 
-import com.google.common.collect.Ordering;
 import org.jf.dexlib2.base.reference.BaseMethodProtoReference;
 import org.jf.dexlib2.iface.reference.MethodProtoReference;
 import org.jf.dexlib2.writer.DexWriter;
-import org.jf.util.CharSequenceUtils;
-import org.jf.util.CollectionUtils;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class BuilderMethodProtoReference extends BaseMethodProtoReference implements
