@@ -34,10 +34,10 @@ package org.jf.util.jcommander;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterDescription;
 import com.beust.jcommander.Parameters;
-import com.google.common.base.Joiner;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
+import org.jf.util.StringUtils;
 import org.jf.util.WrappedIndentingWriter;
+import org.jf.util.collection.Iterables;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -71,7 +71,7 @@ public class HelpFormatter {
 
     @Nonnull
     private static List<String> getCommandAliases(JCommander jc) {
-        return Lists.newArrayList(getExtendedParameters(jc).commandAliases());
+        return ListUtil.newArrayList(getExtendedParameters(jc).commandAliases());
     }
 
     private static boolean includeParametersInUsage(@Nonnull JCommander jc) {
@@ -95,7 +95,7 @@ public class HelpFormatter {
     }
 
     private List<ParameterDescription> getSortedParameters(JCommander jc) {
-        List<ParameterDescription> parameters = Lists.newArrayList(jc.getParameters());
+        List<ParameterDescription> parameters = ListUtil.newArrayList(jc.getParameters());
 
         final Pattern pattern = Pattern.compile("^-*(.*)$");
 
@@ -196,7 +196,7 @@ public class HelpFormatter {
                         writer.write("\n");
                         writer.indent(4);
                         if (!param.getNames().isEmpty()) {
-                            writer.write(Joiner.on(',').join(param.getParameter().names()));
+                            writer.write(StringUtils.join("," , param.getParameter().names()));
                         }
                         if (getParameterArity(param) > 0) {
                             String[] argumentNames = ExtendedCommands.parameterArgumentNames(param);
@@ -265,7 +265,7 @@ public class HelpFormatter {
                 writer.indent(2);
 
 
-                List<Entry<String, JCommander>> entryList = Lists.newArrayList(leafJc.getCommands().entrySet());
+                List<Entry<String, JCommander>> entryList = ListUtil.newArrayList(leafJc.getCommands().entrySet());
                 Collections.sort(entryList, new Comparator<Entry<String, JCommander>>() {
                     @Override public int compare(Entry<String, JCommander> o1, Entry<String, JCommander> o2) {
                         return o1.getKey().compareTo(o2.getKey());
@@ -285,7 +285,7 @@ public class HelpFormatter {
                         List<String> aliases = getCommandAliases(command);
                         if (!aliases.isEmpty()) {
                             writer.write("(");
-                            writer.write(Joiner.on(',').join(aliases));
+                            writer.write(StringUtils.join(",", aliases));
                             writer.write(")");
                         }
 

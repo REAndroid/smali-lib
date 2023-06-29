@@ -28,9 +28,6 @@
 
 package org.jf.util;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
@@ -38,9 +35,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import static org.jf.util.PathUtil.testCaseSensitivity;
@@ -305,7 +303,7 @@ public class ClassFileNameHandler {
         // maps a normalized (but not suffixed) entry name to 1 or more FileSystemEntries.
         // Each FileSystemEntry associated with a normalized entry name must have a distinct
         // physical name
-        private final Multimap<String, FileSystemEntry> children = ArrayListMultimap.create();
+        private final Map<String, Set<FileSystemEntry>> children = new HashMap<>();
         private final Map<String, FileSystemEntry> physicalToEntry = new HashMap<>();
         private final Map<String, Integer> lastSuffixMap = new HashMap<>();
 
@@ -321,7 +319,11 @@ public class ClassFileNameHandler {
 
         public synchronized FileSystemEntry addChild(FileSystemEntry entry) throws IOException {
             String normalizedChildName = entry.getNormalizedName(false);
-            Collection<FileSystemEntry> entries = children.get(normalizedChildName);
+            Set<FileSystemEntry> entries = children.get(normalizedChildName);
+            if(entries == null){
+                entries = new HashSet<>();
+                children.put(normalizedChildName, entries);
+            }
             if (entry instanceof DirectoryEntry) {
                 for (FileSystemEntry childEntry: entries) {
                     if (childEntry.logicalName.equals(entry.logicalName)) {

@@ -82,7 +82,7 @@ public class Iterables {
         if(iterator == null){
             return true;
         }
-        return iterator.hasNext();
+        return !iterator.hasNext();
     }
     public static int size(Iterable<?> iterable) {
         return size(iterable.iterator());

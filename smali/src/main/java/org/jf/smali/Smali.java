@@ -31,8 +31,8 @@
 
 package org.jf.smali;
 
-import com.google.common.collect.Lists;
 import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenSource;
 import org.antlr.runtime.tree.CommonTree;
@@ -51,7 +51,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.*;
 
 public class Smali {
 
@@ -74,63 +73,46 @@ public class Smali {
      * @return true if assembly completed with no errors, or false if errors were encountered
      */
     public static boolean assemble(final SmaliOptions options, List<String> input) throws IOException {
-        TreeSet<File> filesToProcessSet = new TreeSet<File>();
+        boolean success = false;
+        final DexBuilder dexBuilder = new DexBuilder(Opcodes.forApi(options.apiLevel));
 
         for (String fileToProcess: input) {
             File argFile = new File(fileToProcess);
-
             if (!argFile.exists()) {
-                throw new IllegalArgumentException("Cannot find file or directory \"" + fileToProcess + "\"");
+                throw new IOException("Cannot find file or directory \"" + fileToProcess + "\"");
+            }
+            if(assemble(dexBuilder, argFile, options)){
+                success = true;
             }
 
-            if (argFile.isDirectory()) {
-                getSmaliFilesInDir(argFile, filesToProcessSet);
-            } else if (argFile.isFile()) {
-                filesToProcessSet.add(argFile);
-            }
         }
-
-        boolean errors = false;
-
-        final DexBuilder dexBuilder = new DexBuilder(Opcodes.forApi(options.apiLevel));
-
-        ExecutorService executor = Executors.newFixedThreadPool(options.jobs);
-        List<Future<Boolean>> tasks = Lists.newArrayList();
-
-        for (final File file: filesToProcessSet) {
-            tasks.add(executor.submit(new Callable<Boolean>() {
-                @Override public Boolean call() throws Exception {
-                    return assembleSmaliFile(file, dexBuilder, options);
-                }
-            }));
-        }
-
-        for (Future<Boolean> task: tasks) {
-            while(true) {
-                try {
-                    try {
-                        if (!task.get()) {
-                            errors = true;
-                        }
-                    } catch (ExecutionException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                } catch (InterruptedException ex) {
-                    continue;
-                }
-                break;
-            }
-        }
-
-        executor.shutdown();
-
-        if (errors) {
+        if (!success) {
             return false;
         }
 
         dexBuilder.writeTo(new FileDataStore(new File(options.outputDexFile)));
 
         return true;
+    }
+    private static boolean assemble(DexBuilder dexBuilder, File fileOrDir, final SmaliOptions options) throws IOException {
+
+        if(fileOrDir.isFile()){
+            if(!fileOrDir.getName().endsWith(".smali")){
+                return false;
+            }
+            return assembleSmaliFile(fileOrDir, dexBuilder, options);
+        }
+        File[] files = fileOrDir.listFiles();
+        if(files == null){
+            return false;
+        }
+        boolean success = false;
+        for(File file : files){
+            if(assemble(dexBuilder, file, options)){
+                success = true;
+            }
+        }
+        return success;
     }
 
     /**
@@ -188,7 +170,7 @@ public class Smali {
     }
 
     private static boolean assembleSmaliFile(File smaliFile, DexBuilder dexBuilder, SmaliOptions options)
-            throws Exception {
+            throws IOException {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(smaliFile);
@@ -224,7 +206,12 @@ public class Smali {
             parser.setAllowOdex(options.allowOdexOpcodes);
             parser.setApiLevel(options.apiLevel);
 
-            smaliParser.smali_file_return result = parser.smali_file();
+            smaliParser.smali_file_return result = null;
+            try {
+                result = parser.smali_file();
+            } catch (RecognitionException ex) {
+                throw new IOException(ex);
+            }
 
             if (parser.getNumberOfSyntaxErrors() > 0 || lexer.getNumberOfSyntaxErrors() > 0) {
                 return false;
@@ -244,7 +231,11 @@ public class Smali {
 
             dexGen.setVerboseErrors(options.verboseErrors);
             dexGen.setDexBuilder(dexBuilder);
-            dexGen.smali_file();
+            try {
+                dexGen.smali_file();
+            } catch (RecognitionException ex) {
+                throw new IOException(ex);
+            }
 
             return dexGen.getNumberOfSyntaxErrors() == 0;
         } finally {

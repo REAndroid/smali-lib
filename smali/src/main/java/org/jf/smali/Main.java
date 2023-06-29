@@ -33,8 +33,8 @@ package org.jf.smali;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import com.google.common.collect.Lists;
 import org.jf.smali.HelpCommand.HlepCommand;
+import org.jf.util.collection.ListUtil;
 import org.jf.util.jcommander.Command;
 import org.jf.util.jcommander.ExtendedCommands;
 import org.jf.util.jcommander.ExtendedParameters;
@@ -69,7 +69,7 @@ public class Main extends Command {
     }
 
     public Main() {
-        super(Lists.<JCommander>newArrayList());
+        super(ListUtil.<JCommander>newArrayList());
     }
 
     public static void main(String[] args) {

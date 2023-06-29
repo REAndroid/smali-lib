@@ -31,9 +31,9 @@
 
 package org.jf.smali;
 
-import com.google.common.collect.ImmutableSet;
 import org.jf.dexlib2.base.BaseMethodParameter;
 import org.jf.dexlib2.iface.Annotation;
+import org.jf.util.collection.EmptySet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,7 +49,7 @@ public class SmaliMethodParameter extends BaseMethodParameter implements WithReg
     public SmaliMethodParameter(int register, @Nonnull String type) {
         this.register = register;
         this.type = type;
-        this.annotations = ImmutableSet.of();
+        this.annotations = EmptySet.of();
     }
 
     @Override public int getRegister() { return register; }

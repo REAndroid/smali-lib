@@ -32,9 +32,9 @@
 package org.jf.util.jcommander;
 
 import com.beust.jcommander.JCommander;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import org.jf.util.ConsoleUtil;
+import org.jf.util.collection.Iterables;
+import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -63,7 +63,7 @@ public abstract class Command {
     }
 
     public List<JCommander> getCommandHierarchy() {
-        List<JCommander> commandHierarchy = Lists.newArrayList(commandAncestors);
+        List<JCommander> commandHierarchy = ListUtil.newArrayList(commandAncestors);
         commandHierarchy.add(getJCommander());
         return commandHierarchy;
     }

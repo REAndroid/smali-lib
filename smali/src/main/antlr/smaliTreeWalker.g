@@ -36,10 +36,8 @@ options {
 @header {
 package org.jf.smali;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import org.jf.util.collection.Iterables;
+import org.jf.util.collection.ListUtil;
 import org.antlr.runtime.BitSet;
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.CommonTree;
@@ -208,7 +206,7 @@ implements_spec returns[String type]
 
 implements_list returns[List<String> implementsList]
 @init { List<String> typeList; }
-  : {typeList = Lists.newArrayList();}
+  : {typeList = ListUtil.newArrayList();}
     (implements_spec {typeList.add($implements_spec.type);} )*
   {
     if (typeList.size() > 0) {
@@ -268,16 +266,16 @@ access_or_restriction_list returns[int value, Set<HiddenApiRestriction> hiddenAp
         }
       )*)
       {
-        ImmutableSet.Builder builder = ImmutableSet.builder();
+        HashSet builder = new HashSet();
         if (hiddenApiRestriction != null) {
           builder.add(hiddenApiRestriction);
         }
         builder.addAll(domainSpecificApiRestrictions);
-        $hiddenApiRestrictions = builder.build();
+        $hiddenApiRestrictions = builder;
       };
 
 fields returns[List<BuilderField> fields]
-  @init {$fields = Lists.newArrayList();}
+  @init {$fields = ListUtil.newArrayList();}
   : ^(I_FIELDS
       (field
       {
@@ -285,7 +283,7 @@ fields returns[List<BuilderField> fields]
       })*);
 
 methods returns[List<BuilderMethod> methods]
-  @init {$methods = Lists.newArrayList();}
+  @init {$methods = ListUtil.newArrayList();}
   : ^(I_METHODS
       (method
       {
@@ -364,7 +362,7 @@ fixed_32bit_literal returns[int value]
   | bool_literal { $value = $bool_literal.value?1:0; };
 
 array_elements returns[List<Number> elements]
-  : {$elements = Lists.newArrayList();}
+  : {$elements = ListUtil.newArrayList();}
     ^(I_ARRAY_ELEMENTS
       (fixed_64bit_literal_number
       {
@@ -372,14 +370,14 @@ array_elements returns[List<Number> elements]
       })*);
 
 packed_switch_elements returns[List<Label> elements]
-  @init {$elements = Lists.newArrayList();}
+  @init {$elements = ListUtil.newArrayList();}
   :
     ^(I_PACKED_SWITCH_ELEMENTS
       (label_ref { $elements.add($label_ref.label); })*
     );
 
 sparse_switch_elements returns[List<SwitchLabelElement> elements]
-  @init {$elements = Lists.newArrayList();}
+  @init {$elements = ListUtil.newArrayList();}
   :
     ^(I_SPARSE_SWITCH_ELEMENTS
        (fixed_32bit_literal label_ref
@@ -524,7 +522,7 @@ method_name_and_prototype returns[String name, List<SmaliMethodParameter> parame
   : SIMPLE_NAME method_prototype
   {
     $name = $SIMPLE_NAME.text;
-    $parameters = Lists.newArrayList();
+    $parameters = ListUtil.newArrayList();
 
     int paramRegister = 0;
     for (CharSequence type: $method_prototype.proto.getParameterTypes()) {
@@ -540,7 +538,7 @@ method_name_and_prototype returns[String name, List<SmaliMethodParameter> parame
 method_type_list returns[List<String> types]
   @init
   {
-    $types = Lists.newArrayList();
+    $types = ListUtil.newArrayList();
   }
   : (
       nonvoid_type_descriptor
@@ -625,7 +623,7 @@ label_def
   };
 
 catches returns[List<BuilderTryBlock> tryBlocks]
-  @init {tryBlocks = Lists.newArrayList();}
+  @init {tryBlocks = ListUtil.newArrayList();}
   : ^(I_CATCHES catch_directive* catchall_directive*);
 
 catch_directive
@@ -736,7 +734,7 @@ source
     };
 
 call_site_extra_arguments returns[List<ImmutableEncodedValue> extraArguments]
-  : { $extraArguments = Lists.newArrayList(); }
+  : { $extraArguments = ListUtil.newArrayList(); }
   ^(I_CALL_SITE_EXTRA_ARGUMENTS (literal { $extraArguments.add($literal.encodedValue); })*);
 
 ordered_method_items
@@ -1412,11 +1410,11 @@ bool_literal returns[boolean value]
   : BOOL_LITERAL { $value = Boolean.parseBoolean($BOOL_LITERAL.text); };
 
 array_literal returns[List<EncodedValue> elements]
-  : {$elements = Lists.newArrayList();}
+  : {$elements = ListUtil.newArrayList();}
     ^(I_ENCODED_ARRAY (literal {$elements.add($literal.encodedValue);})*);
 
 annotations returns[Set<Annotation> annotations]
-  : {HashMap<String, Annotation> annotationMap = Maps.newHashMap();}
+  : {HashMap<String, Annotation> annotationMap = new HashMap<>();}
     ^(I_ANNOTATIONS (annotation
     {
         Annotation anno = $annotation.annotation;
@@ -1426,7 +1424,7 @@ annotations returns[Set<Annotation> annotations]
         }
     })*)
     {
-        $annotations = ImmutableSet.copyOf(annotationMap.values());
+        $annotations = new HashSet<>(annotationMap.values());
     };
 
 annotation returns[Annotation annotation]
@@ -1443,7 +1441,7 @@ annotation_element returns[AnnotationElement element]
     };
 
 subannotation returns[String annotationType, List<AnnotationElement> elements]
-  : {ArrayList<AnnotationElement> elements = Lists.newArrayList();}
+  : {ArrayList<AnnotationElement> elements = ListUtil.newArrayList();}
     ^(I_SUBANNOTATION
         CLASS_DESCRIPTOR
         (annotation_element

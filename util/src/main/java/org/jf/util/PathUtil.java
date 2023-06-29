@@ -28,7 +28,7 @@
 
 package org.jf.util;
 
-import com.google.common.collect.Lists;
+import org.jf.util.collection.ListUtil;
 
 import java.io.*;
 import java.nio.CharBuffer;
@@ -113,7 +113,7 @@ public class PathUtil {
             file = parentFile;
         }
 
-        return Lists.reverse(path);
+        return ListUtil.reverse(path);
     }
 
     public static boolean testCaseSensitivity(File path) throws IOException {
