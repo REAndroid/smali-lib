@@ -47,7 +47,7 @@ public class ListUtil {
     }
     public static<T> List<T> reverse(List<T> list) {
         List<T> results = new ArrayList<>(list.size());
-        for(int i = list.size() - 1; i > 0; i--){
+        for(int i = list.size() - 1; i >= 0; i--){
             results.add(list.get(i));
         }
         return results;
