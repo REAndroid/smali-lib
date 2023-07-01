@@ -37,13 +37,13 @@ public class ConcatIterators<T> implements Iterator<T> {
         if(next != null){
             return next;
         }
-        Iterator<? extends T> current = getCurrentIterator();
+        Iterator<? extends T> current = getCurrent();
         if(current == null){
             return null;
         }
         while (next == null && current != null){
             next = current.next();
-            current = getCurrentIterator();
+            current = getCurrent();
         }
         mNext = next;
         return next;
