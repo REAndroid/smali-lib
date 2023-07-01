@@ -170,6 +170,14 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
         arraySet.addAll(elements);
         return arraySet;
     }
+    public static <E> ArraySet<E> copyOfElements(E... elements) {
+        if (elements == null || elements.length == 0) {
+            return EmptySet.of();
+        }
+        ArraySet<E> arraySet = new ArraySet<>();
+        arraySet.addAll(elements);
+        return arraySet;
+    }
     public static <E> ArraySet<E> of() {
         return EmptySet.of();
     }
