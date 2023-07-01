@@ -22,7 +22,6 @@ processResources.expand('version': version)
 
 // Build a separate jar that contains all dependencies
 task fatJar(type: Jar) {
-    exclude('com/google/**')
     from sourceSets.main.output
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 

@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2;
 
-import com.google.common.collect.ImmutableMap;
 import junit.framework.Assert;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.iface.DexFile;
@@ -46,6 +45,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,7 +56,7 @@ public class AccessorTest {
     private static final Map<String, Integer> operationTypes;
 
     static {
-        ImmutableMap.Builder<String, Integer> builder = ImmutableMap.builder();
+        Map<String, Integer> builder = new LinkedHashMap<>();
         builder.put("postinc", SyntheticAccessorResolver.POSTFIX_INCREMENT);
         builder.put("preinc", SyntheticAccessorResolver.PREFIX_INCREMENT);
         builder.put("postdec", SyntheticAccessorResolver.POSTFIX_DECREMENT);
@@ -72,7 +72,7 @@ public class AccessorTest {
         builder.put("shl", SyntheticAccessorResolver.SHL_ASSIGNMENT);
         builder.put("shr", SyntheticAccessorResolver.SHR_ASSIGNMENT);
         builder.put("ushr", SyntheticAccessorResolver.USHR_ASSIGNMENT);
-        operationTypes = builder.build();
+        operationTypes = builder;
     }
 
     @Test

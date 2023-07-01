@@ -43,7 +43,6 @@ import org.jf.dexlib2.util.MethodUtil;
 import org.jf.util.ExceptionWithContext;
 import org.jf.util.SparseArray;
 import org.jf.util.StringUtils;
-import org.jf.util.base.Supplier;
 import org.jf.util.base.Suppliers;
 import org.jf.util.collection.EmptySet;
 import org.jf.util.collection.Iterables;
@@ -53,6 +52,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Supplier;
 
 /**
  * A class "prototype". This contains things like the interfaces, the superclass, the vtable and the instance fields

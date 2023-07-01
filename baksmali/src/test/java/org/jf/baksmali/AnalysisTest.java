@@ -31,8 +31,6 @@
 
 package org.jf.baksmali;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
 import junit.framework.Assert;
 import org.jf.baksmali.Adaptors.ClassDefinition;
 import org.jf.baksmali.formatter.BaksmaliWriter;
@@ -42,6 +40,7 @@ import org.jf.dexlib2.analysis.ClassPath;
 import org.jf.dexlib2.analysis.ClassProvider;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.iface.DexFile;
+import org.jf.util.io.ByteStreams;
 import org.junit.Test;
 
 import javax.annotation.Nonnull;
@@ -50,6 +49,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class AnalysisTest {
@@ -128,13 +128,14 @@ public class AnalysisTest {
 
     @Nonnull
     private File findResource(String resource) throws URISyntaxException {
-        URL resUrl = Resources.getResource(resource);
+        ClassLoader loader = getClass().getClassLoader();
+        URL resUrl = loader.getResource(resource);
         return new File(resUrl.toURI());
     }
 
     @Nonnull
-    private String readResource(String resource) throws URISyntaxException, IOException {
-        URL url = Resources.getResource(resource);
-        return Resources.toString(url, Charsets.UTF_8);
+    private String readResource(String resource) throws IOException {
+        byte[] bytes = ByteStreams.toByteArray(AnalysisTest.class.getResourceAsStream(resource));
+        return new String(bytes, 0, bytes.length, StandardCharsets.UTF_8);
     }
 }

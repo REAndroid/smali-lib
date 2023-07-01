@@ -89,7 +89,7 @@ public class DexBackedClassDef extends BaseTypeReference implements ClassDef {
             directMethodCount = 0;
             virtualMethodCount = 0;
         } else {
-            DexReader reader = dexFile.getDataBuffer().readerAt(classDataOffset);
+            DexReader<?> reader = dexFile.getDataBuffer().readerAt(classDataOffset);
             staticFieldCount = reader.readSmallUleb128();
             instanceFieldCount = reader.readSmallUleb128();
             directMethodCount = reader.readSmallUleb128();

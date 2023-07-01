@@ -31,15 +31,16 @@
 
 package org.jf.dexlib2.analysis;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
 import junit.framework.Assert;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.immutable.ImmutableDexFile;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.ListUtil;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Set;
 
 public class CommonSuperclassTest {
     // object tree:
@@ -58,7 +59,7 @@ public class CommonSuperclassTest {
 
 
     public CommonSuperclassTest() throws IOException {
-        ImmutableSet<ClassDef> classes = ImmutableSet.of(
+        Set<ClassDef> classes = ArraySet.of(
                 TestUtils.makeClassDef("Ljava/lang/Object;", null),
                 TestUtils.makeClassDef("Ltest/one;", "Ljava/lang/Object;"),
                 TestUtils.makeClassDef("Ltest/two;", "Ljava/lang/Object;"),
@@ -94,7 +95,7 @@ public class CommonSuperclassTest {
                         "Liface/sub2;", "Liface/sub3;", "Liface/sub4;"));
 
         oldClassPath = new ClassPath(new DexClassProvider(new ImmutableDexFile(Opcodes.getDefault(), classes)));
-        newClassPath = new ClassPath(Lists.newArrayList(new DexClassProvider(
+        newClassPath = new ClassPath(ListUtil.newArrayList(new DexClassProvider(
                 new ImmutableDexFile(Opcodes.forArtVersion(72), classes))), true, 72);
     }
 

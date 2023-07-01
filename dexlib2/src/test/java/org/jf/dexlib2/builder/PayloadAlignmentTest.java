@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.builder;
 
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.builder.instruction.*;
 import org.jf.dexlib2.iface.instruction.Instruction;
@@ -39,6 +38,7 @@ import org.jf.dexlib2.iface.instruction.OffsetInstruction;
 import org.jf.dexlib2.iface.instruction.formats.Instruction31t;
 import org.jf.dexlib2.iface.instruction.formats.PackedSwitchPayload;
 import org.jf.dexlib2.iface.instruction.formats.SparseSwitchPayload;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -54,7 +54,7 @@ public class PayloadAlignmentTest {
         implBuilder.addInstruction(new BuilderArrayPayload(4, null));
 
         List<? extends Instruction> instructions =
-                Lists.newArrayList(implBuilder.getMethodImplementation().getInstructions());
+                ListUtil.newArrayList(implBuilder.getMethodImplementation().getInstructions());
 
         Assert.assertEquals(instructions.size(), 1);
 
@@ -71,7 +71,7 @@ public class PayloadAlignmentTest {
         implBuilder.addInstruction(new BuilderArrayPayload(4, null));
 
         List<? extends Instruction> instructions =
-                Lists.newArrayList(implBuilder.getMethodImplementation().getInstructions());
+                ListUtil.newArrayList(implBuilder.getMethodImplementation().getInstructions());
 
         Assert.assertEquals(instructions.size(), 3);
 
@@ -98,7 +98,7 @@ public class PayloadAlignmentTest {
         implBuilder.addLabel("array_payload");
         implBuilder.addInstruction(new BuilderArrayPayload(4, null));
 
-        List<Instruction> instructions = Lists.newArrayList(implBuilder.getMethodImplementation().getInstructions());
+        List<Instruction> instructions = ListUtil.newArrayList(implBuilder.getMethodImplementation().getInstructions());
 
         checkInstructions(instructions,
                 new Opcode[]{Opcode.FILL_ARRAY_DATA,
@@ -124,7 +124,7 @@ public class PayloadAlignmentTest {
         implBuilder.addLabel("array_payload");
         implBuilder.addInstruction(new BuilderArrayPayload(4, null));
 
-        List<Instruction> instructions = Lists.newArrayList(implBuilder.getMethodImplementation().getInstructions());
+        List<Instruction> instructions = ListUtil.newArrayList(implBuilder.getMethodImplementation().getInstructions());
 
         checkInstructions(instructions,
                 new Opcode[]{Opcode.FILL_ARRAY_DATA,
@@ -155,7 +155,7 @@ public class PayloadAlignmentTest {
         implBuilder.addInstruction(new BuilderInstruction10t(Opcode.GOTO, implBuilder.getLabel("goto_target")));
 
         implBuilder.addLabel("switch_payload");
-        implBuilder.addInstruction(new BuilderPackedSwitchPayload(0, Lists.newArrayList(
+        implBuilder.addInstruction(new BuilderPackedSwitchPayload(0, ListUtil.newArrayList(
                 implBuilder.getLabel("switch_target_1"),
                 implBuilder.getLabel("switch_target_2"),
                 implBuilder.getLabel("switch_target_3"))));
@@ -173,7 +173,7 @@ public class PayloadAlignmentTest {
         implBuilder.addInstruction(new BuilderInstruction31t(Opcode.PACKED_SWITCH, 0,
                 implBuilder.getLabel("switch_payload")));
 
-        List<Instruction> instructions = Lists.newArrayList(implBuilder.getMethodImplementation().getInstructions());
+        List<Instruction> instructions = ListUtil.newArrayList(implBuilder.getMethodImplementation().getInstructions());
 
         checkInstructions(instructions,
                 new Opcode[]{Opcode.GOTO,
@@ -206,7 +206,7 @@ public class PayloadAlignmentTest {
         implBuilder.addInstruction(new BuilderInstruction10t(Opcode.GOTO, implBuilder.getLabel("goto_target")));
 
         implBuilder.addLabel("switch_payload");
-        implBuilder.addInstruction(new BuilderSparseSwitchPayload(Lists.newArrayList(
+        implBuilder.addInstruction(new BuilderSparseSwitchPayload(ListUtil.newArrayList(
                 new SwitchLabelElement(0, implBuilder.getLabel("switch_target_1")),
                 new SwitchLabelElement(5, implBuilder.getLabel("switch_target_2")),
                 new SwitchLabelElement(10, implBuilder.getLabel("switch_target_3")))));
@@ -224,7 +224,7 @@ public class PayloadAlignmentTest {
         implBuilder.addInstruction(new BuilderInstruction31t(Opcode.SPARSE_SWITCH, 0,
                 implBuilder.getLabel("switch_payload")));
 
-        List<Instruction> instructions = Lists.newArrayList(implBuilder.getMethodImplementation().getInstructions());
+        List<Instruction> instructions = ListUtil.newArrayList(implBuilder.getMethodImplementation().getInstructions());
 
         checkInstructions(instructions,
                 new Opcode[]{Opcode.GOTO,

@@ -1,6 +1,5 @@
 package org.jf.dexlib2.builder;
 
-import com.google.common.collect.Sets;
 import org.jf.dexlib2.builder.debug.BuilderLineNumber;
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,7 +28,7 @@ public class LocatedItemsTest {
 
         location1.mergeInto(location2);
 
-        Assert.assertEquals(Sets.newHashSet(), location1.getDebugItems());
+        Assert.assertTrue(location1.getDebugItems().isEmpty());
         // items1 appear BEFORE items2
         List<BuilderDebugItem> expectedItems = new ArrayList<>(items1);
         expectedItems.addAll(items2);

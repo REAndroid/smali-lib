@@ -31,9 +31,9 @@
 
 package org.jf.baksmali;
 
-import com.google.common.collect.Iterables;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 import org.jf.dexlib2.iface.ClassDef;
+import org.jf.util.collection.Iterables;
 import org.junit.Assert;
 
 import javax.annotation.Nonnull;

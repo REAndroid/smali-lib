@@ -8,9 +8,6 @@ dependencies {
 
 }
 
-jar {
-    exclude('com/google/**')
-}
 
 // You must manually execute this task to regenerate SyntheticAccessorFSM.java, after modifying the ragel file
 // e.g. ./gradlew ragel

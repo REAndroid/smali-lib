@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.analysis;
 
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.Opcodes;
@@ -49,6 +48,7 @@ import org.jf.dexlib2.immutable.ImmutableDexFile;
 import org.jf.dexlib2.immutable.ImmutableMethod;
 import org.jf.dexlib2.immutable.ImmutableMethodParameter;
 import org.jf.dexlib2.immutable.reference.ImmutableTypeReference;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -81,7 +81,7 @@ public class MethodAnalyzerTest {
                 null, null, null, Collections.singletonList(method));
         DexFile dexFile = new ImmutableDexFile(forArtVersion(56), Collections.singletonList(classDef));
 
-        ClassPath classPath = new ClassPath(Lists.newArrayList(new DexClassProvider(dexFile)), true, 56);
+        ClassPath classPath = new ClassPath(ListUtil.newArrayList(new DexClassProvider(dexFile)), true, 56);
         MethodAnalyzer methodAnalyzer = new MethodAnalyzer(classPath, method, null, false);
 
         List<AnalyzedInstruction> analyzedInstructions = methodAnalyzer.getAnalyzedInstructions();
@@ -144,7 +144,7 @@ public class MethodAnalyzerTest {
                 null, null, null, Collections.singletonList(method));
         DexFile dexFile = new ImmutableDexFile(forArtVersion(56), Collections.singletonList(classDef));
 
-        ClassPath classPath = new ClassPath(Lists.newArrayList(new DexClassProvider(dexFile)), true, 56);
+        ClassPath classPath = new ClassPath(ListUtil.newArrayList(new DexClassProvider(dexFile)), true, 56);
         MethodAnalyzer methodAnalyzer = new MethodAnalyzer(classPath, method, null, false);
 
         List<AnalyzedInstruction> analyzedInstructions = methodAnalyzer.getAnalyzedInstructions();
@@ -208,7 +208,7 @@ public class MethodAnalyzerTest {
                 null, null, null, Collections.singletonList(method));
         DexFile dexFile = new ImmutableDexFile(forArtVersion(56), Collections.singletonList(classDef));
 
-        ClassPath classPath = new ClassPath(Lists.newArrayList(new DexClassProvider(dexFile)), true, 56);
+        ClassPath classPath = new ClassPath(ListUtil.newArrayList(new DexClassProvider(dexFile)), true, 56);
         MethodAnalyzer methodAnalyzer = new MethodAnalyzer(classPath, method, null, false);
 
         List<AnalyzedInstruction> analyzedInstructions = methodAnalyzer.getAnalyzedInstructions();

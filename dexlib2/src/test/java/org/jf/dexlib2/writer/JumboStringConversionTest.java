@@ -31,10 +31,6 @@
 
 package org.jf.dexlib2.writer;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.ReferenceType;
@@ -52,6 +48,9 @@ import org.jf.dexlib2.iface.reference.StringReference;
 import org.jf.dexlib2.immutable.instruction.ImmutableInstruction10x;
 import org.jf.dexlib2.writer.builder.DexBuilder;
 import org.jf.dexlib2.writer.io.MemoryDataStore;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.Iterables;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -77,17 +76,17 @@ public class JumboStringConversionTest {
                 "Ljava/lang/Object;",
                 null,
                 null,
-                ImmutableSet.<Annotation>of(),
+                ArraySet.<Annotation>of(),
                 null,
-                ImmutableList.of(
+                ListUtil.of(
                         dexBuilder.internMethod(
                                 "Ltest;",
                                 "test",
                                 null,
                                 "V",
                                 0,
-                                ImmutableSet.<Annotation>of(),
-                                ImmutableSet.of(),
+                                ArraySet.<Annotation>of(),
+                                ArraySet.of(),
                                 methodBuilder.getMethodImplementation())));
 
         MemoryDataStore dexStore = new MemoryDataStore();
@@ -104,7 +103,7 @@ public class JumboStringConversionTest {
         MethodImplementation impl = method.getImplementation();
         Assert.assertNotNull(impl);
 
-        List<? extends Instruction> instructions = Lists.newArrayList(impl.getInstructions());
+        List<? extends Instruction> instructions = ListUtil.newArrayList(impl.getInstructions());
         Assert.assertEquals(66001, instructions.size());
 
         for (int i=0; i<65536; i++) {
@@ -125,7 +124,7 @@ public class JumboStringConversionTest {
     public void testJumboStringConversion_NonMethodBuilder() throws IOException {
         DexBuilder dexBuilder = new DexBuilder(Opcodes.getDefault());
 
-        final List<Instruction> instructions = Lists.newArrayList();
+        final List<Instruction> instructions = ListUtil.newArrayList();
         for (int i=0; i<66000; i++) {
             final StringReference ref = dexBuilder.internStringReference(String.format("%08d", i));
 
@@ -161,11 +160,11 @@ public class JumboStringConversionTest {
             }
 
             @Nonnull @Override public List<? extends TryBlock<? extends ExceptionHandler>> getTryBlocks() {
-                return ImmutableList.of();
+                return ListUtil.of();
             }
 
             @Nonnull @Override public Iterable<? extends DebugItem> getDebugItems() {
-                return ImmutableList.of();
+                return ListUtil.of();
             }
         };
 
@@ -175,17 +174,17 @@ public class JumboStringConversionTest {
                 "Ljava/lang/Object;",
                 null,
                 null,
-                ImmutableSet.<Annotation>of(),
+                ArraySet.<Annotation>of(),
                 null,
-                ImmutableList.of(
+                ListUtil.of(
                         dexBuilder.internMethod(
                                 "Ltest;",
                                 "test",
                                 null,
                                 "V",
                                 0,
-                                ImmutableSet.<Annotation>of(),
-                                ImmutableSet.of(),
+                                ArraySet.<Annotation>of(),
+                                ArraySet.of(),
                                 methodImpl)));
 
         MemoryDataStore dexStore = new MemoryDataStore();
@@ -202,7 +201,7 @@ public class JumboStringConversionTest {
         MethodImplementation impl = method.getImplementation();
         Assert.assertNotNull(impl);
 
-        List<? extends Instruction> actualInstructions = Lists.newArrayList(impl.getInstructions());
+        List<? extends Instruction> actualInstructions = ListUtil.newArrayList(impl.getInstructions());
         Assert.assertEquals(66001, actualInstructions.size());
 
         for (int i=0; i<65536; i++) {

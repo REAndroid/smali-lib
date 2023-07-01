@@ -31,13 +31,13 @@
 
 package org.jf.baksmali.formatter;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import org.jf.dexlib2.MethodHandleType;
 import org.jf.dexlib2.iface.reference.MethodHandleReference;
 import org.jf.dexlib2.immutable.ImmutableAnnotationElement;
 import org.jf.dexlib2.immutable.reference.*;
 import org.jf.dexlib2.immutable.value.*;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -139,7 +139,7 @@ public class BaksmaliWriterTest {
                 getInvokeStaticMethodHandleReferenceForMethodWithSpaces(),
                 "callSiteMethodName with spaces",
                 getMethodProtoReferenceWithSpaces(),
-                ImmutableList.of(
+                ListUtil.of(
                         new ImmutableFieldEncodedValue(getFieldReferenceWithSpaces()),
                         new ImmutableMethodEncodedValue(getMethodReferenceWithSpaces()))));
 
@@ -160,7 +160,7 @@ public class BaksmaliWriterTest {
 
         writer.writeEncodedValue(new ImmutableAnnotationEncodedValue(
                 "Lannotation/type with spaces;",
-                ImmutableSet.of(
+                ArraySet.of(
                         new ImmutableAnnotationElement("element with spaces 1",
                                 new ImmutableFieldEncodedValue(getFieldReferenceWithSpaces())),
                         new ImmutableAnnotationElement("element with spaces 2",
@@ -180,7 +180,7 @@ public class BaksmaliWriterTest {
     public void testWriteEncodedValue_array_withSpaces() throws IOException {
         BaksmaliWriter writer = new BaksmaliWriter(output);
 
-        writer.writeEncodedValue(new ImmutableArrayEncodedValue(ImmutableList.of(
+        writer.writeEncodedValue(new ImmutableArrayEncodedValue(ListUtil.of(
                 new ImmutableFieldEncodedValue(getFieldReferenceWithSpaces()),
                 new ImmutableMethodEncodedValue(getMethodReferenceWithSpaces()))));
 
@@ -366,13 +366,13 @@ public class BaksmaliWriterTest {
         return new ImmutableMethodReference(
                 "Ldefining/class/with spaces;",
                 "methodName with spaces",
-                ImmutableList.of("Lparam with spaces 1;", "Lparam with spaces 2;"),
+                ListUtil.of("Lparam with spaces 1;", "Lparam with spaces 2;"),
                 "Lreturn/type/with spaces;");
     }
 
     private ImmutableMethodProtoReference getMethodProtoReferenceWithSpaces() {
         return new ImmutableMethodProtoReference(
-                ImmutableList.of("Lparam with spaces 1;", "Lparam with spaces 2;"),
+                ListUtil.of("Lparam with spaces 1;", "Lparam with spaces 2;"),
                 "Lreturn/type/with spaces;");
     }
 

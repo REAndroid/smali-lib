@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.util;
 
-import com.google.common.collect.ImmutableList;
 import junit.framework.Assert;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.immutable.ImmutableMethodImplementation;
@@ -39,12 +38,15 @@ import org.jf.dexlib2.immutable.instruction.*;
 import org.jf.dexlib2.immutable.reference.ImmutableStringReference;
 import org.jf.dexlib2.immutable.reference.ImmutableTypeReference;
 import org.jf.util.ExceptionWithContext;
+import org.jf.util.collection.ListUtil;
 import org.junit.Test;
+
+import java.util.List;
 
 public class InstructionOffsetMapTest {
     @Test
     public void testInstructionOffsetMap() {
-        ImmutableList<ImmutableInstruction> instructions = ImmutableList.of(
+        List<ImmutableInstruction> instructions = ListUtil.of(
                 /*00: 0x00*/ new ImmutableInstruction10t(Opcode.GOTO, 1),
                 /*01: 0x01*/ new ImmutableInstruction10x(Opcode.NOP),
                 /*02: 0x02*/ new ImmutableInstruction11n(Opcode.CONST_4, 2, 3),

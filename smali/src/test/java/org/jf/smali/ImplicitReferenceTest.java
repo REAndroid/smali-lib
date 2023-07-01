@@ -31,8 +31,6 @@
 
 package org.jf.smali;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import junit.framework.Assert;
 import org.antlr.runtime.RecognitionException;
 import org.jf.dexlib2.Opcode;
@@ -49,9 +47,11 @@ import org.jf.dexlib2.iface.reference.MethodReference;
 import org.jf.dexlib2.iface.value.FieldEncodedValue;
 import org.jf.dexlib2.iface.value.MethodEncodedValue;
 import org.jf.dexlib2.iface.value.TypeEncodedValue;
+import org.jf.util.collection.ListUtil;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,7 +83,7 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
         MethodImplementation methodImpl = mainMethod.getImplementation();
         Assert.assertNotNull(methodImpl);
 
-        List<Instruction> instructions = Lists.newArrayList(methodImpl.getInstructions());
+        List<Instruction> instructions = ListUtil.newArrayList(methodImpl.getInstructions());
 
         Instruction35c instruction = (Instruction35c)instructions.get(0);
         Assert.assertNotNull(instruction);
@@ -117,7 +117,7 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
                 ".field public static field3:Ljava/lang/reflect/Method; = I()V\n" +
                 ".field public static field4:Ljava/lang/Class; = I");
 
-        Map<String, Field> fields = Maps.newHashMap();
+        Map<String, Field> fields = new HashMap<>();
         for (Field field: classDef.getFields()) {
             fields.put(field.getName(), field);
         }
@@ -178,7 +178,7 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
         MethodImplementation methodImpl = mainMethod.getImplementation();
         Assert.assertNotNull(methodImpl);
 
-        List<Instruction> instructions = Lists.newArrayList(methodImpl.getInstructions());
+        List<Instruction> instructions = ListUtil.newArrayList(methodImpl.getInstructions());
 
         Instruction21c instruction = (Instruction21c)instructions.get(0);
         Assert.assertNotNull(instruction);
@@ -211,7 +211,7 @@ public class ImplicitReferenceTest extends SmaliTestUtils {
                 ".field public static field2:Ljava/lang/reflect/Field; = V:I\n" +
                 ".field public static field3:Ljava/lang/reflect/Field; = I:I\n");
 
-        Map<String, Field> fields = Maps.newHashMap();
+        Map<String, Field> fields = new HashMap<>();
         for (Field field: classDef.getFields()) {
             fields.put(field.getName(), field);
         }

@@ -31,13 +31,13 @@
 
 package org.jf.dexlib2.rewriter;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.AnnotationVisibility;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.iface.*;
 import org.jf.dexlib2.immutable.*;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -47,16 +47,16 @@ public class RewriteArrayTypeTest {
     @Test
     public void testRewriteArrayTypeTest() {
         ClassDef class1 = new ImmutableClassDef("Lcls1;", AccessFlags.PUBLIC.getValue(), "Ljava/lang/Object;", null, null,
-                Lists.newArrayList(new ImmutableAnnotation(AnnotationVisibility.RUNTIME, "Lannotation;", null)),
-                Lists.<Field>newArrayList(
+                ListUtil.newArrayList(new ImmutableAnnotation(AnnotationVisibility.RUNTIME, "Lannotation;", null)),
+                ListUtil.<Field>newArrayList(
                         new ImmutableField("Lcls1;", "field1", "I", AccessFlags.PUBLIC.getValue(), null, null, null)
                 ),
-                Lists.<Method>newArrayList(
+                ListUtil.<Method>newArrayList(
                         new ImmutableMethod("Lcls1", "method1",
-                                Lists.<MethodParameter>newArrayList(new ImmutableMethodParameter("[[[Lcls1;", null, null)), "V",
+                                ListUtil.<MethodParameter>newArrayList(new ImmutableMethodParameter("[[[Lcls1;", null, null)), "V",
                                 AccessFlags.PUBLIC.getValue(), null, null, null)));
 
-        ImmutableDexFile dexFile = new ImmutableDexFile(Opcodes.getDefault(), ImmutableSet.of(class1));
+        ImmutableDexFile dexFile = new ImmutableDexFile(Opcodes.getDefault(), ArraySet.of(class1));
 
 
         DexRewriter rewriter = new DexRewriter(new RewriterModule() {
@@ -74,8 +74,8 @@ public class RewriteArrayTypeTest {
 
         DexFile rewrittenDexFile = rewriter.getDexFileRewriter().rewrite(dexFile);
 
-        ClassDef rewrittenClassDef = Lists.newArrayList(rewrittenDexFile.getClasses()).get(0);
-        Method rewrittenMethodDef = Lists.newArrayList(rewrittenClassDef.getMethods()).get(0);
+        ClassDef rewrittenClassDef = ListUtil.newArrayList(rewrittenDexFile.getClasses()).get(0);
+        Method rewrittenMethodDef = ListUtil.newArrayList(rewrittenClassDef.getMethods()).get(0);
 
         Assert.assertEquals(rewrittenClassDef.getType(), "Lcls2;");
         Assert.assertEquals(rewrittenMethodDef.getParameterTypes().get(0), "[[[Lcls2;");
@@ -84,23 +84,23 @@ public class RewriteArrayTypeTest {
     @Test
     public void testUnmodifiedArrayTypeTest() {
         ClassDef class1 = new ImmutableClassDef("Lcls1;", AccessFlags.PUBLIC.getValue(), "Ljava/lang/Object;", null, null,
-                Lists.newArrayList(new ImmutableAnnotation(AnnotationVisibility.RUNTIME, "Lannotation;", null)),
-                Lists.<Field>newArrayList(
+                ListUtil.newArrayList(new ImmutableAnnotation(AnnotationVisibility.RUNTIME, "Lannotation;", null)),
+                ListUtil.<Field>newArrayList(
                         new ImmutableField("Lcls1;", "field1", "I", AccessFlags.PUBLIC.getValue(), null, null, null)
                 ),
-                Lists.<Method>newArrayList(
+                ListUtil.<Method>newArrayList(
                         new ImmutableMethod("Lcls1", "method1",
-                                Lists.<MethodParameter>newArrayList(new ImmutableMethodParameter("[[[Lcls1;", null, null)), "V",
+                                ListUtil.<MethodParameter>newArrayList(new ImmutableMethodParameter("[[[Lcls1;", null, null)), "V",
                                 AccessFlags.PUBLIC.getValue(), null, null, null)));
 
-        ImmutableDexFile dexFile = new ImmutableDexFile(Opcodes.getDefault(), ImmutableSet.of(class1));
+        ImmutableDexFile dexFile = new ImmutableDexFile(Opcodes.getDefault(), ArraySet.of(class1));
 
         DexRewriter rewriter = new DexRewriter(new RewriterModule());
 
         DexFile rewrittenDexFile = rewriter.getDexFileRewriter().rewrite(dexFile);
 
-        ClassDef rewrittenClassDef = Lists.newArrayList(rewrittenDexFile.getClasses()).get(0);
-        Method rewrittenMethodDef = Lists.newArrayList(rewrittenClassDef.getMethods()).get(0);
+        ClassDef rewrittenClassDef = ListUtil.newArrayList(rewrittenDexFile.getClasses()).get(0);
+        Method rewrittenMethodDef = ListUtil.newArrayList(rewrittenClassDef.getMethods()).get(0);
 
         Assert.assertEquals(rewrittenClassDef.getType(), "Lcls1;");
         Assert.assertEquals(rewrittenMethodDef.getParameterTypes().get(0), "[[[Lcls1;");

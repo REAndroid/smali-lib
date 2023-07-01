@@ -31,9 +31,6 @@
 
 package org.jf.dexlib2.analysis;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.Opcodes;
@@ -45,16 +42,19 @@ import org.jf.dexlib2.immutable.*;
 import org.jf.dexlib2.immutable.instruction.ImmutableInstruction;
 import org.jf.dexlib2.immutable.instruction.ImmutableInstruction10x;
 import org.jf.dexlib2.immutable.instruction.ImmutableInstruction35mi;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomMethodInlineTableTest {
     @Test
     public void testCustomMethodInlineTable_Virtual() throws IOException {
-        List<ImmutableInstruction> instructions = Lists.newArrayList(
+        List<ImmutableInstruction> instructions = ListUtil.newArrayList(
                 new ImmutableInstruction35mi(Opcode.EXECUTE_INLINE, 1, 0, 0, 0, 0, 0, 0),
                 new ImmutableInstruction10x(Opcode.RETURN_VOID));
 
@@ -63,14 +63,16 @@ public class CustomMethodInlineTableTest {
                 null, methodImpl);
 
         ClassDef classDef = new ImmutableClassDef("Lblah;", AccessFlags.PUBLIC.getValue(), "Ljava/lang/Object;", null,
-                null, null, null, null, null, ImmutableList.of(method));
+                null, null, null, null, null, ListUtil.of(method));
 
-        ImmutableDexFile dexFile = new ImmutableDexFile(Opcodes.getDefault(), ImmutableList.of(classDef));
+        ImmutableDexFile dexFile = new ImmutableDexFile(Opcodes.getDefault(), ListUtil.of(classDef));
 
-        ImmutableMultiDexContainer container = new ImmutableMultiDexContainer(ImmutableMap.of("classes.dex", dexFile));
+        Map<String, ImmutableDexFile> map = new HashMap<>();
+        map.put("classes.dex", dexFile);
+        ImmutableMultiDexContainer container = new ImmutableMultiDexContainer(map);
 
-        ClassPathResolver resolver = new ClassPathResolver(ImmutableList.<String>of(),
-                ImmutableList.<String>of(), ImmutableList.<String>of(), container.getEntry("classes.dex"));
+        ClassPathResolver resolver = new ClassPathResolver(ListUtil.<String>of(),
+                ListUtil.<String>of(), ListUtil.<String>of(), container.getEntry("classes.dex"));
         ClassPath classPath = new ClassPath(resolver.getResolvedClassProviders(), false, ClassPath.NOT_ART);
 
         InlineMethodResolver inlineMethodResolver = new CustomInlineMethodResolver(classPath, "Lblah;->blah()V");
@@ -85,7 +87,7 @@ public class CustomMethodInlineTableTest {
 
     @Test
     public void testCustomMethodInlineTable_Static() throws IOException {
-        List<ImmutableInstruction> instructions = Lists.newArrayList(
+        List<ImmutableInstruction> instructions = ListUtil.newArrayList(
                 new ImmutableInstruction35mi(Opcode.EXECUTE_INLINE, 1, 0, 0, 0, 0, 0, 0),
                 new ImmutableInstruction10x(Opcode.RETURN_VOID));
 
@@ -94,14 +96,16 @@ public class CustomMethodInlineTableTest {
                 null, methodImpl);
 
         ClassDef classDef = new ImmutableClassDef("Lblah;", AccessFlags.PUBLIC.getValue(), "Ljava/lang/Object;", null,
-                null, null, null, null, ImmutableList.of(method), null);
+                null, null, null, null, ListUtil.of(method), null);
 
-        ImmutableDexFile dexFile = new ImmutableDexFile(Opcodes.getDefault(), ImmutableList.of(classDef));
+        ImmutableDexFile dexFile = new ImmutableDexFile(Opcodes.getDefault(), ListUtil.of(classDef));
 
-        ImmutableMultiDexContainer container = new ImmutableMultiDexContainer(ImmutableMap.of("classes.dex", dexFile));
+        Map<String, ImmutableDexFile> map = new HashMap<>();
+        map.put("classes.dex", dexFile);
+        ImmutableMultiDexContainer container = new ImmutableMultiDexContainer(map);
 
-        ClassPathResolver resolver = new ClassPathResolver(ImmutableList.<String>of(),
-                ImmutableList.<String>of(), ImmutableList.<String>of(), container.getEntry("classes.dex"));
+        ClassPathResolver resolver = new ClassPathResolver(ListUtil.<String>of(),
+                ListUtil.<String>of(), ListUtil.<String>of(), container.getEntry("classes.dex"));
         ClassPath classPath = new ClassPath(resolver.getResolvedClassProviders(), false, ClassPath.NOT_ART);
 
         InlineMethodResolver inlineMethodResolver = new CustomInlineMethodResolver(classPath, "Lblah;->blah()V");
@@ -116,7 +120,7 @@ public class CustomMethodInlineTableTest {
 
     @Test
     public void testCustomMethodInlineTable_Direct() throws IOException {
-        List<ImmutableInstruction> instructions = Lists.newArrayList(
+        List<ImmutableInstruction> instructions = ListUtil.newArrayList(
                 new ImmutableInstruction35mi(Opcode.EXECUTE_INLINE, 1, 0, 0, 0, 0, 0, 0),
                 new ImmutableInstruction10x(Opcode.RETURN_VOID));
 
@@ -125,14 +129,16 @@ public class CustomMethodInlineTableTest {
                 null, methodImpl);
 
         ClassDef classDef = new ImmutableClassDef("Lblah;", AccessFlags.PUBLIC.getValue(), "Ljava/lang/Object;", null,
-                null, null, null, null, ImmutableList.of(method), null);
+                null, null, null, null, ListUtil.of(method), null);
 
-        ImmutableDexFile dexFile = new ImmutableDexFile(Opcodes.getDefault(), ImmutableList.of(classDef));
+        ImmutableDexFile dexFile = new ImmutableDexFile(Opcodes.getDefault(), ListUtil.of(classDef));
 
-        ImmutableMultiDexContainer container = new ImmutableMultiDexContainer(ImmutableMap.of("classes.dex", dexFile));
+        Map<String, ImmutableDexFile> map = new HashMap<>();
+        map.put("classes.dex", dexFile);
+        ImmutableMultiDexContainer container = new ImmutableMultiDexContainer(map);
 
-        ClassPathResolver resolver = new ClassPathResolver(ImmutableList.<String>of(),
-                ImmutableList.<String>of(), ImmutableList.<String>of(), container.getEntry("classes.dex"));
+        ClassPathResolver resolver = new ClassPathResolver(ListUtil.<String>of(),
+                ListUtil.<String>of(), ListUtil.<String>of(), container.getEntry("classes.dex"));
         ClassPath classPath = new ClassPath(resolver.getResolvedClassProviders(), false, ClassPath.NOT_ART);
 
         InlineMethodResolver inlineMethodResolver = new CustomInlineMethodResolver(classPath, "Lblah;->blah()V");

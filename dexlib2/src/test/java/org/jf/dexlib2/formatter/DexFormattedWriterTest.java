@@ -31,14 +31,14 @@
 
 package org.jf.dexlib2.formatter;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import org.jf.dexlib2.MethodHandleType;
 import org.jf.dexlib2.iface.reference.CallSiteReference;
 import org.jf.dexlib2.iface.reference.MethodHandleReference;
 import org.jf.dexlib2.immutable.ImmutableAnnotationElement;
 import org.jf.dexlib2.immutable.reference.*;
 import org.jf.dexlib2.immutable.value.*;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -220,7 +220,7 @@ public class DexFormattedWriterTest {
 
         writer.writeEncodedValue(new ImmutableAnnotationEncodedValue(
                 "Lannotation/type;",
-                ImmutableSet.of(
+                ArraySet.of(
                         new ImmutableAnnotationElement("element1", new ImmutableFieldEncodedValue(getFieldReference())),
                         new ImmutableAnnotationElement("element2", new ImmutableMethodEncodedValue(getMethodReference()))
                 )));
@@ -236,7 +236,7 @@ public class DexFormattedWriterTest {
     public void testWriteEncodedValue_array() throws IOException {
         DexFormattedWriter writer = new DexFormattedWriter(output);
 
-        writer.writeEncodedValue(new ImmutableArrayEncodedValue(ImmutableList.of(
+        writer.writeEncodedValue(new ImmutableArrayEncodedValue(ListUtil.of(
                 new ImmutableFieldEncodedValue(getFieldReference()),
                 new ImmutableMethodEncodedValue(getMethodReference()))));
 
@@ -418,13 +418,13 @@ public class DexFormattedWriterTest {
         return new ImmutableMethodReference(
                 "Ldefining/class;",
                 "methodName",
-                ImmutableList.of("Lparam1;", "Lparam2;"),
+                ListUtil.of("Lparam1;", "Lparam2;"),
                 "Lreturn/type;");
     }
 
     private ImmutableMethodProtoReference getMethodProtoReference() {
         return new ImmutableMethodProtoReference(
-                ImmutableList.of("Lparam1;", "Lparam2;"),
+                ListUtil.of("Lparam1;", "Lparam2;"),
                 "Lreturn/type;");
     }
 
@@ -459,7 +459,7 @@ public class DexFormattedWriterTest {
                 getInvokeStaticMethodHandleReferenceForMethod(),
                 "callSiteMethodName",
                 getMethodProtoReference(),
-                ImmutableList.of(
+                ListUtil.of(
                         new ImmutableFieldEncodedValue(getFieldReference()),
                         new ImmutableMethodEncodedValue(getMethodReference())));
     }

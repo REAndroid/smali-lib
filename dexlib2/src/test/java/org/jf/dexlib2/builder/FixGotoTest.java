@@ -1,6 +1,5 @@
 package org.jf.dexlib2.builder;
 
-import com.google.common.collect.Lists;
 import junit.framework.Assert;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.builder.instruction.BuilderInstruction10t;
@@ -9,6 +8,7 @@ import org.jf.dexlib2.builder.instruction.BuilderInstruction20t;
 import org.jf.dexlib2.iface.MethodImplementation;
 import org.jf.dexlib2.iface.instruction.Instruction;
 import org.jf.dexlib2.iface.instruction.OffsetInstruction;
+import org.jf.util.collection.ListUtil;
 import org.junit.Test;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class FixGotoTest {
 
         MethodImplementation impl = builder.getMethodImplementation();
 
-        List<? extends Instruction> instructions = Lists.newArrayList(impl.getInstructions());
+        List<? extends Instruction> instructions = ListUtil.newArrayList(impl.getInstructions());
         Assert.assertEquals(502, instructions.size());
 
         Assert.assertEquals(Opcode.GOTO_16, instructions.get(0).getOpcode());
@@ -53,7 +53,7 @@ public class FixGotoTest {
 
         MethodImplementation impl = builder.getMethodImplementation();
 
-        List<? extends Instruction> instructions = Lists.newArrayList(impl.getInstructions());
+        List<? extends Instruction> instructions = ListUtil.newArrayList(impl.getInstructions());
         Assert.assertEquals(70002, instructions.size());
 
         Assert.assertEquals(Opcode.GOTO_32, instructions.get(0).getOpcode());
@@ -76,7 +76,7 @@ public class FixGotoTest {
 
         MethodImplementation impl = builder.getMethodImplementation();
 
-        List<? extends Instruction> instructions = Lists.newArrayList(impl.getInstructions());
+        List<? extends Instruction> instructions = ListUtil.newArrayList(impl.getInstructions());
         Assert.assertEquals(70002, instructions.size());
 
         Assert.assertEquals(Opcode.GOTO_32, instructions.get(0).getOpcode());
@@ -112,7 +112,7 @@ public class FixGotoTest {
 
         MethodImplementation impl = builder.getMethodImplementation();
 
-        List<? extends Instruction> instructions = Lists.newArrayList(impl.getInstructions());
+        List<? extends Instruction> instructions = ListUtil.newArrayList(impl.getInstructions());
         Assert.assertEquals(32767, instructions.size());
 
         Assert.assertEquals(Opcode.GOTO_32, instructions.get(0).getOpcode());

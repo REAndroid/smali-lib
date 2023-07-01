@@ -31,13 +31,13 @@
 
 package org.jf.baksmali;
 
-import com.google.common.io.ByteStreams;
 import junit.framework.Assert;
 import org.antlr.runtime.RecognitionException;
 import org.jf.baksmali.Adaptors.ClassDefinition;
 import org.jf.baksmali.formatter.BaksmaliWriter;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.smali.SmaliTestUtils;
+import org.jf.util.io.ByteStreams;
 import org.junit.Test;
 
 import javax.annotation.Nonnull;

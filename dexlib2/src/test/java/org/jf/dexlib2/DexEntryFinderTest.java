@@ -31,20 +31,20 @@
 
 package org.jf.dexlib2;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import org.jf.dexlib2.DexFileFactory.DexEntryFinder;
 import org.jf.dexlib2.DexFileFactory.DexFileNotFoundException;
 import org.jf.dexlib2.DexFileFactory.MultipleMatchingDexEntriesException;
 import org.jf.dexlib2.DexFileFactory.UnsupportedFileTypeException;
 import org.jf.dexlib2.dexbacked.DexBackedDexFile;
 import org.jf.dexlib2.iface.MultiDexContainer;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -55,7 +55,7 @@ public class DexEntryFinderTest {
 
     @Test
     public void testNormalStuff() throws Exception {
-        Map<String, DexBackedDexFile> entries = Maps.newHashMap();
+        Map<String, DexBackedDexFile> entries = new HashMap<>();
         DexBackedDexFile dexFile1 = mock(DexBackedDexFile.class);
         entries.put("/system/framework/framework.jar", dexFile1);
         DexBackedDexFile dexFile2 = mock(DexBackedDexFile.class);
@@ -107,7 +107,7 @@ public class DexEntryFinderTest {
 
     @Test
     public void testSimilarEntries() throws Exception {
-        Map<String, DexBackedDexFile> entries = Maps.newHashMap();
+        Map<String, DexBackedDexFile> entries = new HashMap<>();
         DexBackedDexFile dexFile1 = mock(DexBackedDexFile.class);
         entries.put("/system/framework/framework.jar", dexFile1);
         DexBackedDexFile dexFile2 = mock(DexBackedDexFile.class);
@@ -128,7 +128,7 @@ public class DexEntryFinderTest {
 
     @Test
     public void testMatchingSuffix() throws Exception {
-        Map<String, DexBackedDexFile> entries = Maps.newHashMap();
+        Map<String, DexBackedDexFile> entries = new HashMap<>();
         DexBackedDexFile dexFile1 = mock(DexBackedDexFile.class);
         entries.put("/system/framework/framework.jar", dexFile1);
         DexBackedDexFile dexFile2 = mock(DexBackedDexFile.class);
@@ -147,7 +147,7 @@ public class DexEntryFinderTest {
 
     @Test
     public void testNonDexEntries() throws Exception {
-        Map<String, DexBackedDexFile> entries = Maps.newHashMap();
+        Map<String, DexBackedDexFile> entries = new HashMap<>();
         DexBackedDexFile dexFile1 = mock(DexBackedDexFile.class);
         entries.put("classes.dex", dexFile1);
         entries.put("/blah/classes.dex", null);
@@ -204,7 +204,7 @@ public class DexEntryFinderTest {
         }
 
         @Nonnull @Override public List<String> getDexEntryNames() throws IOException {
-            List<String> entryNames = Lists.newArrayList();
+            List<String> entryNames = ListUtil.newArrayList();
 
             for (Entry<String, DexBackedDexFile> entry: entries.entrySet()) {
                 if (entry.getValue() != null) {

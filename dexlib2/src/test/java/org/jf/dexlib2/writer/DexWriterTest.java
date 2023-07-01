@@ -31,9 +31,6 @@
 
 package org.jf.dexlib2.writer;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import junit.framework.Assert;
 import org.jf.dexlib2.AnnotationVisibility;
 import org.jf.dexlib2.Opcodes;
@@ -50,29 +47,33 @@ import org.jf.dexlib2.immutable.value.ImmutableAnnotationEncodedValue;
 import org.jf.dexlib2.immutable.value.ImmutableNullEncodedValue;
 import org.jf.dexlib2.writer.io.MemoryDataStore;
 import org.jf.dexlib2.writer.pool.DexPool;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.Iterables;
+import org.jf.util.collection.ListUtil;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 public class DexWriterTest {
     @Test
     public void testAnnotationElementOrder() {
         // Elements are out of order wrt to the element name
-        ImmutableSet<ImmutableAnnotationElement> elements =
-                ImmutableSet.of(new ImmutableAnnotationElement("zabaglione", ImmutableNullEncodedValue.INSTANCE),
+        Set<ImmutableAnnotationElement> elements =
+                ArraySet.of(new ImmutableAnnotationElement("zabaglione", ImmutableNullEncodedValue.INSTANCE),
                         new ImmutableAnnotationElement("blah", ImmutableNullEncodedValue.INSTANCE));
 
         ImmutableAnnotation annotation = new ImmutableAnnotation(AnnotationVisibility.RUNTIME,
                 "Lorg/test/anno;", elements);
 
         ImmutableClassDef classDef = new ImmutableClassDef("Lorg/test/blah;",
-                0, "Ljava/lang/Object;", null, null, ImmutableSet.of(annotation), null, null);
+                0, "Ljava/lang/Object;", null, null, ArraySet.of(annotation), null, null);
 
         MemoryDataStore dataStore = new MemoryDataStore();
 
         try {
-            DexPool.writeTo(dataStore, new ImmutableDexFile(Opcodes.getDefault(), ImmutableSet.of(classDef)));
+            DexPool.writeTo(dataStore, new ImmutableDexFile(Opcodes.getDefault(), ArraySet.of(classDef)));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -82,7 +83,7 @@ public class DexWriterTest {
         Assert.assertNotNull(dbClassDef);
         Annotation dbAnnotation = Iterables.getFirst(dbClassDef.getAnnotations(), null);
         Assert.assertNotNull(dbAnnotation);
-        List<AnnotationElement> dbElements = Lists.newArrayList(dbAnnotation.getElements());
+        List<AnnotationElement> dbElements = ListUtil.newArrayList(dbAnnotation.getElements());
 
         // Ensure that the elements were written out in sorted order
         Assert.assertEquals(2, dbElements.size());
@@ -93,26 +94,26 @@ public class DexWriterTest {
     @Test
     public void testEncodedAnnotationElementOrder() {
         // Elements are out of order wrt to the element name
-        ImmutableSet<ImmutableAnnotationElement> encodedElements =
-                ImmutableSet.of(new ImmutableAnnotationElement("zabaglione", ImmutableNullEncodedValue.INSTANCE),
+        Set<ImmutableAnnotationElement> encodedElements =
+                ArraySet.of(new ImmutableAnnotationElement("zabaglione", ImmutableNullEncodedValue.INSTANCE),
                         new ImmutableAnnotationElement("blah", ImmutableNullEncodedValue.INSTANCE));
 
         ImmutableAnnotationEncodedValue encodedAnnotations =
                 new ImmutableAnnotationEncodedValue("Lan/encoded/annotation", encodedElements);
 
-        ImmutableSet<ImmutableAnnotationElement> elements =
-                ImmutableSet.of(new ImmutableAnnotationElement("encoded_annotation", encodedAnnotations));
+        Set<ImmutableAnnotationElement> elements =
+                ArraySet.of(new ImmutableAnnotationElement("encoded_annotation", encodedAnnotations));
 
         ImmutableAnnotation annotation = new ImmutableAnnotation(AnnotationVisibility.RUNTIME,
                 "Lorg/test/anno;", elements);
 
         ImmutableClassDef classDef = new ImmutableClassDef("Lorg/test/blah;",
-                0, "Ljava/lang/Object;", null, null, ImmutableSet.of(annotation), null, null);
+                0, "Ljava/lang/Object;", null, null, ArraySet.of(annotation), null, null);
 
         MemoryDataStore dataStore = new MemoryDataStore();
 
         try {
-            DexPool.writeTo(dataStore, new ImmutableDexFile(Opcodes.getDefault(), ImmutableSet.of(classDef)));
+            DexPool.writeTo(dataStore, new ImmutableDexFile(Opcodes.getDefault(), ArraySet.of(classDef)));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -126,7 +127,7 @@ public class DexWriterTest {
         AnnotationElement element = Iterables.getFirst(dbAnnotation.getElements(), null);
         AnnotationEncodedValue dbAnnotationEncodedValue = (AnnotationEncodedValue)element.getValue();
 
-        List<AnnotationElement> dbElements = Lists.newArrayList(dbAnnotationEncodedValue.getElements());
+        List<AnnotationElement> dbElements = ListUtil.newArrayList(dbAnnotationEncodedValue.getElements());
 
         // Ensure that the elements were written out in sorted order
         Assert.assertEquals(2, dbElements.size());

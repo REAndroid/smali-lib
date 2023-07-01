@@ -1,19 +1,19 @@
 package org.jf.util;
 
-import com.google.common.collect.ImmutableList;
 import org.jf.dexlib2.util.Preconditions;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class PreconditionsTest {
 
   private void verifyArrayPayloadElementIsValid(int elementWidth, long value) {
-    Preconditions.checkArrayPayloadElements(elementWidth, ImmutableList.of(value));
+    Preconditions.checkArrayPayloadElements(elementWidth, ListUtil.of(value));
   }
 
   private void verifyArrayPayloadElementIsInvalid(int elementWidth, long value) {
     try {
-      Preconditions.checkArrayPayloadElements(elementWidth, ImmutableList.of(value));
+      Preconditions.checkArrayPayloadElements(elementWidth, ListUtil.of(value));
       Assert.fail();
     } catch (IllegalArgumentException ex) {
       // expected exception

@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.builder;
 
-import com.google.common.collect.Lists;
 import junit.framework.Assert;
 import org.jf.dexlib2.Opcode;
 import org.jf.dexlib2.builder.instruction.BuilderInstruction10t;
@@ -43,6 +42,7 @@ import org.jf.dexlib2.iface.debug.DebugItem;
 import org.jf.dexlib2.iface.debug.LineNumber;
 import org.jf.dexlib2.iface.instruction.Instruction;
 import org.jf.dexlib2.iface.instruction.OffsetInstruction;
+import org.jf.util.collection.ListUtil;
 import org.junit.Test;
 
 import java.util.List;
@@ -98,7 +98,7 @@ public class FixOffsetsTest {
 
         MethodImplementation impl = builder.getMethodImplementation();
 
-        List<? extends Instruction> instructions = Lists.newArrayList(impl.getInstructions());
+        List<? extends Instruction> instructions = ListUtil.newArrayList(impl.getInstructions());
         Assert.assertEquals(1003, instructions.size());
 
         Assert.assertEquals(Opcode.GOTO_16, instructions.get(0).getOpcode());
@@ -118,7 +118,7 @@ public class FixOffsetsTest {
         ExceptionHandler exceptionHandler = exceptionHandlers.get(0).getExceptionHandlers().get(0);
         Assert.assertEquals(504, exceptionHandler.getHandlerCodeAddress());
 
-        List<DebugItem> debugItems = Lists.newArrayList(impl.getDebugItems());
+        List<DebugItem> debugItems = ListUtil.newArrayList(impl.getDebugItems());
 
         Assert.assertEquals(5, debugItems.size());
 

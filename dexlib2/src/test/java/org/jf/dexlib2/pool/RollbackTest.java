@@ -31,7 +31,6 @@
 
 package org.jf.dexlib2.pool;
 
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.AnnotationVisibility;
 import org.jf.dexlib2.Opcodes;
@@ -44,6 +43,7 @@ import org.jf.dexlib2.iface.MethodParameter;
 import org.jf.dexlib2.immutable.*;
 import org.jf.dexlib2.writer.io.MemoryDataStore;
 import org.jf.dexlib2.writer.pool.DexPool;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -54,24 +54,24 @@ public class RollbackTest {
     @Test
     public void testRollback() throws IOException {
         ClassDef class1 = new ImmutableClassDef("Lcls1;", AccessFlags.PUBLIC.getValue(), "Ljava/lang/Object;", null, null,
-                Lists.newArrayList(new ImmutableAnnotation(AnnotationVisibility.RUNTIME, "Lannotation;", null)),
-                Lists.<Field>newArrayList(
+                ListUtil.newArrayList(new ImmutableAnnotation(AnnotationVisibility.RUNTIME, "Lannotation;", null)),
+                ListUtil.<Field>newArrayList(
                         new ImmutableField("Lcls1;", "field1", "I", AccessFlags.PUBLIC.getValue(), null, null, null)
                 ),
-                Lists.<Method>newArrayList(
+                ListUtil.<Method>newArrayList(
                         new ImmutableMethod("Lcls1;", "method1",
-                                Lists.<MethodParameter>newArrayList(new ImmutableMethodParameter("I", null, null)), "V",
+                                ListUtil.<MethodParameter>newArrayList(new ImmutableMethodParameter("I", null, null)), "V",
                                 AccessFlags.PUBLIC.getValue(), null, null, null))
                 );
 
         ClassDef class2 = new ImmutableClassDef("Lcls2;", AccessFlags.PUBLIC.getValue(), "Ljava/lang/Object;", null, null,
-                Lists.newArrayList(new ImmutableAnnotation(AnnotationVisibility.RUNTIME, "Lannotation2;", null)),
-                Lists.<Field>newArrayList(
+                ListUtil.newArrayList(new ImmutableAnnotation(AnnotationVisibility.RUNTIME, "Lannotation2;", null)),
+                ListUtil.<Field>newArrayList(
                         new ImmutableField("Lcls2;", "field2", "D", AccessFlags.PUBLIC.getValue(), null, null, null)
                 ),
-                Lists.<Method>newArrayList(
+                ListUtil.<Method>newArrayList(
                         new ImmutableMethod("Lcls2;", "method2",
-                                Lists.<MethodParameter>newArrayList(new ImmutableMethodParameter("D", null, null)), "V",
+                                ListUtil.<MethodParameter>newArrayList(new ImmutableMethodParameter("D", null, null)), "V",
                                 AccessFlags.PUBLIC.getValue(), null, null, null))
         );
 

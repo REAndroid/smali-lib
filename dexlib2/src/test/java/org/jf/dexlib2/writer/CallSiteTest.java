@@ -31,10 +31,6 @@
 
 package org.jf.dexlib2.writer;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.*;
 import org.jf.dexlib2.builder.MethodImplementationBuilder;
 import org.jf.dexlib2.builder.instruction.BuilderInstruction35c;
@@ -57,6 +53,9 @@ import org.jf.dexlib2.writer.builder.BuilderCallSiteReference;
 import org.jf.dexlib2.writer.builder.BuilderMethod;
 import org.jf.dexlib2.writer.builder.DexBuilder;
 import org.jf.dexlib2.writer.io.FileDataStore;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.Iterables;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -68,24 +67,24 @@ public class CallSiteTest {
     public void testPoolCallSite() throws IOException {
         ClassDef class1 = new ImmutableClassDef("Lcls1;", AccessFlags.PUBLIC.getValue(), "Ljava/lang/Object;", null, null,
                 null, null,
-                Lists.<Method>newArrayList(
+                ListUtil.<Method>newArrayList(
                         new ImmutableMethod("Lcls1", "method1",
-                                ImmutableList.of(), "V", AccessFlags.PUBLIC.getValue(), null, null,
-                                new ImmutableMethodImplementation(10, ImmutableList.of(
+                                ListUtil.of(), "V", AccessFlags.PUBLIC.getValue(), null, null,
+                                new ImmutableMethodImplementation(10, ListUtil.of(
                                         new ImmutableInstruction35c(Opcode.INVOKE_CUSTOM, 0, 0, 0, 0, 0, 0,
                                                 new ImmutableCallSiteReference("call_site_1",
                                                         new ImmutableMethodHandleReference(MethodHandleType.INVOKE_STATIC,
                                                                 new ImmutableMethodReference("Lcls1", "loader",
-                                                                        ImmutableList.of("Ljava/lang/invoke/Lookup;",
+                                                                        ListUtil.of("Ljava/lang/invoke/Lookup;",
                                                                                 "Ljava/lang/String;",
                                                                                 "Ljava/lang/invoke/MethodType;"),
                                                                         "Ljava/lang/invoke/CallSite;")),
-                                                        "someMethod", new ImmutableMethodProtoReference(ImmutableList.of(), "V"), ImmutableList.of()))
+                                                        "someMethod", new ImmutableMethodProtoReference(ListUtil.of(), "V"), ListUtil.of()))
                                 ), null, null))));
 
         File tempFile = File.createTempFile("dex", ".dex");
         DexFileFactory.writeDexFile(tempFile.getPath(),
-                new ImmutableDexFile(Opcodes.forArtVersion(111), ImmutableList.of(class1)));
+                new ImmutableDexFile(Opcodes.forArtVersion(111), ListUtil.of(class1)));
 
         verifyDexFile(DexFileFactory.loadDexFile(tempFile, Opcodes.forArtVersion(111)));
     }
@@ -97,22 +96,22 @@ public class CallSiteTest {
         BuilderCallSiteReference callSite = dexBuilder.internCallSite(new ImmutableCallSiteReference("call_site_1",
                 new ImmutableMethodHandleReference(
                         MethodHandleType.INVOKE_STATIC,
-                        new ImmutableMethodReference("Lcls1;", "loader", ImmutableList.of("Ljava/lang/invoke/Lookup;",
+                        new ImmutableMethodReference("Lcls1;", "loader", ListUtil.of("Ljava/lang/invoke/Lookup;",
                                 "Ljava/lang/String;",
                                 "Ljava/lang/invoke/MethodType;"),
                                 "Ljava/lang/invoke/CallSite;")),
                 "someMethod",
-                new ImmutableMethodProtoReference(ImmutableList.of(), "V"), ImmutableList.of()));
+                new ImmutableMethodProtoReference(ListUtil.of(), "V"), ListUtil.of()));
 
         MethodImplementationBuilder methodImplementationBuilder = new MethodImplementationBuilder(10);
         methodImplementationBuilder.addInstruction(new BuilderInstruction35c(Opcode.INVOKE_CUSTOM, 0, 0, 0, 0, 0, 0,
                 callSite));
 
-        BuilderMethod method = dexBuilder.internMethod("Lcls1;", "method1", null, "V", 0, ImmutableSet.of(),
-                ImmutableSet.of(), methodImplementationBuilder.getMethodImplementation());
+        BuilderMethod method = dexBuilder.internMethod("Lcls1;", "method1", null, "V", 0, ArraySet.of(),
+                ArraySet.of(), methodImplementationBuilder.getMethodImplementation());
         dexBuilder.internClassDef("Lcls1;", AccessFlags.PUBLIC.getValue(), "Ljava/lang/Object;", null, null,
-                ImmutableSet.of(), null,
-                ImmutableList.of(method));
+                ArraySet.of(), null,
+                ListUtil.of(method));
 
         File tempFile = File.createTempFile("dex", ".dex");
         dexBuilder.writeTo(new FileDataStore(tempFile));
@@ -122,13 +121,13 @@ public class CallSiteTest {
 
     private void verifyDexFile(DexFile dexFile) {
         Assert.assertEquals(1, dexFile.getClasses().size());
-        ClassDef cls = Lists.newArrayList(dexFile.getClasses()).get(0);
+        ClassDef cls = ListUtil.newArrayList(dexFile.getClasses()).get(0);
         Assert.assertEquals("Lcls1;", cls.getType());
-        Assert.assertEquals(1, Lists.newArrayList(cls.getMethods()).size());
-        Method method = Iterators.getNext(cls.getMethods().iterator(), null);
+        Assert.assertEquals(1, ListUtil.newArrayList(cls.getMethods()).size());
+        Method method = Iterables.getNext(cls.getMethods().iterator(), null);
         Assert.assertEquals("method1", method.getName());
-        Assert.assertEquals(1, Lists.newArrayList(method.getImplementation().getInstructions()).size());
-        Instruction instruction = Lists.newArrayList(method.getImplementation().getInstructions().iterator()).get(0);
+        Assert.assertEquals(1, ListUtil.newArrayList(method.getImplementation().getInstructions()).size());
+        Instruction instruction = ListUtil.newArrayList(method.getImplementation().getInstructions().iterator()).get(0);
         Assert.assertEquals(Opcode.INVOKE_CUSTOM, instruction.getOpcode());
         Assert.assertTrue(((Instruction35c) instruction).getReference() instanceof CallSiteReference);
     }

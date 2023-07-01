@@ -31,22 +31,22 @@
 
 package org.jf.dexlib2.analysis;
 
-import com.google.common.collect.ImmutableSet;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.immutable.ImmutableClassDef;
+import org.jf.util.collection.ArraySet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TestUtils {
     public static ClassDef makeClassDef(@Nonnull String classType, @Nullable String superType, String... interfaces) {
-        return new ImmutableClassDef(classType, 0, superType, ImmutableSet.copyOf(interfaces),
+        return new ImmutableClassDef(classType, 0, superType, ArraySet.copyOfElements(interfaces),
                 null, null, null, null, null, null);
     }
 
     public static ClassDef makeInterfaceDef(@Nonnull String classType, String... interfaces) {
         return new ImmutableClassDef(classType, AccessFlags.INTERFACE.getValue(), "Ljava/lang/Object;",
-                ImmutableSet.copyOf(interfaces), null, null, null, null, null, null);
+                ArraySet.copyOfElements(interfaces), null, null, null, null, null, null);
     }
 }

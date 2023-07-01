@@ -31,9 +31,8 @@
 
 package org.jf.util;
 
-import com.google.common.base.Strings;
-import com.google.common.io.Files;
 import junit.framework.Assert;
+import org.jf.util.io.Files;
 import org.junit.Test;
 
 import java.io.File;
@@ -117,7 +116,7 @@ public class ClassFileNameHandlerTest {
 
     @Test
     public void testMultipleLongNames() throws IOException {
-        String filenameFragment = Strings.repeat("a", 512);
+        String filenameFragment = StringUtils.repeat("a", 512);
 
         File tempDir = Files.createTempDir().getCanonicalFile();
         ClassFileNameHandler handler = new ClassFileNameHandler(tempDir, ".smali");
@@ -125,10 +124,10 @@ public class ClassFileNameHandlerTest {
         // put the differentiating character in the middle, where it will get stripped out by the filename shortening
         // logic
         File file1 = handler.getUniqueFilenameForClass("La/a/" + filenameFragment  + "1" + filenameFragment + ";");
-        checkFilename(tempDir, file1, "a", "a", Strings.repeat("a", 124) + "#" + Strings.repeat("a", 118) + ".smali");
+        checkFilename(tempDir, file1, "a", "a", StringUtils.repeat("a", 124) + "#" + StringUtils.repeat("a", 118) + ".smali");
 
         File file2 = handler.getUniqueFilenameForClass("La/a/" + filenameFragment + "2" + filenameFragment + ";");
-        checkFilename(tempDir, file2, "a", "a", Strings.repeat("a", 124) + "#" + Strings.repeat("a", 118) + ".1.smali");
+        checkFilename(tempDir, file2, "a", "a", StringUtils.repeat("a", 124) + "#" + StringUtils.repeat("a", 118) + ".1.smali");
 
         Assert.assertFalse(file1.getAbsolutePath().equals(file2.getAbsolutePath()));
     }

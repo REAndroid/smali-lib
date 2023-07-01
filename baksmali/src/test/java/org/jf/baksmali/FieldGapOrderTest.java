@@ -31,11 +31,11 @@
 
 package org.jf.baksmali;
 
-import com.google.common.collect.Lists;
 import org.jf.dexlib2.analysis.ClassPath;
 import org.jf.dexlib2.analysis.ClassProto;
 import org.jf.dexlib2.analysis.DexClassProvider;
 import org.jf.dexlib2.iface.DexFile;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -45,7 +45,7 @@ public class FieldGapOrderTest extends DexTest {
         DexFile dexFile = getInputDexFile("FieldGapOrder", new BaksmaliOptions());
         Assert.assertEquals(3, dexFile.getClasses().size());
 
-        ClassPath classPath = new ClassPath(Lists.newArrayList(new DexClassProvider(dexFile)), false, 66);
+        ClassPath classPath = new ClassPath(ListUtil.newArrayList(new DexClassProvider(dexFile)), false, 66);
         ClassProto classProto = (ClassProto)classPath.getClass("LGapOrder;");
         Assert.assertEquals("r1", classProto.getFieldByOffset(12).getName());
         Assert.assertEquals("r2", classProto.getFieldByOffset(16).getName());
@@ -59,7 +59,7 @@ public class FieldGapOrderTest extends DexTest {
         DexFile dexFile = getInputDexFile("FieldGapOrder", new BaksmaliOptions());
         Assert.assertEquals(3, dexFile.getClasses().size());
 
-        ClassPath classPath = new ClassPath(Lists.newArrayList(new DexClassProvider(dexFile)), false, 67);
+        ClassPath classPath = new ClassPath(ListUtil.newArrayList(new DexClassProvider(dexFile)), false, 67);
         ClassProto classProto = (ClassProto)classPath.getClass("LGapOrder;");
         Assert.assertEquals("s", classProto.getFieldByOffset(10).getName());
         Assert.assertEquals("r1", classProto.getFieldByOffset(12).getName());

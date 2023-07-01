@@ -2,7 +2,7 @@ package org.jf.util.base;
 
 
 import java.io.Serializable;
-
+import java.util.function.Supplier;
 
 public class Suppliers {
     public static <T> Supplier<T> memoize(Supplier<T> delegate) {

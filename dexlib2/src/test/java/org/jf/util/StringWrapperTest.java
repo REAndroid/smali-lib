@@ -31,7 +31,7 @@
 
 package org.jf.util;
 
-import com.google.common.collect.Lists;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -141,7 +141,7 @@ public class StringWrapperTest {
     }
 
     public static void validateResult2(String[] expected, String textToWrap, int maxWidth) {
-        List<String> result = Lists.newArrayList(StringWrapper.wrapStringOnBreaks(textToWrap, maxWidth));
+        List<String> result = ListUtil.newArrayList(StringWrapper.wrapStringOnBreaks(textToWrap, maxWidth));
 
         Assert.assertEquals(expected.length, result.size());
         int i;

@@ -31,7 +31,7 @@
 
 package org.jf.baksmali.formatter;
 
-import com.google.common.collect.Lists;
+import org.jf.util.collection.ListUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -79,7 +79,7 @@ public class BaksmaliWriterTypeTest {
         Assert.assertEquals("L` ab`;", performWriteType("L ab;"));
         Assert.assertEquals("L`ab `;", performWriteType("Lab ;"));
 
-        List<Character> spaceCharacters = Lists.newArrayList(
+        List<Character> spaceCharacters = ListUtil.newArrayList(
                 '\u0020',
                 '\u00A0',
                 '\u1680',

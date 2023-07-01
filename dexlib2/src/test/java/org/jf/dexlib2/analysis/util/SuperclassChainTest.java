@@ -31,8 +31,6 @@
 
 package org.jf.dexlib2.analysis.util;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import junit.framework.Assert;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.analysis.ClassPath;
@@ -41,9 +39,12 @@ import org.jf.dexlib2.analysis.TestUtils;
 import org.jf.dexlib2.analysis.TypeProto;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.immutable.ImmutableDexFile;
+import org.jf.util.collection.ArraySet;
+import org.jf.util.collection.ListUtil;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Set;
 
 public class SuperclassChainTest {
 
@@ -54,7 +55,7 @@ public class SuperclassChainTest {
         ClassDef twoClassDef = TestUtils.makeClassDef("Ltest/two;", "Ltest/one;");
         ClassDef threeClassDef = TestUtils.makeClassDef("Ltest/three;", "Ltest/two;");
 
-        ImmutableSet<ClassDef> classes = ImmutableSet.<ClassDef>of(
+        Set<ClassDef> classes = ArraySet.<ClassDef>of(
                 objectClassDef, oneClassDef, twoClassDef, threeClassDef);
 
         ClassPath classPath = new ClassPath(new DexClassProvider(new ImmutableDexFile(Opcodes.getDefault(), classes)));
@@ -65,20 +66,20 @@ public class SuperclassChainTest {
         TypeProto threeClassProto = classPath.getClass("Ltest/three;");
 
         Assert.assertEquals(
-                ImmutableList.<TypeProto>of(),
-                ImmutableList.copyOf(TypeProtoUtils.getSuperclassChain(objectClassProto)));
+                ListUtil.<TypeProto>of(),
+                ListUtil.copyOf(TypeProtoUtils.getSuperclassChain(objectClassProto)));
 
         Assert.assertEquals(
-                ImmutableList.<TypeProto>of(objectClassProto),
-                ImmutableList.copyOf(TypeProtoUtils.getSuperclassChain(oneClassProto)));
+                ListUtil.<TypeProto>of(objectClassProto),
+                ListUtil.copyOf(TypeProtoUtils.getSuperclassChain(oneClassProto)));
 
         Assert.assertEquals(
-                ImmutableList.<TypeProto>of(oneClassProto, objectClassProto),
-                ImmutableList.copyOf(TypeProtoUtils.getSuperclassChain(twoClassProto)));
+                ListUtil.<TypeProto>of(oneClassProto, objectClassProto),
+                ListUtil.copyOf(TypeProtoUtils.getSuperclassChain(twoClassProto)));
 
         Assert.assertEquals(
-                ImmutableList.<TypeProto>of(twoClassProto, oneClassProto, objectClassProto),
-                ImmutableList.copyOf(TypeProtoUtils.getSuperclassChain(threeClassProto)));
+                ListUtil.<TypeProto>of(twoClassProto, oneClassProto, objectClassProto),
+                ListUtil.copyOf(TypeProtoUtils.getSuperclassChain(threeClassProto)));
     }
 
     @Test
@@ -87,7 +88,7 @@ public class SuperclassChainTest {
 
         ClassDef twoClassDef = TestUtils.makeClassDef("Ltest/two;", "Ltest/one;");
         ClassDef threeClassDef = TestUtils.makeClassDef("Ltest/three;", "Ltest/two;");
-        ImmutableSet<ClassDef> classes = ImmutableSet.<ClassDef>of(twoClassDef, threeClassDef);
+        Set<ClassDef> classes = ArraySet.<ClassDef>of(twoClassDef, threeClassDef);
         ClassPath classPath = new ClassPath(new DexClassProvider(new ImmutableDexFile(Opcodes.getDefault(), classes)));
 
         TypeProto unknownClassProto = classPath.getUnknownClass();
@@ -96,11 +97,11 @@ public class SuperclassChainTest {
         TypeProto threeClassProto = classPath.getClass("Ltest/three;");
 
         Assert.assertEquals(
-                ImmutableList.<TypeProto>of(oneClassProto, unknownClassProto),
-                ImmutableList.copyOf(TypeProtoUtils.getSuperclassChain(twoClassProto)));
+                ListUtil.<TypeProto>of(oneClassProto, unknownClassProto),
+                ListUtil.copyOf(TypeProtoUtils.getSuperclassChain(twoClassProto)));
 
         Assert.assertEquals(
-                ImmutableList.<TypeProto>of(twoClassProto, oneClassProto, unknownClassProto),
-                ImmutableList.copyOf(TypeProtoUtils.getSuperclassChain(threeClassProto)));
+                ListUtil.<TypeProto>of(twoClassProto, oneClassProto, unknownClassProto),
+                ListUtil.copyOf(TypeProtoUtils.getSuperclassChain(threeClassProto)));
     }
 }
