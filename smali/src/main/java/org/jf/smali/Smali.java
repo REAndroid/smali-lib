@@ -106,7 +106,7 @@ public class Smali {
         if(files == null){
             return false;
         }
-        boolean success = false;
+        boolean success = files.length == 0;
         for(File file : files){
             if(assemble(dexBuilder, file, options)){
                 success = true;
