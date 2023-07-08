@@ -9,7 +9,7 @@ public class ConcatIterators<T> implements Iterator<T> {
     private final Iterator<? extends Iterable<? extends T>> iterables;
 
     private Iterator<? extends T> mCurrentIterator;
-    private T mNext;
+
     public ConcatIterators(Iterator<? extends Iterator<? extends T>> iterators){
         this.iterators = iterators;
         this.iterables = null;
@@ -20,33 +20,13 @@ public class ConcatIterators<T> implements Iterator<T> {
     }
     @Override
     public boolean hasNext() {
-        return getNext() != null;
+        Iterator<? extends T> current = getCurrent();
+        return current != null && current.hasNext();
     }
 
     @Override
     public T next() {
-        T next = getNext();
-        if(next == null){
-            throw new NoSuchElementException();
-        }
-        mNext = null;
-        return next;
-    }
-    private T getNext(){
-        T next = mNext;
-        if(next != null){
-            return next;
-        }
-        Iterator<? extends T> current = getCurrent();
-        if(current == null){
-            return null;
-        }
-        while (next == null && current != null){
-            next = current.next();
-            current = getCurrent();
-        }
-        mNext = next;
-        return next;
+        return getCurrent().next();
     }
     private Iterator<? extends T> getCurrent() {
         if(iterators != null){

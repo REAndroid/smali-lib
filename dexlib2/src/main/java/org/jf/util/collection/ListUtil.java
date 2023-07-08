@@ -33,7 +33,16 @@ public class ListUtil {
         if(elements == null){
             return new ArrayList<>(1);
         }
+        if(elements instanceof Collection){
+            return newArrayList((Collection<? extends E>) elements);
+        }
         return newArrayList(elements.iterator());
+    }
+    public static <E> ArrayList<E> newArrayList(Collection<? extends E> elements) {
+        if(elements == null){
+            return new ArrayList<>(1);
+        }
+        return new ArrayList<>(elements);
     }
     public static <E> ArrayList<E> newArrayList(Iterator<? extends E> elements) {
         if(elements == null){

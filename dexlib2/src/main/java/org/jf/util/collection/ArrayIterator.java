@@ -13,16 +13,6 @@ public class ArrayIterator<T> implements Iterator<T> {
         this.elements = elements;
     }
 
-    public void resetIndex(int index){
-        if(index == this.index){
-            return;
-        }
-        if(index < 0){
-            index = 0;
-        }
-        this.index = index;
-        mNext = null;
-    }
     public int length(){
         if(elements != null){
             return elements.length;
@@ -31,29 +21,12 @@ public class ArrayIterator<T> implements Iterator<T> {
     }
     @Override
     public boolean hasNext() {
-        return getNext() != null;
+        return index < length();
     }
     @Override
     public T next() {
-        T item = getNext();
-        if(item == null){
-            throw new NoSuchElementException();
-        }
-        mNext = null;
+        T item = elements[index];
+        index++;
         return item;
-    }
-    private T getNext(){
-        T[] elements = this.elements;
-        if(mNext == null) {
-            while (index < elements.length) {
-                T item = elements[index];
-                index ++;
-                if (item != null) {
-                    mNext = item;
-                    break;
-                }
-            }
-        }
-        return mNext;
     }
 }

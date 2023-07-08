@@ -44,8 +44,8 @@ public abstract class BaseMethodReference extends BaseReference implements Metho
     @Override
     public int hashCode() {
         int hashCode = getDefiningClass().hashCode();
-        hashCode = hashCode*31 + getName().hashCode();
         hashCode = hashCode*31 + getReturnType().hashCode();
+        hashCode = hashCode*31 + getName().hashCode();
         return hashCode*31 + getParameterTypes().hashCode();
     }
 

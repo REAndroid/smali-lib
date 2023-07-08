@@ -38,13 +38,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public abstract class BaseFieldReference extends BaseReference implements FieldReference {
+
     @Override
     public int hashCode() {
-        int hashCode = getDefiningClass().hashCode();
-        hashCode = hashCode*31 + getName().hashCode();
-        return hashCode*31 + getType().hashCode();
-    }
 
+        int hashCode = getDefiningClass().hashCode();
+        hashCode = hashCode*31 + getType().hashCode();
+        return hashCode*31 + getName().hashCode();
+    }
     @Override
     public boolean equals(@Nullable Object o) {
         if (o instanceof FieldReference) {

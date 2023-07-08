@@ -92,8 +92,10 @@ public class BuilderClassDef extends BaseTypeReference implements ClassDef {
         this.annotations = annotations;
         this.staticFields = staticFields;
         this.instanceFields = instanceFields;
-        this.directMethods = ArraySet.copyOf(Iterables.filter(methods, MethodUtil.METHOD_IS_DIRECT));
-        this.virtualMethods = ArraySet.copyOf(Iterables.filter(methods, MethodUtil.METHOD_IS_VIRTUAL));
+        ArraySet<BuilderMethod> set = ArraySet.copyOf(Iterables.filter(methods, MethodUtil.METHOD_IS_DIRECT));
+        this.directMethods = set.sort();
+        set=ArraySet.copyOf(Iterables.filter(methods, MethodUtil.METHOD_IS_VIRTUAL));;
+        this.virtualMethods = set.sort();
         this.staticInitializers = staticInitializers;
     }
 
@@ -120,18 +122,20 @@ public class BuilderClassDef extends BaseTypeReference implements ClassDef {
     @Nonnull
     @Override
     public Collection<BuilderField> getFields() {
-        List<BuilderField> results = new ArrayList<>(staticFields.size() + instanceFields.size());
+        ArraySet<BuilderField> results = new ArraySet<>(staticFields.size() + instanceFields.size());
         results.addAll(staticFields);
         results.addAll(instanceFields);
+        results.sort();
         return results;
     }
 
     @Nonnull
     @Override
     public Collection<BuilderMethod> getMethods() {
-        List<BuilderMethod> results = new ArrayList<>(directMethods.size() + virtualMethods.size());
+        ArraySet<BuilderMethod> results = new ArraySet<>(directMethods.size() + virtualMethods.size());
         results.addAll(directMethods);
         results.addAll(virtualMethods);
+        results.sort();
         return results;
     }
 }

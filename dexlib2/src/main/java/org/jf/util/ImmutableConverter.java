@@ -46,6 +46,7 @@ public abstract class ImmutableConverter<ImmutableItem, Item> {
     @Nonnull protected abstract ImmutableItem makeImmutable(@Nonnull Item item);
 
     @Nonnull
+    @SuppressWarnings("unchecked")
     public List<ImmutableItem> toList(@Nullable final Iterable<? extends Item> iterable) {
         if (iterable == null) {
             return ListUtil.of();
@@ -104,10 +105,11 @@ public abstract class ImmutableConverter<ImmutableItem, Item> {
             @Override public boolean hasNext() { return iter.hasNext(); }
             @Override public ImmutableItem next() { return makeImmutable(iter.next()); }
             @Override public void remove() { iter.remove(); }
-        });
+        }).sort();
     }
 
     @Nonnull
+    @SuppressWarnings("unchecked")
     public ArraySet<ImmutableItem> toSortedSet(final Iterable<? extends Item> iterable) {
         if (iterable == null) {
             return ArraySet.of();
@@ -136,17 +138,17 @@ public abstract class ImmutableConverter<ImmutableItem, Item> {
             @Override public boolean hasNext() { return iter.hasNext(); }
             @Override public ImmutableItem next() { return makeImmutable(iter.next()); }
             @Override public void remove() { iter.remove(); }
-        });
+        }).sort();
     }
 
     @Nonnull
+    @SuppressWarnings("unchecked")
     public SortedSet<ImmutableItem> toSortedSet(@Nonnull Comparator<? super ImmutableItem> comparator,
                                                 @Nullable final SortedSet<? extends Item> sortedSet) {
         if (sortedSet == null || sortedSet.size() == 0) {
             return (SortedSet<ImmutableItem>) ArraySortedSet.of((Comparator)comparator, new Object[0]);
         }
 
-        @SuppressWarnings("unchecked")
         ImmutableItem[] newItems = (ImmutableItem[])new Object[sortedSet.size()];
         int index = 0;
         for (Item item: sortedSet) {

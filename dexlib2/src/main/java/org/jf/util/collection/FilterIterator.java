@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 public class FilterIterator<E, T extends E> implements Iterator<T>{
     private final Iterator<? extends T> iterator;
     private T mNext;
+    private boolean mNextComputed;
     private final Predicate<E> filter;
     public FilterIterator(Iterator<? extends T> iterator, Predicate<E> filter){
         this.iterator = iterator;
@@ -15,23 +16,26 @@ public class FilterIterator<E, T extends E> implements Iterator<T>{
 
     @Override
     public boolean hasNext() {
-        return getNext() != null;
+        getNext();
+        return mNextComputed;
     }
     @Override
     public T next() {
         T item = getNext();
-        if(item == null){
+        if(!mNextComputed){
             throw new NoSuchElementException();
         }
+        mNextComputed = false;
         mNext = null;
         return item;
     }
     private T getNext(){
-        if(mNext == null) {
+        if(!mNextComputed) {
             while (iterator.hasNext()) {
                 T item = iterator.next();
                 if (testAll(item)) {
                     mNext = item;
+                    mNextComputed = true;
                     break;
                 }
             }
@@ -39,10 +43,9 @@ public class FilterIterator<E, T extends E> implements Iterator<T>{
         return mNext;
     }
     private boolean testAll(T item){
-        if(item == null && filter == null){
-            return false;
+        if(filter == null){
+            return true;
         }
-        return filter == null
-                || filter.test(item);
+        return filter.test(item);
     }
 }

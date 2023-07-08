@@ -5,6 +5,9 @@ import java.util.*;
 public class ArraySet<T> implements Set<T>, Comparator<T>{
     private final ArrayList<T> items;
     private Comparator<? super T> comparator;
+    private int mHashCode;
+    private int mHashCodeStamp = -1;
+    private final Set<Integer> mHashSet = new HashSet<>();
     public ArraySet(){
         this.items = new ArrayList<>();
     }
@@ -12,7 +15,8 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
         this.items = new ArrayList<>(initialCapacity);
     }
     public ArraySet(Collection<? extends T> collection){
-        this.items = new ArrayList<>(collection);
+        this.items = new ArrayList<>(collection.size());
+        this.addAll(collection);
     }
 
     public Comparator<? super T> comparator() {
@@ -42,7 +46,7 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
             return false;
         }
         while (iterator.hasNext()){
-            items.add(iterator.next());
+            this.add(iterator.next());
         }
         trimToSize();
         return true;
@@ -51,17 +55,24 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
         if(elements == null || elements.length == 0){
             return false;
         }
-        boolean added = false;
-        for(T item : elements){
-            if(item == null){
-                continue;
+        synchronized (mHashSet){
+            items.ensureCapacity(items.size() + elements.length);
+            Set<Integer> hashSet = this.mHashSet;
+            boolean result = false;
+            for(T item : elements){
+                if(item == null){
+                    continue;
+                }
+                Integer hash = item.hashCode();
+                if(hashSet.contains(hash)){
+                    continue;
+                }
+                hashSet.add(hash);
+                items.add(item);
+                result = true;
             }
-            added = items.add(item) || added;
+            return result;
         }
-        if(added){
-            trimToSize();
-        }
-        return added;
     }
     @Override
     public int size() {
@@ -72,8 +83,11 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
         return items.isEmpty();
     }
     @Override
-    public boolean contains(Object o) {
-        return items.contains(o);
+    public boolean contains(Object obj) {
+        if(obj == null){
+            return false;
+        }
+        return mHashSet.contains(obj.hashCode());
     }
     @Override
     public Iterator<T> iterator() {
@@ -88,12 +102,32 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
         return items.toArray(t1s);
     }
     @Override
-    public boolean add(T t) {
-        return items.add(t);
+    public boolean add(T item) {
+        synchronized (mHashSet){
+            if(item == null){
+                return false;
+            }
+            Integer hash = item.hashCode();
+            if(mHashSet.contains(hash)){
+                return false;
+            }
+            mHashSet.add(hash);
+            items.add(item);
+            return true;
+        }
     }
     @Override
-    public boolean remove(Object o) {
-        return items.remove(o);
+    public boolean remove(Object obj) {
+        if(obj == null){
+            return false;
+        }
+        synchronized (mHashSet){
+            if(items.remove(obj)){
+                mHashSet.remove(obj.hashCode());
+                return true;
+            }
+            return false;
+        }
     }
     @Override
     public boolean containsAll(Collection<?> collection) {
@@ -101,14 +135,30 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
     }
     @Override
     public boolean addAll(Collection<? extends T> collection) {
-        if(collection == null){
+        if(collection == null || collection.size() == 0 || collection == this){
             return false;
         }
-        boolean result = items.addAll(collection);
-        if(result){
-            trimToSize();
+        synchronized (mHashSet){
+            items.ensureCapacity(items.size() + collection.size());
+            Set<Integer> hashSet = this.mHashSet;
+            boolean result = false;
+            for(T item : collection){
+                if(item == null){
+                    continue;
+                }
+                Integer hash = item.hashCode();
+                if(hashSet.contains(hash)){
+                    continue;
+                }
+                hashSet.add(hash);
+                items.add(item);
+                result = true;
+            }
+            if(result){
+                trimToSize();
+            }
+            return result;
         }
-        return result;
     }
     @Override
     public boolean retainAll(Collection<?> collection) {
@@ -123,6 +173,7 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
     @Override
     public void clear() {
         items.clear();
+        mHashSet.clear();
         trimToSize();
     }
     @Override
@@ -140,7 +191,50 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
         items.sort(comparator);
         return this;
     }
-
+    @Override
+    public boolean equals(Object obj){
+        if(obj == null){
+            return false;
+        }
+        if(obj == this){
+            return true;
+        }
+        if(obj instanceof ArraySet){
+            return hashCode() == obj.hashCode();
+        }
+        if(obj instanceof Set){
+            return hashCode() == ArraySet.hashCode((Set<?>) obj);
+        }
+        return false;
+    }
+    @Override
+    public int hashCode(){
+        if(mHashCodeStamp != items.size()){
+            mHashCode = ArraySet.hashCode(this);
+            mHashCodeStamp = items.size();
+        }
+        return mHashCode;
+    }
+    public static int hashCode(Set<?> set) {
+        int[] hashArray = sortedHashCode(set);
+        int hashCode = 1;
+        for (int hash : hashArray) {
+            hashCode = hashCode * 31 + hash;
+        }
+        return hashCode;
+    }
+    private static int[] sortedHashCode(Set<?> set){
+        int[] results = new int[set.size()];
+        int index = 0;
+        for (Object obj : set) {
+            if(obj != null){
+                results[index] = obj.hashCode();
+            }
+            index++;
+        }
+        Arrays.sort(results);
+        return results;
+    }
     public static <E> ArraySet<E> sortedCopy(Iterator<? extends E> elements) {
         ArraySet<E> arraySet = copyOf(elements);
         arraySet.sort();

@@ -135,8 +135,10 @@ public class DexBuilder extends DexWriter<BuilderStringReference, BuilderStringR
         Set<BuilderField> instanceFields = null;
         BuilderArrayEncodedValue internedStaticInitializers = null;
         if (fields != null) {
-            staticFields = ArraySet.copyOf(Iterables.filter(fields, FieldUtil.FIELD_IS_STATIC));
-            instanceFields = ArraySet.copyOf(Iterables.filter(fields, FieldUtil.FIELD_IS_INSTANCE));
+            ArraySet<BuilderField> set = ArraySet.copyOf(Iterables.filter(fields, FieldUtil.FIELD_IS_STATIC));
+            staticFields = set.sort();
+            set = ArraySet.copyOf(Iterables.filter(fields, FieldUtil.FIELD_IS_INSTANCE));
+            instanceFields = set.sort();
             ArrayEncodedValue staticInitializers = StaticInitializerUtil.getStaticInitializers(staticFields);
             if (staticInitializers != null) {
                 internedStaticInitializers = encodedArraySection.internArrayEncodedValue(staticInitializers);
