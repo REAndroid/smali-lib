@@ -50,11 +50,17 @@ public class CharSequenceUtils {
     }
 
     public static boolean listEquals(List<? extends CharSequence> list1, List<? extends CharSequence> list2) {
+        if(list1 == list2){
+            return true;
+        }
         if(list1.size() != list2.size()){
             return false;
         }
-        List<String> listStr1 = ListUtil.transform(list1, TO_STRING);
-        List<String> listStr2 = ListUtil.transform(list1, TO_STRING);
-        return listStr1.containsAll(listStr2) && listStr2.containsAll(listStr1);
+        for(int i = 0; i < list1.size(); i++){
+            if(!list1.get(i).toString().equals(list2.get(i).toString())){
+                return false;
+            }
+        }
+        return true;
     }
 }

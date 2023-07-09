@@ -7,7 +7,6 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
     private Comparator<? super T> comparator;
     private int mHashCode;
     private int mHashCodeStamp = -1;
-    private final Set<Integer> mHashSet = new HashSet<>();
     public ArraySet(){
         this.items = new ArrayList<>();
     }
@@ -55,19 +54,17 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
         if(elements == null || elements.length == 0){
             return false;
         }
-        synchronized (mHashSet){
+        synchronized (items){
+            ArrayList<T> items = this.items;
             items.ensureCapacity(items.size() + elements.length);
-            Set<Integer> hashSet = this.mHashSet;
             boolean result = false;
             for(T item : elements){
                 if(item == null){
                     continue;
                 }
-                Integer hash = item.hashCode();
-                if(hashSet.contains(hash)){
+                if(items.contains(item)){
                     continue;
                 }
-                hashSet.add(hash);
                 items.add(item);
                 result = true;
             }
@@ -87,7 +84,7 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
         if(obj == null){
             return false;
         }
-        return mHashSet.contains(obj.hashCode());
+        return items.contains(obj);
     }
     @Override
     public Iterator<T> iterator() {
@@ -103,30 +100,32 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
     }
     @Override
     public boolean add(T item) {
-        synchronized (mHashSet){
+        synchronized (item){
             if(item == null){
                 return false;
             }
-            Integer hash = item.hashCode();
-            if(mHashSet.contains(hash)){
-                return false;
+            if(items.contains(item)){
+                return !items.contains(item);
             }
-            mHashSet.add(hash);
             items.add(item);
             return true;
         }
+    }
+    private T getByHash(int hash){
+        for(T item:items){
+            if(item.hashCode() == hash){
+                return item;
+            }
+        }
+        return null;
     }
     @Override
     public boolean remove(Object obj) {
         if(obj == null){
             return false;
         }
-        synchronized (mHashSet){
-            if(items.remove(obj)){
-                mHashSet.remove(obj.hashCode());
-                return true;
-            }
-            return false;
+        synchronized (items){
+            return items.remove(obj);
         }
     }
     @Override
@@ -138,19 +137,17 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
         if(collection == null || collection.size() == 0 || collection == this){
             return false;
         }
-        synchronized (mHashSet){
+        synchronized (items){
+            ArrayList<T> items = this.items;
             items.ensureCapacity(items.size() + collection.size());
-            Set<Integer> hashSet = this.mHashSet;
             boolean result = false;
             for(T item : collection){
                 if(item == null){
                     continue;
                 }
-                Integer hash = item.hashCode();
-                if(hashSet.contains(hash)){
+                if(items.contains(item)){
                     continue;
                 }
-                hashSet.add(hash);
                 items.add(item);
                 result = true;
             }
@@ -173,7 +170,6 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
     @Override
     public void clear() {
         items.clear();
-        mHashSet.clear();
         trimToSize();
     }
     @Override
