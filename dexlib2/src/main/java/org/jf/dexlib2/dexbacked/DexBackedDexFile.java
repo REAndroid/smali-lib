@@ -33,6 +33,8 @@ package org.jf.dexlib2.dexbacked;
 
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.ReferenceType;
+import org.jf.dexlib2.dexbacked.model.DexStringSection;
+import org.jf.dexlib2.dexbacked.model.DexTypeStringSection;
 import org.jf.dexlib2.dexbacked.raw.*;
 import org.jf.dexlib2.dexbacked.reference.*;
 import org.jf.dexlib2.dexbacked.util.FixedSizeList;
@@ -44,6 +46,7 @@ import org.jf.util.io.ByteStreams;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.AbstractList;
@@ -57,12 +60,14 @@ public class DexBackedDexFile implements DexFile {
     private final DexBuffer dexBuffer;
     private final DexBuffer dataBuffer;
 
-    @Nonnull private final Opcodes opcodes;
+    @Nonnull
+    private final Opcodes opcodes;
 
-    private final int stringCount;
-    private final int stringStartOffset;
+    private final DexStringSection dexStringSection;
     private final int typeCount;
     private final int typeStartOffset;
+    private final DexTypeStringSection typeStringSection;
+
     private final int protoCount;
     private final int protoStartOffset;
     private final int fieldCount;
@@ -86,10 +91,17 @@ public class DexBackedDexFile implements DexFile {
             this.opcodes = opcodes;
         }
 
-        stringCount = dexBuffer.readSmallUint(HeaderItem.STRING_COUNT_OFFSET);
-        stringStartOffset = dexBuffer.readSmallUint(HeaderItem.STRING_START_OFFSET);
+        int stringCount = dexBuffer.readSmallUint(HeaderItem.STRING_COUNT_OFFSET);
+        int stringStartOffset = dexBuffer.readSmallUint(HeaderItem.STRING_START_OFFSET);
+        dexStringSection = new DexStringSection(stringCount);
+        dexStringSection.load(dexBuffer, stringStartOffset, StringIdItem.ITEM_SIZE);
+
         typeCount = dexBuffer.readSmallUint(HeaderItem.TYPE_COUNT_OFFSET);
         typeStartOffset = dexBuffer.readSmallUint(HeaderItem.TYPE_START_OFFSET);
+
+        typeStringSection = new DexTypeStringSection(typeCount);
+        typeStringSection.load(dexBuffer, typeStartOffset, dexStringSection);
+
         protoCount = dexBuffer.readSmallUint(HeaderItem.PROTO_COUNT_OFFSET);
         protoStartOffset = dexBuffer.readSmallUint(HeaderItem.PROTO_START_OFFSET);
         fieldCount = dexBuffer.readSmallUint(HeaderItem.FIELD_COUNT_OFFSET);
@@ -122,10 +134,17 @@ public class DexBackedDexFile implements DexFile {
             this.opcodes = opcodes;
         }
 
-        stringCount = dexBuffer.readSmallUint(HeaderItem.STRING_COUNT_OFFSET);
-        stringStartOffset = dexBuffer.readSmallUint(HeaderItem.STRING_START_OFFSET);
+        int stringCount = dexBuffer.readSmallUint(HeaderItem.STRING_COUNT_OFFSET);
+        int stringStartOffset = dexBuffer.readSmallUint(HeaderItem.STRING_START_OFFSET);
+        dexStringSection = new DexStringSection(stringCount);
+        dexStringSection.load(dexBuffer, stringStartOffset, StringIdItem.ITEM_SIZE);
+
         typeCount = dexBuffer.readSmallUint(HeaderItem.TYPE_COUNT_OFFSET);
         typeStartOffset = dexBuffer.readSmallUint(HeaderItem.TYPE_START_OFFSET);
+
+        typeStringSection = new DexTypeStringSection(typeCount);
+        typeStringSection.load(dexBuffer, typeStartOffset, dexStringSection);
+
         protoCount = dexBuffer.readSmallUint(HeaderItem.PROTO_COUNT_OFFSET);
         protoStartOffset = dexBuffer.readSmallUint(HeaderItem.PROTO_START_OFFSET);
         fieldCount = dexBuffer.readSmallUint(HeaderItem.FIELD_COUNT_OFFSET);
@@ -185,15 +204,22 @@ public class DexBackedDexFile implements DexFile {
     }
 
     @Nonnull
-    public static DexBackedDexFile fromInputStream(@Nullable Opcodes opcodes, @Nonnull InputStream is)
-            throws IOException {
-        DexUtil.verifyDexHeader(is);
-
+    public static DexBackedDexFile fromInputStream(@Nullable Opcodes opcodes,
+                                                   @Nonnull InputStream is) throws IOException {
         byte[] buf = ByteStreams.toByteArray(is);
+        DexUtil.verifyDexHeader(buf, 0);
+        return new DexBackedDexFile(opcodes, buf, 0, false);
+    }
+    @Nonnull
+    public static DexBackedDexFile fromFile(@Nullable Opcodes opcodes, @Nonnull File file)
+            throws IOException {
+        byte[] buf = ByteStreams.toByteArray(file);
+        DexUtil.verifyDexHeader(buf, 0);
         return new DexBackedDexFile(opcodes, buf, 0, false);
     }
 
-    @Nonnull public Opcodes getOpcodes() {
+    @Nonnull
+    public Opcodes getOpcodes() {
         return opcodes;
     }
 
@@ -219,14 +245,16 @@ public class DexBackedDexFile implements DexFile {
 
     public List<DexBackedStringReference> getStringReferences() {
         return new AbstractList<DexBackedStringReference>() {
-            @Override public DexBackedStringReference get(int index) {
+            @Override
+            public DexBackedStringReference get(int index) {
                 if (index < 0 || index >= getStringSection().size()) {
                     throw new IndexOutOfBoundsException();
                 }
                 return new DexBackedStringReference(DexBackedDexFile.this, index);
             }
 
-            @Override public int size() {
+            @Override
+            public int size() {
                 return getStringSection().size();
             }
         };
@@ -234,14 +262,16 @@ public class DexBackedDexFile implements DexFile {
 
     public List<DexBackedTypeReference> getTypeReferences() {
         return new AbstractList<DexBackedTypeReference>() {
-            @Override public DexBackedTypeReference get(int index) {
+            @Override
+            public DexBackedTypeReference get(int index) {
                 if (index < 0 || index >= getTypeSection().size()) {
                     throw new IndexOutOfBoundsException();
                 }
                 return new DexBackedTypeReference(DexBackedDexFile.this, index);
             }
 
-            @Override public int size() {
+            @Override
+            public int size() {
                 return getTypeSection().size();
             }
         };
@@ -272,7 +302,8 @@ public class DexBackedDexFile implements DexFile {
                 return new MapItem(DexBackedDexFile.this, mapItemOffset);
             }
 
-            @Override public int size() {
+            @Override
+            public int size() {
                 return mapSize;
             }
         };
@@ -305,78 +336,18 @@ public class DexBackedDexFile implements DexFile {
         }
     }
 
-    private OptionalIndexedSection<String> stringSection = new OptionalIndexedSection<String>() {
-        @Override
-        public String get(int index) {
-            int stringOffset = getOffset(index);
-            int stringDataOffset = dexBuffer.readSmallUint(stringOffset);
-            DexReader reader = dataBuffer.readerAt(stringDataOffset);
-            int utf16Length = reader.readSmallUleb128();
-            return reader.readString(utf16Length);
-        }
-
-        @Override
-        public int size() {
-            return stringCount;
-        }
-
-        @Nullable
-        @Override
-        public String getOptional(int index) {
-            if (index == -1) {
-                return null;
-            }
-            return get(index);
-        }
-
-        @Override
-        public int getOffset(int index) {
-            if (index < 0 || index >= size()) {
-                throw new IndexOutOfBoundsException(
-                        String.format("Invalid string index %d, not in [0, %d)", index, size()));
-            }
-            return stringStartOffset + index*StringIdItem.ITEM_SIZE;
-        }
-    };
-
-    public OptionalIndexedSection<String> getStringSection() {
-        return stringSection;
+    public List<String> getStringSection() {
+        return dexStringSection.getStringList();
+    }
+    public List<String> getTypeSection() {
+        return typeStringSection.getStringList();
     }
 
-    private OptionalIndexedSection<String> typeSection = new OptionalIndexedSection<String>() {
-        @Override
-        public String get(int index) {
-            int typeOffset = getOffset(index);
-            int stringIndex = dexBuffer.readSmallUint(typeOffset);
-            return getStringSection().get(stringIndex);
-        }
-
-        @Override
-        public int size() {
-            return typeCount;
-        }
-
-        @Nullable
-        @Override
-        public String getOptional(int index) {
-            if (index == -1) {
-                return null;
-            }
-            return get(index);
-        }
-
-        @Override
-        public int getOffset(int index) {
-            if (index < 0 || index >= size()) {
-                throw new IndexOutOfBoundsException(
-                        String.format("Invalid type index %d, not in [0, %d)", index, size()));
-            }
-            return typeStartOffset + index * TypeIdItem.ITEM_SIZE;
-        }
-    };
-
-    public OptionalIndexedSection<String> getTypeSection() {
-        return typeSection;
+    public DexStringSection getDexStringSection() {
+        return dexStringSection;
+    }
+    public DexTypeStringSection getTypeStringSection() {
+        return typeStringSection;
     }
 
     private IndexedSection<DexBackedFieldReference> fieldSection = new IndexedSection<DexBackedFieldReference>() {
@@ -548,7 +519,9 @@ public class DexBackedDexFile implements DexFile {
     }
 
     protected DexBackedMethodImplementation createMethodImplementation(
-            @Nonnull DexBackedDexFile dexFile, @Nonnull DexBackedMethod method, int codeOffset) {
+            @Nonnull DexBackedDexFile dexFile,
+            @Nonnull DexBackedMethod method,
+            int codeOffset) {
         return new DexBackedMethodImplementation(dexFile, method, codeOffset);
     }
 
@@ -568,14 +541,6 @@ public class DexBackedDexFile implements DexFile {
         return hiddenApiRestrictionsOffset + offset;
     }
 
-    public static abstract class OptionalIndexedSection<T> extends IndexedSection<T> {
-        /**
-         * @param index The index of the item, or -1 for a null item.
-         * @return The value at the given index, or null if index is -1.
-         * @throws IndexOutOfBoundsException if the index is out of bounds and is not -1.
-         */
-        @Nullable public abstract T getOptional(int index);
-    }
 
     public static abstract class IndexedSection<T> extends AbstractList<T> {
         /**
