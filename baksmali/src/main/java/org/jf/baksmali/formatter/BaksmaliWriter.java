@@ -31,6 +31,7 @@
 
 package org.jf.baksmali.formatter;
 
+import org.jf.baksmali.BaksmaliOptions;
 import org.jf.dexlib2.MethodHandleType;
 import org.jf.dexlib2.ValueType;
 import org.jf.dexlib2.formatter.DexFormattedWriter;
@@ -57,12 +58,22 @@ import static java.lang.Math.abs;
  */
 public class BaksmaliWriter extends DexFormattedWriter {
 
-    @Nullable private final String classContext;
+    @Nullable
+    private final String classContext;
 
     protected final char[] buffer = new char[24];
 
+    private BaksmaliOptions options;
+
     public BaksmaliWriter(Writer writer) {
         this(writer, null);
+    }
+
+    public BaksmaliOptions getOptions() {
+        return options;
+    }
+    public void setOptions(BaksmaliOptions options) {
+        this.options = options;
     }
 
     /**
@@ -450,6 +461,9 @@ public class BaksmaliWriter extends DexFormattedWriter {
 
     public void indent(int indentAmount) {
         ((IndentingWriter) writer).indent(indentAmount);
+    }
+    public int getLineNumber(){
+        return ((IndentingWriter) writer).getLineNumber();
     }
 
     public void deindent(int indentAmount) {
