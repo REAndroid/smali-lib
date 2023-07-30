@@ -37,6 +37,7 @@ public class IndentingWriter extends Writer {
     protected int indentLevel = 0;
     private boolean beginningOfLine = true;
     private static final String newLine = System.getProperty("line.separator");
+    private int lineNumber = 1;
 
     public IndentingWriter(Writer writer) {
         this.writer = writer;
@@ -48,11 +49,16 @@ public class IndentingWriter extends Writer {
         }
     }
 
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
     @Override
     public void write(int chr) throws IOException {
         if (chr == '\n') {
             writer.write(newLine);
             beginningOfLine = true;
+            lineNumber ++;
         } else {
             if (beginningOfLine) {
                 writeIndent();
@@ -102,6 +108,7 @@ public class IndentingWriter extends Writer {
                 beginningOfLine = true;
                 pos++;
                 start = pos;
+                lineNumber ++;
             } else {
                 pos++;
             }
@@ -127,6 +134,7 @@ public class IndentingWriter extends Writer {
                 writeLine(str, start, pos-start);
                 writer.write(newLine);
                 beginningOfLine = true;
+                lineNumber ++;
                 start = pos+1;
             }
         }
