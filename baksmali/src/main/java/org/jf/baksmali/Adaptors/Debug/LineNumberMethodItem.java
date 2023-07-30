@@ -38,11 +38,19 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 
 public class LineNumberMethodItem extends DebugMethodItem {
-    private final int lineNumber;
+    private int lineNumber;
 
     public LineNumberMethodItem(int codeAddress, int sortOrder, @Nonnull LineNumber lineNumber) {
         super(codeAddress, sortOrder);
         this.lineNumber = lineNumber.getLineNumber();
+    }
+
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
+    public void setLineNumber(int lineNumber) {
+        this.lineNumber = lineNumber;
     }
 
     @Override
