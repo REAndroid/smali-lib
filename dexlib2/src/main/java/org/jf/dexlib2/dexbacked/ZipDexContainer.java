@@ -106,7 +106,9 @@ public class ZipDexContainer implements MultiDexContainer<DexBackedDexFile> {
      * @return A ZipDexFile, or null if there is no entry with the given name
      * @throws NotADexFile If the entry isn't a dex file
      */
-    @Nullable @Override public DexEntry<DexBackedDexFile> getEntry(@Nonnull String entryName) throws IOException {
+    @Nullable
+    @Override
+    public DexEntry<DexBackedDexFile> getEntry(@Nonnull String entryName) throws IOException {
         ZipFile zipFile = getZipFile();
         try {
             ZipEntry entry = zipFile.getEntry(entryName);

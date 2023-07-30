@@ -57,7 +57,8 @@ public abstract class BaseCallSiteReference extends BaseReference implements Cal
         return false;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return DexFormatter.INSTANCE.getCallSite(this);
     }
 }

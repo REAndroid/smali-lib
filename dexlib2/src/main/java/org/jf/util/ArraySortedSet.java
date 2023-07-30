@@ -38,8 +38,10 @@ import javax.annotation.Nonnull;
 import java.util.*;
 
 public class ArraySortedSet<T> implements SortedSet<T> {
-    @Nonnull private final Comparator<? super T> comparator;
-    @Nonnull private final Object[] arr;
+    @Nonnull
+    private final Comparator<? super T> comparator;
+    @Nonnull
+    private final Object[] arr;
 
     private ArraySortedSet(@Nonnull Comparator<? super T> comparator, @Nonnull T[] arr) {
         // we assume arr is already sorted by comparator, and all entries are unique

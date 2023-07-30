@@ -13,8 +13,10 @@ import java.io.*;
 public class FileDeferredOutputStream extends DeferredOutputStream {
     private static final int DEFAULT_BUFFER_SIZE = 4 * 1024;
 
-    @Nonnull private final File backingFile;
-    @Nonnull private final NakedBufferedOutputStream output;
+    @Nonnull
+    private final File backingFile;
+    @Nonnull
+    private final NakedBufferedOutputStream output;
     private int writtenBytes;
 
     public FileDeferredOutputStream(@Nonnull File backingFile) throws FileNotFoundException {
@@ -26,7 +28,8 @@ public class FileDeferredOutputStream extends DeferredOutputStream {
         output = new NakedBufferedOutputStream(new FileOutputStream(backingFile), bufferSize);
     }
 
-    @Override public void writeTo(@Nonnull OutputStream dest) throws IOException {
+    @Override
+    public void writeTo(@Nonnull OutputStream dest) throws IOException {
         byte[] outBuf = output.getBuffer();
         int count = output.getCount();
         output.resetBuffer();
@@ -42,26 +45,31 @@ public class FileDeferredOutputStream extends DeferredOutputStream {
         dest.write(outBuf, 0, count);
     }
 
-    @Override public void write(int i) throws IOException {
+    @Override
+    public void write(int i) throws IOException {
         output.write(i);
         writtenBytes++;
     }
 
-    @Override public void write(byte[] bytes) throws IOException {
+    @Override
+    public void write(byte[] bytes) throws IOException {
         output.write(bytes);
         writtenBytes += bytes.length;
     }
 
-    @Override public void write(byte[] bytes, int off, int len) throws IOException {
+    @Override
+    public void write(byte[] bytes, int off, int len) throws IOException {
         output.write(bytes, off, len);
         writtenBytes += len;
     }
 
-    @Override public void flush() throws IOException {
+    @Override
+    public void flush() throws IOException {
         output.flush();
     }
 
-    @Override public void close() throws IOException {
+    @Override
+    public void close() throws IOException {
         output.close();
     }
 

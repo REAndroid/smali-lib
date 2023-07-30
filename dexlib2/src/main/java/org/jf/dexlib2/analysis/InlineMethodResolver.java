@@ -71,7 +71,8 @@ public abstract class InlineMethodResolver {
         return new ImmutableMethod(cls, name, paramList, returnType, accessFlags, null, null, null);
     }
 
-    @Nonnull public abstract Method resolveExecuteInline(@Nonnull AnalyzedInstruction instruction);
+    @Nonnull
+    public abstract Method resolveExecuteInline(@Nonnull AnalyzedInstruction instruction);
 
     private static class InlineMethodResolver_version35 extends InlineMethodResolver
     {

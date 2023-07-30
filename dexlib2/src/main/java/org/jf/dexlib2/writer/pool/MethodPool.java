@@ -53,27 +53,38 @@ public class MethodPool extends BaseIndexPool<MethodReference>
         }
     }
 
-    @Nonnull @Override public MethodReference getMethodReference(@Nonnull PoolMethod poolMethod) {
+    @Nonnull
+    @Override
+    public MethodReference getMethodReference(@Nonnull PoolMethod poolMethod) {
         return poolMethod;
     }
 
-    @Nonnull @Override public CharSequence getDefiningClass(@Nonnull MethodReference methodReference) {
+    @Nonnull
+    @Override
+    public CharSequence getDefiningClass(@Nonnull MethodReference methodReference) {
         return methodReference.getDefiningClass();
     }
 
-    @Nonnull @Override public MethodProtoReference getPrototype(@Nonnull MethodReference methodReference) {
+    @Nonnull
+    @Override
+    public MethodProtoReference getPrototype(@Nonnull MethodReference methodReference) {
         return new PoolMethodProto(methodReference);
     }
 
-    @Nonnull @Override public MethodProtoReference getPrototype(@Nonnull PoolMethod poolMethod) {
+    @Nonnull
+    @Override
+    public MethodProtoReference getPrototype(@Nonnull PoolMethod poolMethod) {
         return new PoolMethodProto(poolMethod);
     }
 
-    @Nonnull @Override public CharSequence getName(@Nonnull MethodReference methodReference) {
+    @Nonnull
+    @Override
+    public CharSequence getName(@Nonnull MethodReference methodReference) {
         return methodReference.getName();
     }
 
-    @Override public int getMethodIndex(@Nonnull PoolMethod poolMethod) {
+    @Override 
+    public int getMethodIndex(@Nonnull PoolMethod poolMethod) {
         return getItemIndex(poolMethod);
     }
 }

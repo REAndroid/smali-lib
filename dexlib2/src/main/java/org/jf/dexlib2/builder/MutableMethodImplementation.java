@@ -130,7 +130,8 @@ public class MutableMethodImplementation implements MethodImplementation {
         this.registerCount = registerCount;
     }
 
-    @Override public int getRegisterCount() {
+    @Override
+    public int getRegisterCount() {
         return registerCount;
     }
 
@@ -161,7 +162,9 @@ public class MutableMethodImplementation implements MethodImplementation {
         };
     }
 
-    @Nonnull @Override public List<BuilderTryBlock> getTryBlocks() {
+    @Nonnull
+    @Override
+    public List<BuilderTryBlock> getTryBlocks() {
         if (fixInstructions) {
             fixInstructions();
         }

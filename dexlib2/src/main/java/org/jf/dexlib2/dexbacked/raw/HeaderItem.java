@@ -88,7 +88,8 @@ public class HeaderItem {
     public static final int DATA_SIZE_OFFSET = 104;
     public static final int DATA_START_OFFSET = 108;
 
-    @Nonnull private DexBackedDexFile dexFile;
+    @Nonnull
+    private DexBackedDexFile dexFile;
 
     public HeaderItem(@Nonnull DexBackedDexFile dexFile) {
         this.dexFile = dexFile;
@@ -98,7 +99,8 @@ public class HeaderItem {
         return dexFile.getBuffer().readSmallUint(CHECKSUM_OFFSET);
     }
 
-    @Nonnull public byte[] getSignature() {
+    @Nonnull
+    public byte[] getSignature() {
         return dexFile.getBuffer().readByteRange(SIGNATURE_OFFSET, SIGNATURE_SIZE);
     }
 

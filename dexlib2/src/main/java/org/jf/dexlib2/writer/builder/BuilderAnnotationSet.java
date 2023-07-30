@@ -50,11 +50,14 @@ public class BuilderAnnotationSet extends AbstractSet<BuilderAnnotation> {
         this.annotations = annotations;
     }
 
-    @Nonnull @Override public Iterator<BuilderAnnotation> iterator() {
+    @Nonnull
+    @Override
+    public Iterator<BuilderAnnotation> iterator() {
         return annotations.iterator();
     }
 
-    @Override public int size() {
+    @Override 
+    public int size() {
         return annotations.size();
     }
 }

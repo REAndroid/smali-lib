@@ -38,7 +38,8 @@ public abstract class BuilderDebugItem extends ItemWithLocation implements Debug
     public BuilderDebugItem() {
     }
 
-    @Override public int getCodeAddress() {
+    @Override
+    public int getCodeAddress() {
         if (location == null) {
             throw new IllegalStateException("Cannot get the address of a BuilderDebugItem that isn't associated with " +
                     "a method.");

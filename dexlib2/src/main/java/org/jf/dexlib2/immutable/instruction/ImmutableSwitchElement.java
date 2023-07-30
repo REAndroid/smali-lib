@@ -58,8 +58,10 @@ public class ImmutableSwitchElement implements SwitchElement {
                 switchElement.getOffset());
     }
 
-    @Override public int getKey() { return key; }
-    @Override public int getOffset() { return offset; }
+    @Override
+    public int getKey() { return key; }
+    @Override
+    public int getOffset() { return offset; }
 
     @Nonnull
     public static List<ImmutableSwitchElement> immutableListOf(@Nullable List<? extends SwitchElement> list) {

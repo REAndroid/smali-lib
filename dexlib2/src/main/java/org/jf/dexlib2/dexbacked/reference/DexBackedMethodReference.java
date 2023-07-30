@@ -43,7 +43,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class DexBackedMethodReference extends BaseMethodReference {
-    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
     private final int methodIndex;
     private int protoIdItemOffset;
 
@@ -82,7 +83,8 @@ public class DexBackedMethodReference extends BaseMethodReference {
                 public String readItem(final int index) {
                     return dexFile.getTypeSection().get(dexFile.getDataBuffer().readUshort(paramListStart + 2*index));
                 }
-                @Override public int size() { return parameterCount; }
+                @Override
+    public int size() { return parameterCount; }
             };
         }
         return EmptyList.of();

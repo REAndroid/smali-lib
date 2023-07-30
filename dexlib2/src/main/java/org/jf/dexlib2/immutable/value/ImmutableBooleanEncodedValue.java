@@ -52,5 +52,6 @@ public class ImmutableBooleanEncodedValue extends BaseBooleanEncodedValue implem
         return forBoolean(booleanEncodedValue.getValue());
     }
 
-    @Override public boolean getValue() { return value; }
+    @Override 
+    public boolean getValue() { return value; }
 }

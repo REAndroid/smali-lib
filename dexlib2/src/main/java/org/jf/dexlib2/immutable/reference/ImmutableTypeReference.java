@@ -40,7 +40,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ImmutableTypeReference extends BaseTypeReference implements ImmutableReference {
-    @Nonnull protected final String type;
+    @Nonnull
+    protected final String type;
 
     public ImmutableTypeReference(String type) {
         this.type = type;
@@ -54,7 +55,9 @@ public class ImmutableTypeReference extends BaseTypeReference implements Immutab
         return new ImmutableTypeReference(typeReference.getType());
     }
 
-    @Nonnull @Override public String getType() { return type; }
+    @Nonnull
+    @Override
+    public String getType() { return type; }
 
     @Nonnull
     public static List<ImmutableTypeReference> immutableListOf(@Nullable List<? extends TypeReference> list) {

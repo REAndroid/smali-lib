@@ -65,7 +65,8 @@ public abstract class BaseMethodHandleEncodedValue implements MethodHandleEncode
         return ValueType.METHOD_HANDLE;
     }
 
-    @Override public String toString() {
+    @Override 
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

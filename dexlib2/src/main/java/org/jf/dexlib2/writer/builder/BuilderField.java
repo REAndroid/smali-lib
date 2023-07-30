@@ -59,31 +59,44 @@ public class BuilderField extends BaseFieldReference implements Field {
         this.hiddenApiRestrictions = hiddenApiRestrictions;
     }
 
-    @Override public int getAccessFlags() {
+    @Override
+    public int getAccessFlags() {
         return accessFlags;
     }
 
-    @Nullable @Override public BuilderEncodedValue getInitialValue() {
+    @Nullable
+    @Override
+    public BuilderEncodedValue getInitialValue() {
         return initialValue;
     }
 
-    @Nonnull @Override public BuilderAnnotationSet getAnnotations() {
+    @Nonnull
+    @Override
+    public BuilderAnnotationSet getAnnotations() {
         return annotations;
     }
 
-    @Nonnull @Override public String getDefiningClass() {
+    @Nonnull
+    @Override
+    public String getDefiningClass() {
         return fieldReference.definingClass.getType();
     }
 
-    @Nonnull @Override public String getName() {
+    @Nonnull
+    @Override
+    public String getName() {
         return fieldReference.name.getString();
     }
 
-    @Nonnull @Override public String getType() {
+    @Nonnull
+    @Override
+    public String getType() {
         return fieldReference.fieldType.getType();
     }
 
-    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
+    @Nonnull
+    @Override
+    public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
         return hiddenApiRestrictions;
     }
 }

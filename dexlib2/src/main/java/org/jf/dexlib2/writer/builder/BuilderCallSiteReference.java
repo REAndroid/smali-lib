@@ -55,34 +55,46 @@ public class BuilderCallSiteReference extends BaseCallSiteReference implements B
         this.encodedCallSite = encodedCallSite;
     }
 
-    @Nonnull @Override public String getName() {
+    @Nonnull
+    @Override
+    public String getName() {
         return name;
     }
 
-    @Nonnull @Override public BuilderMethodHandleReference getMethodHandle() {
+    @Nonnull
+    @Override
+    public BuilderMethodHandleReference getMethodHandle() {
         return ((BuilderMethodHandleEncodedValue) encodedCallSite.elements.get(0)).getValue();
     }
 
-    @Nonnull @Override public String getMethodName() {
+    @Nonnull
+    @Override
+    public String getMethodName() {
         return ((StringEncodedValue) encodedCallSite.elements.get(1)).getValue();
     }
 
-    @Nonnull @Override public BuilderMethodProtoReference getMethodProto() {
+    @Nonnull
+    @Override
+    public BuilderMethodProtoReference getMethodProto() {
         return ((BuilderMethodTypeEncodedValue) encodedCallSite.elements.get(2)).getValue();
     }
 
-    @Nonnull @Override public List<? extends BuilderEncodedValue> getExtraArguments() {
+    @Nonnull
+    @Override
+    public List<? extends BuilderEncodedValue> getExtraArguments() {
         if (encodedCallSite.elements.size() <= 3) {
             return EmptyList.of();
         }
         return encodedCallSite.elements.subList(3, encodedCallSite.elements.size());
     }
 
-    @Override public int getIndex() {
+    @Override 
+    public int getIndex() {
         return index;
     }
 
-    @Override public void setIndex(int index) {
+    @Override 
+    public void setIndex(int index) {
         this.index = index;
     }
 }

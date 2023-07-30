@@ -48,5 +48,6 @@ public class ImmutableDoubleEncodedValue extends BaseDoubleEncodedValue implemen
         return new ImmutableDoubleEncodedValue(doubleEncodedValue.getValue());
     }
 
-    @Override public double getValue() { return value; }
+    @Override
+    public double getValue() { return value; }
 }

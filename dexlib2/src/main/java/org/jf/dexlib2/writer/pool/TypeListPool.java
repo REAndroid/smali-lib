@@ -61,7 +61,8 @@ public class TypeListPool extends BaseNullableOffsetPool<Key<? extends Collectio
         }
     }
 
-    @Nonnull @Override
+    @Nonnull
+    @Override
     public Collection<? extends CharSequence> getTypes(Key<? extends Collection<? extends CharSequence>> typesKey) {
         if (typesKey == null) {
             return EmptyList.of();
@@ -69,7 +70,8 @@ public class TypeListPool extends BaseNullableOffsetPool<Key<? extends Collectio
         return typesKey.types;
     }
 
-    @Override public int getNullableItemOffset(@Nullable Key<? extends Collection<? extends CharSequence>> key) {
+    @Override 
+    public int getNullableItemOffset(@Nullable Key<? extends Collection<? extends CharSequence>> key) {
         if (key == null || key.types.size() == 0) {
             return DexWriter.NO_OFFSET;
         } else {

@@ -40,7 +40,8 @@ import org.jf.dexlib2.iface.reference.MethodProtoReference;
 import javax.annotation.Nonnull;
 
 public class DexBackedMethodTypeEncodedValue extends BaseMethodTypeEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
     private final int methodProtoIndex;
 
     public DexBackedMethodTypeEncodedValue(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader, int valueArg) {

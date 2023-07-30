@@ -42,8 +42,10 @@ import java.util.List;
 import java.util.Set;
 
 public class ImmutableMethodParameter extends BaseMethodParameter {
-    @Nonnull protected final String type;
-    @Nonnull protected final Set<? extends ImmutableAnnotation> annotations;
+    @Nonnull
+    protected final String type;
+    @Nonnull
+    protected final Set<? extends ImmutableAnnotation> annotations;
     @Nullable protected final String name;
 
     public ImmutableMethodParameter(@Nonnull String type,
@@ -64,12 +66,20 @@ public class ImmutableMethodParameter extends BaseMethodParameter {
                 methodParameter.getName());
     }
 
-    @Nonnull @Override public String getType() { return type; }
-    @Nonnull @Override public Set<? extends Annotation> getAnnotations() { return annotations; }
-    @Nullable @Override public String getName() { return name; }
+    @Nonnull
+    @Override
+    public String getType() { return type; }
+    @Nonnull
+    @Override
+    public Set<? extends Annotation> getAnnotations() { return annotations; }
+    @Nullable
+    @Override
+    public String getName() { return name; }
 
     //TODO: iterate over the annotations to get the signature
-    @Nullable @Override public String getSignature() { return null; }
+    @Nullable
+    @Override
+    public String getSignature() { return null; }
 
     @Nonnull
     public static List<ImmutableMethodParameter> immutableListOf(

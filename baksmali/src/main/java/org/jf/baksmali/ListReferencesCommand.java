@@ -52,7 +52,8 @@ public abstract class ListReferencesCommand extends DexInputCommand {
         this.referenceType = referenceType;
     }
 
-    @Override public void run() {
+    @Override 
+    public void run() {
         if (help || inputList == null || inputList.isEmpty()) {
             usage();
             return;

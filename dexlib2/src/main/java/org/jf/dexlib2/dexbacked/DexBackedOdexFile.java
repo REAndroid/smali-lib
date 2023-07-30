@@ -55,11 +55,13 @@ public class DexBackedOdexFile extends DexBackedDexFile {
         this.odexBuf = odexBuf;
     }
 
-    @Override public boolean supportsOptimizedOpcodes() {
+    @Override
+    public boolean supportsOptimizedOpcodes() {
         return true;
     }
 
-    @Nonnull public List<String> getDependencies() {
+    @Nonnull
+    public List<String> getDependencies() {
         final int dexOffset = OdexHeaderItem.getDexOffset(odexBuf);
         final int dependencyOffset = OdexHeaderItem.getDependenciesOffset(odexBuf) - dexOffset;
 
@@ -81,7 +83,8 @@ public class DexBackedOdexFile extends DexBackedDexFile {
         };
     }
 
-    @Nonnull public static DexBackedOdexFile fromInputStream(@Nonnull Opcodes opcodes, @Nonnull InputStream is)
+    @Nonnull
+    public static DexBackedOdexFile fromInputStream(@Nonnull Opcodes opcodes, @Nonnull InputStream is)
             throws IOException {
         DexUtil.verifyOdexHeader(is);
 

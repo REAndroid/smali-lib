@@ -46,7 +46,8 @@ import java.util.concurrent.ConcurrentMap;
 
 public class BuilderMethodHandlePool extends BaseBuilderPool
         implements MethodHandleSection<BuilderMethodHandleReference, BuilderFieldReference, BuilderMethodReference> {
-    @Nonnull private final ConcurrentMap<MethodHandleReference, BuilderMethodHandleReference> internedItems =
+    @Nonnull
+    private final ConcurrentMap<MethodHandleReference, BuilderMethodHandleReference> internedItems =
             new ConcurrentHashMap<>();
 
     public BuilderMethodHandlePool(@Nonnull DexBuilder dexBuilder) {

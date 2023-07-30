@@ -58,9 +58,13 @@ public class ImmutableSetSourceFile extends ImmutableDebugItem implements SetSou
                 setSourceFile.getSourceFile());
     }
 
-    @Nullable @Override public String getSourceFile() { return sourceFile; }
+    @Nullable
+    @Override
+    public String getSourceFile() { return sourceFile; }
 
-    @Nullable @Override public StringReference getSourceFileReference() {
+    @Nullable
+    @Override
+    public StringReference getSourceFileReference() {
         return sourceFile==null?null:new BaseStringReference() {
             @Nonnull @Override public String getString() {
                 return sourceFile;
@@ -69,5 +73,6 @@ public class ImmutableSetSourceFile extends ImmutableDebugItem implements SetSou
     }
 
 
-    @Override public int getDebugItemType() { return DebugItemType.SET_SOURCE_FILE; }
+    @Override 
+    public int getDebugItemType() { return DebugItemType.SET_SOURCE_FILE; }
 }

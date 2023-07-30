@@ -57,15 +57,21 @@ public class ProtoPool extends BaseIndexPool<MethodProtoReference>
         }
     }
 
-    @Nonnull @Override public CharSequence getShorty(@Nonnull MethodProtoReference reference) {
+    @Nonnull
+    @Override
+    public CharSequence getShorty(@Nonnull MethodProtoReference reference) {
         return MethodUtil.getShorty(reference.getParameterTypes(), reference.getReturnType());
     }
 
-    @Nonnull @Override public CharSequence getReturnType(@Nonnull MethodProtoReference protoReference) {
+    @Nonnull
+    @Override
+    public CharSequence getReturnType(@Nonnull MethodProtoReference protoReference) {
         return protoReference.getReturnType();
     }
 
-    @Nullable @Override public TypeListPool.Key<List<? extends CharSequence>> getParameters(
+    @Nullable
+    @Override
+    public TypeListPool.Key<List<? extends CharSequence>> getParameters(
             @Nonnull MethodProtoReference methodProto) {
         return new TypeListPool.Key<List<? extends CharSequence>>(methodProto.getParameterTypes());
     }

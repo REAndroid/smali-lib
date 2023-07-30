@@ -62,7 +62,8 @@ public abstract class BaseCharEncodedValue implements CharEncodedValue {
 
     public int getValueType() { return ValueType.CHAR; }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

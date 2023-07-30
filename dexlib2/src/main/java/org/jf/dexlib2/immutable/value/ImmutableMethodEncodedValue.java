@@ -38,7 +38,8 @@ import org.jf.dexlib2.immutable.reference.ImmutableMethodReference;
 import javax.annotation.Nonnull;
 
 public class ImmutableMethodEncodedValue extends BaseMethodEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final ImmutableMethodReference value;
+    @Nonnull
+    protected final ImmutableMethodReference value;
 
     public ImmutableMethodEncodedValue(@Nonnull ImmutableMethodReference value) {
         this.value = value;
@@ -51,5 +52,7 @@ public class ImmutableMethodEncodedValue extends BaseMethodEncodedValue implemen
         return new ImmutableMethodEncodedValue(ImmutableMethodReference.of(methodEncodedValue.getValue()));
     }
 
-    @Nonnull @Override public ImmutableMethodReference getValue() { return value; }
+    @Nonnull
+    @Override
+    public ImmutableMethodReference getValue() { return value; }
 }

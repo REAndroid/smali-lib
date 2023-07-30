@@ -70,7 +70,8 @@ public class DexBackedArrayPayload extends DexBackedInstruction implements Array
         }
     }
 
-    @Override public int getElementWidth() { return elementWidth; }
+    @Override
+    public int getElementWidth() { return elementWidth; }
 
     @Nonnull
     @Override
@@ -78,7 +79,8 @@ public class DexBackedArrayPayload extends DexBackedInstruction implements Array
         final int elementsStart = instructionStart + ELEMENTS_OFFSET;
 
         abstract class ReturnedList extends FixedSizeList<Number> {
-            @Override public int size() { return elementCount; }
+            @Override
+    public int size() { return elementCount; }
         }
 
         if (elementCount == 0) {

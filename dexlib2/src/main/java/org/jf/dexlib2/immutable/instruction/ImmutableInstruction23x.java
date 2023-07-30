@@ -66,9 +66,13 @@ public class ImmutableInstruction23x extends ImmutableInstruction implements Ins
                 instruction.getRegisterC());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Override public int getRegisterC() { return registerC; }
+    @Override
+    public int getRegisterA() { return registerA; }
+    @Override
+    public int getRegisterB() { return registerB; }
+    @Override
+    public int getRegisterC() { return registerC; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }

@@ -46,9 +46,12 @@ import java.util.List;
 
 public class ImmutableMethodImplementation implements MethodImplementation {
     protected final int registerCount;
-    @Nonnull protected final List<? extends ImmutableInstruction> instructions;
-    @Nonnull protected final List<? extends ImmutableTryBlock> tryBlocks;
-    @Nonnull protected final List<? extends ImmutableDebugItem> debugItems;
+    @Nonnull
+    protected final List<? extends ImmutableInstruction> instructions;
+    @Nonnull
+    protected final List<? extends ImmutableTryBlock> tryBlocks;
+    @Nonnull
+    protected final List<? extends ImmutableDebugItem> debugItems;
 
     public ImmutableMethodImplementation(int registerCount,
                                          @Nullable Iterable<? extends Instruction> instructions,
@@ -85,8 +88,15 @@ public class ImmutableMethodImplementation implements MethodImplementation {
                 methodImplementation.getDebugItems());
     }
 
-    @Override public int getRegisterCount() { return registerCount; }
-    @Nonnull @Override public List<? extends ImmutableInstruction> getInstructions() { return instructions; }
-    @Nonnull @Override public List<? extends ImmutableTryBlock> getTryBlocks() { return tryBlocks; }
-    @Nonnull @Override public List<? extends ImmutableDebugItem> getDebugItems() { return debugItems; }
+    @Override 
+    public int getRegisterCount() { return registerCount; }
+    @Nonnull
+    @Override
+    public List<? extends ImmutableInstruction> getInstructions() { return instructions; }
+    @Nonnull
+    @Override
+    public List<? extends ImmutableTryBlock> getTryBlocks() { return tryBlocks; }
+    @Nonnull
+    @Override
+    public List<? extends ImmutableDebugItem> getDebugItems() { return debugItems; }
 }

@@ -63,7 +63,8 @@ public abstract class BaseBooleanEncodedValue implements BooleanEncodedValue {
 
     public int getValueType() { return ValueType.BOOLEAN; }
 
-    @Override public String toString() {
+    @Override 
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

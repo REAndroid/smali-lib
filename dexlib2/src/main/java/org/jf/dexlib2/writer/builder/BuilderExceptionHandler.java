@@ -44,11 +44,14 @@ public class BuilderExceptionHandler extends BaseExceptionHandler {
         this.handlerCodeAddress = handlerCodeAddress;
     }
 
-    @Nullable @Override public String getExceptionType() {
+    @Nullable
+    @Override
+    public String getExceptionType() {
         return exceptionType==null?null:exceptionType.getType();
     }
 
-    @Override public int getHandlerCodeAddress() {
+    @Override
+    public int getHandlerCodeAddress() {
         return handlerCodeAddress;
     }
 }

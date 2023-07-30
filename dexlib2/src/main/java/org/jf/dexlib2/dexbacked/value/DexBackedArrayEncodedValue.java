@@ -42,7 +42,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class DexBackedArrayEncodedValue extends BaseArrayEncodedValue implements ArrayEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
     private final int elementCount;
     private final int encodedArrayOffset;
 

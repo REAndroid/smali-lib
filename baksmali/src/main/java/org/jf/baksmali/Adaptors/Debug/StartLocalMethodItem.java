@@ -40,9 +40,12 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 
 public class StartLocalMethodItem extends DebugMethodItem {
-    @Nonnull private final ClassDefinition classDef;
-    @Nonnull private final StartLocal startLocal;
-    @Nonnull private final RegisterFormatter registerFormatter;
+    @Nonnull
+    private final ClassDefinition classDef;
+    @Nonnull
+    private final StartLocal startLocal;
+    @Nonnull
+    private final RegisterFormatter registerFormatter;
 
     public StartLocalMethodItem(@Nonnull ClassDefinition classDef, int codeAddress, int sortOrder,
                                 @Nonnull RegisterFormatter registerFormatter, @Nonnull StartLocal startLocal) {

@@ -77,10 +77,18 @@ public class ImmutableRestartLocal extends ImmutableDebugItem implements Restart
                 restartLocal.getSignature());
     }
 
-    @Override public int getRegister() { return register; }
-    @Nullable @Override public String getName() { return name; }
-    @Nullable @Override public String getType() { return type; }
-    @Nullable @Override public String getSignature() { return signature; }
+    @Override
+    public int getRegister() { return register; }
+    @Nullable
+    @Override
+    public String getName() { return name; }
+    @Nullable
+    @Override
+    public String getType() { return type; }
+    @Nullable
+    @Override
+    public String getSignature() { return signature; }
 
-    @Override public int getDebugItemType() { return DebugItemType.RESTART_LOCAL; }
+    @Override
+    public int getDebugItemType() { return DebugItemType.RESTART_LOCAL; }
 }

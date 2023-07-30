@@ -57,23 +57,32 @@ public class AnnotationPool extends BaseOffsetPool<Annotation>
         }
     }
 
-    @Override public int getVisibility(@Nonnull Annotation annotation) {
+    @Override
+    public int getVisibility(@Nonnull Annotation annotation) {
         return annotation.getVisibility();
     }
 
-    @Nonnull @Override public CharSequence getType(@Nonnull Annotation annotation) {
+    @Nonnull
+    @Override
+    public CharSequence getType(@Nonnull Annotation annotation) {
         return annotation.getType();
     }
 
-    @Nonnull @Override public Collection<? extends AnnotationElement> getElements(@Nonnull Annotation annotation) {
+    @Nonnull
+    @Override
+    public Collection<? extends AnnotationElement> getElements(@Nonnull Annotation annotation) {
         return annotation.getElements();
     }
 
-    @Nonnull @Override public CharSequence getElementName(@Nonnull AnnotationElement annotationElement) {
+    @Nonnull
+    @Override
+    public CharSequence getElementName(@Nonnull AnnotationElement annotationElement) {
         return annotationElement.getName();
     }
 
-    @Nonnull @Override public EncodedValue getElementValue(@Nonnull AnnotationElement annotationElement) {
+    @Nonnull
+    @Override
+    public EncodedValue getElementValue(@Nonnull AnnotationElement annotationElement) {
         return annotationElement.getValue();
     }
 }

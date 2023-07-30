@@ -75,9 +75,11 @@ public class DexBackedPackedSwitchPayload extends DexBackedInstruction implement
                 };
             }
 
-            @Override public int size() { return elementCount; }
+            @Override
+    public int size() { return elementCount; }
         };
     }
 
-    @Override public int getCodeUnits() { return 4 + elementCount*2; }
+    @Override
+    public int getCodeUnits() { return 4 + elementCount*2; }
 }

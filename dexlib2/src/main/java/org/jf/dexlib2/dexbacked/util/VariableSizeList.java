@@ -38,7 +38,8 @@ import javax.annotation.Nonnull;
 import java.util.AbstractSequentialList;
 
 public abstract class VariableSizeList<T> extends AbstractSequentialList<T> {
-    @Nonnull private final DexBuffer buffer;
+    @Nonnull
+    private final DexBuffer buffer;
     private final int offset;
     private final int size;
 
@@ -56,7 +57,8 @@ public abstract class VariableSizeList<T> extends AbstractSequentialList<T> {
         return listIterator(0);
     }
 
-    @Override public int size() { return size; }
+    @Override
+    public int size() { return size; }
 
     @Nonnull
     @Override

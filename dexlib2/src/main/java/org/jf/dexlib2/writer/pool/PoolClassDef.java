@@ -74,11 +74,14 @@ class PoolClassDef extends BaseTypeReference implements ClassDef {
         return classDef.getType();
     }
 
-    @Override public int getAccessFlags() {
+    @Override
+    public int getAccessFlags() {
         return classDef.getAccessFlags();
     }
 
-    @Nullable @Override public String getSuperclass() {
+    @Nullable
+    @Override
+    public String getSuperclass() {
         return classDef.getSuperclass();
     }
 
@@ -88,7 +91,9 @@ class PoolClassDef extends BaseTypeReference implements ClassDef {
         return interfaces.types;
     }
 
-    @Nullable @Override public String getSourceFile() {
+    @Nullable
+    @Override
+    public String getSourceFile() {
         return classDef.getSourceFile();
     }
 

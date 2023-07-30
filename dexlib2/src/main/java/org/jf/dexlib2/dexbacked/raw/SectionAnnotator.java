@@ -42,8 +42,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class SectionAnnotator {
-    @Nonnull public final DexAnnotator annotator;
-    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexAnnotator annotator;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
     public final int itemType;
     public final int sectionOffset;
     public final int itemCount;
@@ -64,7 +66,8 @@ public abstract class SectionAnnotator {
         this.itemCount = mapItem.getItemCount();
     }
 
-    @Nonnull public abstract String getItemName();
+    @Nonnull
+    public abstract String getItemName();
     protected abstract void annotateItem(@Nonnull AnnotatedBytes out, int itemIndex, @Nullable String itemIdentity);
 
     /**

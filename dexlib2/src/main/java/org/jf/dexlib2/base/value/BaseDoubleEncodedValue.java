@@ -65,7 +65,8 @@ public abstract class BaseDoubleEncodedValue implements DoubleEncodedValue {
 
     public int getValueType() { return ValueType.DOUBLE; }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

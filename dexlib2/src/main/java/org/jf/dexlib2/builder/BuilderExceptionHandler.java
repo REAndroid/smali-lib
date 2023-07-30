@@ -38,7 +38,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public abstract class BuilderExceptionHandler extends BaseExceptionHandler {
-    @Nonnull protected final Label handler;
+    @Nonnull
+    protected final Label handler;
 
     private BuilderExceptionHandler(@Nonnull Label handler) {
         this.handler = handler;

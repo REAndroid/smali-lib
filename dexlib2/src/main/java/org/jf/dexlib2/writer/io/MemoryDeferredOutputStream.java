@@ -25,7 +25,8 @@ public class MemoryDeferredOutputStream extends DeferredOutputStream {
         currentBuffer = new byte[bufferSize];
     }
 
-    @Override public void writeTo(OutputStream output) throws IOException {
+    @Override
+    public void writeTo(OutputStream output) throws IOException {
         for (byte[] buffer: buffers) {
             output.write(buffer);
         }
@@ -36,7 +37,8 @@ public class MemoryDeferredOutputStream extends DeferredOutputStream {
         currentPosition = 0;
     }
 
-    @Override public void write(int i) throws IOException {
+    @Override
+    public void write(int i) throws IOException {
         if (remaining() == 0) {
             buffers.add(currentBuffer);
             currentBuffer = new byte[currentBuffer.length];
@@ -45,11 +47,13 @@ public class MemoryDeferredOutputStream extends DeferredOutputStream {
         currentBuffer[currentPosition++] = (byte)i;
     }
 
-    @Override public void write(byte[] bytes) throws IOException {
+    @Override
+    public void write(byte[] bytes) throws IOException {
         write(bytes, 0, bytes.length);
     }
 
-    @Override public void write(byte[] bytes, int offset, int length) throws IOException {
+    @Override
+    public void write(byte[] bytes, int offset, int length) throws IOException {
         int remaining = remaining();
         int written = 0;
         while (length - written > 0) {

@@ -55,7 +55,9 @@ public class ImmutableLineNumber extends ImmutableDebugItem implements LineNumbe
                 lineNumber.getLineNumber());
     }
 
-    @Override public int getLineNumber() { return lineNumber; }
+    @Override
+    public int getLineNumber() { return lineNumber; }
 
-    @Override public int getDebugItemType() { return DebugItemType.LINE_NUMBER; }
+    @Override
+    public int getDebugItemType() { return DebugItemType.LINE_NUMBER; }
 }

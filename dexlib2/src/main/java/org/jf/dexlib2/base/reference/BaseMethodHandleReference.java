@@ -79,7 +79,8 @@ public abstract class BaseMethodHandleReference extends BaseReference implements
         }
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return DexFormatter.INSTANCE.getMethodHandle(this);
     }
 }

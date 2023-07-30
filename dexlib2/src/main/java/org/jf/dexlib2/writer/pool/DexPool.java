@@ -77,7 +77,9 @@ public class DexPool extends DexWriter<CharSequence, StringReference, CharSequen
         super(opcodes);
     }
 
-    @Nonnull @Override protected SectionProvider getSectionProvider() {
+    @Nonnull
+    @Override
+    protected SectionProvider getSectionProvider() {
         return new DexPoolSectionProvider();
     }
 
@@ -128,7 +130,8 @@ public class DexPool extends DexWriter<CharSequence, StringReference, CharSequen
         }
     }
 
-    @Override protected void writeEncodedValue(@Nonnull InternalEncodedValueWriter writer,
+    @Override
+    protected void writeEncodedValue(@Nonnull InternalEncodedValueWriter writer,
                                                @Nonnull EncodedValue encodedValue) throws IOException {
         switch (encodedValue.getValueType()) {
             case ValueType.ANNOTATION:

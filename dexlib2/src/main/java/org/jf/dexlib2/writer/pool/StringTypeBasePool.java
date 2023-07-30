@@ -47,11 +47,14 @@ public abstract class StringTypeBasePool extends BasePool<String, Integer>
         super(dexPool);
     }
 
-    @Nonnull @Override public Collection<Map.Entry<String, Integer>> getItems() {
+    @Nonnull
+    @Override
+    public Collection<Map.Entry<String, Integer>> getItems() {
         return internedItems.entrySet();
     }
 
-    @Override public int getItemIndex(@Nonnull CharSequence key) {
+    @Override 
+    public int getItemIndex(@Nonnull CharSequence key) {
         Integer index = internedItems.get(key.toString());
         if (index == null) {
             throw new ExceptionWithContext("Item not found.: %s", key.toString());
@@ -59,7 +62,8 @@ public abstract class StringTypeBasePool extends BasePool<String, Integer>
         return index;
     }
 
-    @Override public int getNullableItemIndex(@Nullable CharSequence key) {
+    @Override 
+    public int getNullableItemIndex(@Nullable CharSequence key) {
         if (key == null) {
             return DexWriter.NO_INDEX;
         }

@@ -43,8 +43,10 @@ import javax.annotation.Nullable;
 import java.util.Set;
 
 public class ImmutableAnnotationElement extends BaseAnnotationElement {
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableEncodedValue value;
+    @Nonnull
+    protected final String name;
+    @Nonnull
+    protected final ImmutableEncodedValue value;
 
     public ImmutableAnnotationElement(@Nonnull String name,
                                       @Nonnull EncodedValue value) {
@@ -67,8 +69,12 @@ public class ImmutableAnnotationElement extends BaseAnnotationElement {
                 annotationElement.getValue());
     }
 
-    @Nonnull @Override public String getName() { return name; }
-    @Nonnull @Override public EncodedValue getValue() { return value; }
+    @Nonnull
+    @Override
+    public String getName() { return name; }
+    @Nonnull
+    @Override
+    public EncodedValue getValue() { return value; }
 
     @Nonnull
     public static Set<ImmutableAnnotationElement> immutableSetOf(

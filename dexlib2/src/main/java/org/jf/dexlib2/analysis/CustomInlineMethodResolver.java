@@ -51,8 +51,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CustomInlineMethodResolver extends InlineMethodResolver {
-    @Nonnull private final ClassPath classPath;
-    @Nonnull private final Method[] inlineMethods;
+    @Nonnull
+    private final ClassPath classPath;
+    @Nonnull
+    private final Method[] inlineMethods;
 
     public CustomInlineMethodResolver(@Nonnull ClassPath classPath, @Nonnull String inlineTable) {
         this.classPath = classPath;

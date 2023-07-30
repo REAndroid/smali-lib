@@ -43,7 +43,8 @@ import java.util.SortedSet;
 
 public abstract class ImmutableConverter<ImmutableItem, Item> {
     protected abstract boolean isImmutable(@Nonnull Item item);
-    @Nonnull protected abstract ImmutableItem makeImmutable(@Nonnull Item item);
+    @Nonnull
+    protected abstract ImmutableItem makeImmutable(@Nonnull Item item);
 
     @Nonnull
     @SuppressWarnings("unchecked")

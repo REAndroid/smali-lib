@@ -40,9 +40,12 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 
 public class RestartLocalMethodItem extends DebugMethodItem {
-    @Nonnull private final ClassDefinition classDef;
-    @Nonnull private final RestartLocal restartLocal;
-    @Nonnull private final RegisterFormatter registerFormatter;
+    @Nonnull
+    private final ClassDefinition classDef;
+    @Nonnull
+    private final RestartLocal restartLocal;
+    @Nonnull
+    private final RegisterFormatter registerFormatter;
 
     public RestartLocalMethodItem(@Nonnull ClassDefinition classDef, int codeAddress, int sortOrder,
                                   @Nonnull RegisterFormatter registerFormatter, @Nonnull RestartLocal restartLocal) {

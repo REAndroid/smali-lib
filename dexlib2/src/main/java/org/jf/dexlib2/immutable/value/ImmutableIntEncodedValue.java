@@ -48,5 +48,6 @@ public class ImmutableIntEncodedValue extends BaseIntEncodedValue implements Imm
         return new ImmutableIntEncodedValue(intEncodedValue.getValue());
     }
 
-    @Override public int getValue() { return value; }
+    @Override 
+    public int getValue() { return value; }
 }

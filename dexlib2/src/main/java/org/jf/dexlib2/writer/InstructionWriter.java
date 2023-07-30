@@ -51,15 +51,24 @@ public class InstructionWriter<StringRef extends StringReference, TypeRef extend
         FieldRefKey extends FieldReference, MethodRefKey extends MethodReference,
         ProtoRefKey extends MethodProtoReference, MethodHandleKey extends MethodHandleReference,
         CallSiteKey extends CallSiteReference> {
-    @Nonnull private final Opcodes opcodes;
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<?, StringRef> stringSection;
-    @Nonnull private final TypeSection<?, ?, TypeRef> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final CallSiteSection<CallSiteKey, ?> callSiteSection;
+    @Nonnull
+    private final Opcodes opcodes;
+    @Nonnull
+    private final DexDataWriter writer;
+    @Nonnull
+    private final StringSection<?, StringRef> stringSection;
+    @Nonnull
+    private final TypeSection<?, ?, TypeRef> typeSection;
+    @Nonnull
+    private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull
+    private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull
+    private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull
+    private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull
+    private final CallSiteSection<CallSiteKey, ?> callSiteSection;
 
     @Nonnull static <StringRef extends StringReference, TypeRef extends TypeReference,
             FieldRefKey extends FieldReference, MethodRefKey extends MethodReference,

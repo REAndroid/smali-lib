@@ -72,9 +72,12 @@ public class ImmutableStartLocal extends ImmutableDebugItem implements StartLoca
                 startLocal.getSignature());
     }
 
-    @Override public int getRegister() { return register; }
+    @Override
+    public int getRegister() { return register; }
 
-    @Nullable @Override public StringReference getNameReference() {
+    @Nullable
+    @Override
+    public StringReference getNameReference() {
         return name==null?null:new BaseStringReference() {
             @Nonnull @Override public String getString() {
                 return name;
@@ -82,7 +85,9 @@ public class ImmutableStartLocal extends ImmutableDebugItem implements StartLoca
         };
     }
 
-    @Nullable @Override public TypeReference getTypeReference() {
+    @Nullable
+    @Override
+    public TypeReference getTypeReference() {
         return type==null?null:new BaseTypeReference() {
             @Nonnull @Override public String getType() {
                 return type;
@@ -90,7 +95,9 @@ public class ImmutableStartLocal extends ImmutableDebugItem implements StartLoca
         };
     }
 
-    @Nullable @Override public StringReference getSignatureReference() {
+    @Nullable
+    @Override
+    public StringReference getSignatureReference() {
         return signature==null?null:new BaseStringReference() {
             @Nonnull @Override public String getString() {
                 return signature;
@@ -98,9 +105,16 @@ public class ImmutableStartLocal extends ImmutableDebugItem implements StartLoca
         };
     }
 
-    @Nullable @Override public String getName() { return name; }
-    @Nullable @Override public String getType() { return type; }
-    @Nullable @Override public String getSignature() { return signature; }
+    @Nullable
+    @Override
+    public String getName() { return name; }
+    @Nullable
+    @Override
+    public String getType() { return type; }
+    @Nullable
+    @Override
+    public String getSignature() { return signature; }
 
-    @Override public int getDebugItemType() { return DebugItemType.START_LOCAL; }
+    @Override
+    public int getDebugItemType() { return DebugItemType.START_LOCAL; }
 }

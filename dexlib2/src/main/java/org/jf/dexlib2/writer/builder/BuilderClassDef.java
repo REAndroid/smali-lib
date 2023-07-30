@@ -99,17 +99,35 @@ public class BuilderClassDef extends BaseTypeReference implements ClassDef {
         this.staticInitializers = staticInitializers;
     }
 
-    @Nonnull @Override public String getType() { return type.getType(); }
-    @Override public int getAccessFlags() { return accessFlags; }
-    @Nullable @Override public String getSuperclass() { return superclass==null?null:superclass.getType(); }
-    @Nullable @Override public String getSourceFile() { return sourceFile==null?null:sourceFile.getString(); }
-    @Nonnull @Override public BuilderAnnotationSet getAnnotations() { return annotations; }
-    @Nonnull @Override public Set<BuilderField> getStaticFields() { return staticFields; }
-    @Nonnull @Override public Set<BuilderField> getInstanceFields() { return instanceFields; }
-    @Nonnull @Override public Set<BuilderMethod> getDirectMethods() { return directMethods; }
-    @Nonnull @Override public Set<BuilderMethod> getVirtualMethods() { return virtualMethods; }
+    @Nonnull
+    @Override
+    public String getType() { return type.getType(); }
+    @Override
+    public int getAccessFlags() { return accessFlags; }
+    @Nullable
+    @Override
+    public String getSuperclass() { return superclass==null?null:superclass.getType(); }
+    @Nullable
+    @Override
+    public String getSourceFile() { return sourceFile==null?null:sourceFile.getString(); }
+    @Nonnull
+    @Override
+    public BuilderAnnotationSet getAnnotations() { return annotations; }
+    @Nonnull
+    @Override
+    public Set<BuilderField> getStaticFields() { return staticFields; }
+    @Nonnull
+    @Override
+    public Set<BuilderField> getInstanceFields() { return instanceFields; }
+    @Nonnull
+    @Override
+    public Set<BuilderMethod> getDirectMethods() { return directMethods; }
+    @Nonnull
+    @Override
+    public Set<BuilderMethod> getVirtualMethods() { return virtualMethods; }
 
-    @Nonnull @Override
+    @Nonnull
+    @Override
     public List<String> getInterfaces() {
         return ListUtil.transform(this.interfaces, new Function<BuilderTypeReference, String>() {
             @Override

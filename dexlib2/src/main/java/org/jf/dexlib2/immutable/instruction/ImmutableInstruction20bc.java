@@ -46,7 +46,8 @@ public class ImmutableInstruction20bc extends ImmutableInstruction implements In
     public static final Format FORMAT = Format.Format20bc;
 
     protected final int verificationError;
-    @Nonnull protected final ImmutableReference reference;
+    @Nonnull
+    protected final ImmutableReference reference;
 
     public ImmutableInstruction20bc(@Nonnull Opcode opcode,
                                    int verificationError,
@@ -66,9 +67,14 @@ public class ImmutableInstruction20bc extends ImmutableInstruction implements In
                 instruction.getReference());
     }
 
-    @Override public int getVerificationError() { return verificationError; }
-    @Nonnull @Override public ImmutableReference getReference() { return reference; }
-    @Override public int getReferenceType() { return ReferenceType.getReferenceType(reference); }
+    @Override
+    public int getVerificationError() { return verificationError; }
+    @Nonnull
+    @Override
+    public ImmutableReference getReference() { return reference; }
+    @Override
+    public int getReferenceType() { return ReferenceType.getReferenceType(reference); }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }

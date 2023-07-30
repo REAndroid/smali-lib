@@ -7,10 +7,19 @@ import java.util.NoSuchElementException;
 public class ArrayIterator<T> implements Iterator<T> {
     private final T[] elements;
     private int index;
-    private T mNext;
 
     public ArrayIterator(T[] elements){
         this.elements = elements;
+    }
+    T get(int i){
+        return elements[i];
+    }
+    int getIndex() {
+        return index;
+    }
+    int setIndex(int index) {
+        this.index = index;
+        return index;
     }
 
     public int length(){

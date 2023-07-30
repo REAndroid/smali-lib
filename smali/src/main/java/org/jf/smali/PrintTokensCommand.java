@@ -67,7 +67,8 @@ public class PrintTokensCommand extends Command {
         super(commandAncestors);
     }
 
-    @Override public void run() {
+    @Override 
+    public void run() {
         if (help || input == null || input.isEmpty()) {
             usage();
             return;

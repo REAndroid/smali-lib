@@ -42,5 +42,7 @@ public interface PackedSwitchPayload extends SwitchPayload {
      * @return A list of the switch elements associated with this switch payload instruction. The returned list must
      * have switch elements with keys that are ordered and sequential.
      */
-    @Nonnull @Override List<? extends SwitchElement> getSwitchElements();
+    @Nonnull
+    @Override
+    List<? extends SwitchElement> getSwitchElements();
 }

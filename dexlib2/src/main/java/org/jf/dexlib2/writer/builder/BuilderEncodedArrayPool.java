@@ -45,14 +45,16 @@ import java.util.concurrent.ConcurrentMap;
 
 public class BuilderEncodedArrayPool extends BaseBuilderPool implements
         EncodedArraySection<BuilderArrayEncodedValue, BuilderEncodedValue> {
-    @Nonnull private final ConcurrentMap<ArrayEncodedValue, BuilderArrayEncodedValue> internedItems =
+    @Nonnull
+    private final ConcurrentMap<ArrayEncodedValue, BuilderArrayEncodedValue> internedItems =
             new ConcurrentHashMap<>();
 
     public BuilderEncodedArrayPool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    @Nonnull public BuilderArrayEncodedValue internArrayEncodedValue(@Nonnull ArrayEncodedValue arrayEncodedValue) {
+    @Nonnull
+    public BuilderArrayEncodedValue internArrayEncodedValue(@Nonnull ArrayEncodedValue arrayEncodedValue) {
         BuilderArrayEncodedValue builderArrayEncodedValue = internedItems.get(arrayEncodedValue);
         if (builderArrayEncodedValue != null) {
             return builderArrayEncodedValue;

@@ -91,7 +91,8 @@ public class MapItem {
                 out.annotate(4, "offset = 0x%x", offset);
             }
 
-            @Override public void annotateSection(@Nonnull AnnotatedBytes out) {
+            @Override
+    public void annotateSection(@Nonnull AnnotatedBytes out) {
                 out.moveTo(sectionOffset);
                 int mapItemCount = dexFile.getBuffer().readSmallUint(out.getCursor());
                 out.annotate(4, "size = %d", mapItemCount);

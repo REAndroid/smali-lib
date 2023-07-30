@@ -49,5 +49,6 @@ public class ImmutableEpilogueBegin extends ImmutableDebugItem implements Epilog
         return new ImmutableEpilogueBegin(epilogueBegin.getCodeAddress());
     }
 
-    @Override public int getDebugItemType() { return DebugItemType.EPILOGUE_BEGIN; }
+    @Override 
+    public int getDebugItemType() { return DebugItemType.EPILOGUE_BEGIN; }
 }

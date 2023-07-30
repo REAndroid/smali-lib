@@ -42,7 +42,8 @@ import java.util.Set;
 
 public abstract class AnnotationsDirectory {
     public static final AnnotationsDirectory EMPTY = new AnnotationsDirectory() {
-        @Override public int getFieldAnnotationCount() { return 0; }
+        @Override
+    public int getFieldAnnotationCount() { return 0; }
         @Nonnull @Override public Set<? extends DexBackedAnnotation> getClassAnnotations() { return EmptySet.of(); }
         @Nonnull @Override public AnnotationIterator getFieldAnnotationIterator() { return AnnotationIterator.EMPTY; }
         @Nonnull @Override public AnnotationIterator getMethodAnnotationIterator() { return AnnotationIterator.EMPTY; }
@@ -50,10 +51,14 @@ public abstract class AnnotationsDirectory {
     };
 
     public abstract int getFieldAnnotationCount();
-    @Nonnull public abstract Set<? extends DexBackedAnnotation> getClassAnnotations();
-    @Nonnull public abstract AnnotationIterator getFieldAnnotationIterator();
-    @Nonnull public abstract AnnotationIterator getMethodAnnotationIterator();
-    @Nonnull public abstract AnnotationIterator getParameterAnnotationIterator();
+    @Nonnull
+    public abstract Set<? extends DexBackedAnnotation> getClassAnnotations();
+    @Nonnull
+    public abstract AnnotationIterator getFieldAnnotationIterator();
+    @Nonnull
+    public abstract AnnotationIterator getMethodAnnotationIterator();
+    @Nonnull
+    public abstract AnnotationIterator getParameterAnnotationIterator();
 
     @Nonnull
     public static AnnotationsDirectory newOrEmpty(@Nonnull DexBackedDexFile dexFile,
@@ -73,8 +78,10 @@ public abstract class AnnotationsDirectory {
      */
     public interface AnnotationIterator {
         public static final AnnotationIterator EMPTY = new AnnotationIterator() {
-            @Override public int seekTo(int key) { return 0; }
-            @Override public void reset() {}
+            @Override
+    public int seekTo(int key) { return 0; }
+            @Override
+    public void reset() {}
         };
 
         /**
@@ -108,7 +115,8 @@ public abstract class AnnotationsDirectory {
                     return new DexBackedAnnotation(dexFile, annotationOffset);
                 }
 
-                @Override public int size() { return size; }
+                @Override
+    public int size() { return size; }
             };
         }
 
@@ -130,14 +138,16 @@ public abstract class AnnotationsDirectory {
                     return getAnnotations(dexFile, annotationSetOffset);
                 }
 
-                @Override public int size() { return size; }
+                @Override
+    public int size() { return size; }
             };
         }
         return EmptyList.of();
     }
 
     private static class AnnotationsDirectoryImpl extends AnnotationsDirectory {
-        @Nonnull public final DexBackedDexFile dexFile;
+        @Nonnull
+    public final DexBackedDexFile dexFile;
         private final int directoryOffset;
 
         private static final int FIELD_COUNT_OFFSET = 4;

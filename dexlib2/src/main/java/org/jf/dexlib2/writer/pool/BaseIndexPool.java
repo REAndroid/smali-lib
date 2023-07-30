@@ -44,11 +44,14 @@ public abstract class BaseIndexPool<Key> extends BasePool<Key, Integer> implemen
         super(dexPool);
     }
 
-    @Nonnull @Override public Collection<? extends Map.Entry<? extends Key, Integer>> getItems() {
+    @Nonnull
+    @Override
+    public Collection<? extends Map.Entry<? extends Key, Integer>> getItems() {
         return internedItems.entrySet();
     }
 
-    @Override public int getItemIndex(@Nonnull Key key) {
+    @Override 
+    public int getItemIndex(@Nonnull Key key) {
         Integer index = internedItems.get(key);
         if (index == null) {
             throw new ExceptionWithContext("Item not found.: %s", getItemString(key));
@@ -56,7 +59,8 @@ public abstract class BaseIndexPool<Key> extends BasePool<Key, Integer> implemen
         return index;
     }
 
-    @Nonnull protected String getItemString(@Nonnull Key key) {
+    @Nonnull
+    protected String getItemString(@Nonnull Key key) {
         return key.toString();
     }
 }

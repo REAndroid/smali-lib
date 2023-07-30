@@ -40,7 +40,8 @@ import java.util.NoSuchElementException;
 
 public abstract class AbstractForwardSequentialList<T> extends AbstractSequentialList<T> {
 
-    @Nonnull private Iterator<T> iterator(int index) {
+    @Nonnull
+    private Iterator<T> iterator(int index) {
         if (index < 0) {
             throw new NoSuchElementException();
         }

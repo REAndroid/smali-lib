@@ -45,11 +45,16 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ImmutableCallSiteReference extends BaseCallSiteReference implements ImmutableReference {
-    @Nonnull protected final String name;
-    @Nonnull protected final ImmutableMethodHandleReference methodHandle;
-    @Nonnull protected final String methodName;
-    @Nonnull protected final ImmutableMethodProtoReference methodProto;
-    @Nonnull protected final List<? extends ImmutableEncodedValue> extraArguments;
+    @Nonnull
+    protected final String name;
+    @Nonnull
+    protected final ImmutableMethodHandleReference methodHandle;
+    @Nonnull
+    protected final String methodName;
+    @Nonnull
+    protected final ImmutableMethodProtoReference methodProto;
+    @Nonnull
+    protected final List<? extends ImmutableEncodedValue> extraArguments;
 
     public ImmutableCallSiteReference(@Nonnull String name, @Nonnull MethodHandleReference methodHandle,
                                       @Nonnull String methodName, @Nonnull MethodProtoReference methodProto,
@@ -83,9 +88,19 @@ public class ImmutableCallSiteReference extends BaseCallSiteReference implements
                 ImmutableEncodedValueFactory.immutableListOf(callSiteReference.getExtraArguments()));
     }
 
-    @Nonnull @Override public String getName() { return name; }
-    @Nonnull @Override public MethodHandleReference getMethodHandle() { return methodHandle; }
-    @Nonnull @Override public String getMethodName() { return methodName; }
-    @Nonnull @Override public MethodProtoReference getMethodProto() { return methodProto; }
-    @Nonnull @Override public List<? extends EncodedValue> getExtraArguments() { return extraArguments; }
+    @Nonnull
+    @Override
+    public String getName() { return name; }
+    @Nonnull
+    @Override
+    public MethodHandleReference getMethodHandle() { return methodHandle; }
+    @Nonnull
+    @Override
+    public String getMethodName() { return methodName; }
+    @Nonnull
+    @Override
+    public MethodProtoReference getMethodProto() { return methodProto; }
+    @Nonnull
+    @Override
+    public List<? extends EncodedValue> getExtraArguments() { return extraArguments; }
 }

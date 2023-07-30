@@ -59,11 +59,14 @@ public class TypePool extends StringTypeBasePool
         }
     }
 
-    @Override public int getItemIndex(@Nonnull TypeReference key) {
+    @Override
+    public int getItemIndex(@Nonnull TypeReference key) {
         return getItemIndex(key.getType());
     }
 
-    @Nonnull @Override public CharSequence getString(@Nonnull CharSequence type) {
+    @Nonnull
+    @Override
+    public CharSequence getString(@Nonnull CharSequence type) {
         return type;
     }
 }

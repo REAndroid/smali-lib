@@ -47,7 +47,8 @@ import java.util.List;
 import java.util.Map;
 
 public class DexAnnotator extends AnnotatedBytes {
-    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
 
     private final Map<Integer, SectionAnnotator> annotators = new HashMap<>();
     private static final Map<Integer, Integer> sectionAnnotationOrder = new HashMap<>();
@@ -167,7 +168,8 @@ public class DexAnnotator extends AnnotatedBytes {
         List<MapItem> mapItems = dexFile.getMapItems();
         // sort the map items based on the order defined by sectionAnnotationOrder
         mapItems = ListUtil.sortedCopy(mapItems, new Comparator<MapItem>() {
-            @Override public int compare(MapItem o1, MapItem o2) {
+            @Override
+    public int compare(MapItem o1, MapItem o2) {
                 return Integer.compare(sectionAnnotationOrder.get(o1.getType()), sectionAnnotationOrder.get(o2.getType()));
             }
         });

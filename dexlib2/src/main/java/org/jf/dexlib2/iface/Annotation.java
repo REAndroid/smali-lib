@@ -55,7 +55,9 @@ public interface Annotation extends BasicAnnotation, Comparable<Annotation> {
      *
      * @return The type of this annotation
      */
-    @Nonnull @Override String getType();
+    @Nonnull
+    @Override
+    String getType();
 
     /**
      * Gets a set of the name/value elements associated with this annotation.
@@ -64,7 +66,9 @@ public interface Annotation extends BasicAnnotation, Comparable<Annotation> {
      *
      * @return A set of AnnotationElements
      */
-    @Nonnull @Override Set<? extends AnnotationElement> getElements();
+    @Nonnull
+    @Override
+    Set<? extends AnnotationElement> getElements();
 
     /**
      * Returns a hashcode for this Annotation.
@@ -80,7 +84,8 @@ public interface Annotation extends BasicAnnotation, Comparable<Annotation> {
      *
      * @return The hash code value for this Annotation
      */
-    @Override int hashCode();
+    @Override
+    int hashCode();
 
     /**
      * Compares this Annotation to another Annotation for equality.
@@ -91,7 +96,8 @@ public interface Annotation extends BasicAnnotation, Comparable<Annotation> {
      * @param o The object to be compared for equality with this Annotation
      * @return true if the specified object is equal to this Annotation
      */
-    @Override boolean equals(@Nullable Object o);
+    @Override
+    boolean equals(@Nullable Object o);
 
     /**
      * Compares this Annotation to another Annotation.
@@ -103,5 +109,6 @@ public interface Annotation extends BasicAnnotation, Comparable<Annotation> {
      * @param o The Annotation to compare with this Annotation
      * @return An integer representing the result of the comparison
      */
-    @Override int compareTo(Annotation o);
+    @Override
+    int compareTo(Annotation o);
 }

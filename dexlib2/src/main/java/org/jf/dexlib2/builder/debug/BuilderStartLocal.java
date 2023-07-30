@@ -55,23 +55,37 @@ public class BuilderStartLocal extends BuilderDebugItem implements StartLocal {
         this.signature = signature;
     }
 
-    @Override public int getRegister() { return register; }
+    @Override
+    public int getRegister() { return register; }
 
-    @Nullable @Override public StringReference getNameReference() { return name; }
-    @Nullable @Override public TypeReference getTypeReference() { return type; }
-    @Nullable @Override public StringReference getSignatureReference() { return signature; }
+    @Nullable
+    @Override
+    public StringReference getNameReference() { return name; }
+    @Nullable
+    @Override
+    public TypeReference getTypeReference() { return type; }
+    @Nullable
+    @Override
+    public StringReference getSignatureReference() { return signature; }
 
-    @Nullable @Override public String getName() {
+    @Nullable
+    @Override
+    public String getName() {
         return name==null?null:name.getString();
     }
 
-    @Nullable @Override public String getType() {
+    @Nullable
+    @Override
+    public String getType() {
         return type==null?null:type.getType();
     }
 
-    @Nullable @Override public String getSignature() {
+    @Nullable
+    @Override
+    public String getSignature() {
         return signature==null?null:signature.getString();
     }
 
-    @Override public int getDebugItemType() { return DebugItemType.START_LOCAL; }
+    @Override
+    public int getDebugItemType() { return DebugItemType.START_LOCAL; }
 }

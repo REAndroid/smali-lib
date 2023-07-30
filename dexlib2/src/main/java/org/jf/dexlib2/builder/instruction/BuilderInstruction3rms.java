@@ -58,9 +58,13 @@ public class BuilderInstruction3rms extends BuilderInstruction implements Instru
         this.vtableIndex = vtableIndex;
     }
 
-    @Override public int getStartRegister() { return startRegister; }
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getVtableIndex() { return vtableIndex; }
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public int getStartRegister() { return startRegister; }
+    @Override
+    public int getRegisterCount() { return registerCount; }
+    @Override
+    public int getVtableIndex() { return vtableIndex; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }
 

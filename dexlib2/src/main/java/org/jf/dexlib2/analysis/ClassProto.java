@@ -63,8 +63,10 @@ public class ClassProto implements TypeProto {
     private static final byte WIDE = 1;
     private static final byte OTHER = 2;
 
-    @Nonnull protected final ClassPath classPath;
-    @Nonnull protected final String type;
+    @Nonnull
+    protected final ClassPath classPath;
+    @Nonnull
+    protected final String type;
 
     protected boolean vtableFullyResolved = true;
     protected boolean interfacesFullyResolved = true;
@@ -79,9 +81,14 @@ public class ClassProto implements TypeProto {
         this.type = type;
     }
 
-    @Override public String toString() { return type; }
-    @Nonnull @Override public ClassPath getClassPath() { return classPath; }
-    @Nonnull @Override public String getType() { return type; }
+    @Override
+    public String toString() { return type; }
+    @Nonnull
+    @Override
+    public ClassPath getClassPath() { return classPath; }
+    @Nonnull
+    @Override
+    public String getType() { return type; }
 
     @Nonnull
     public ClassDef getClassDef() {
@@ -89,7 +96,8 @@ public class ClassProto implements TypeProto {
     }
 
 
-    @Nonnull private final Supplier<ClassDef> classDefSupplier = Suppliers.memoize(new Supplier<ClassDef>() {
+    @Nonnull
+    private final Supplier<ClassDef> classDefSupplier = Suppliers.memoize(new Supplier<ClassDef>() {
         @Override public ClassDef get() {
             return classPath.getClassDef(type);
         }
@@ -321,7 +329,8 @@ public class ClassProto implements TypeProto {
         return false;
     }
 
-    @Nullable @Override
+    @Nullable
+    @Override
     public String getSuperclass() {
         return getClassDef().getSuperclass();
     }
@@ -482,7 +491,8 @@ public class ClassProto implements TypeProto {
         return -1;
     }
 
-    @Nonnull public SparseArray<FieldReference> getInstanceFields() {
+    @Nonnull
+    public SparseArray<FieldReference> getInstanceFields() {
         if (classPath.isArt()) {
             return artInstanceFieldsSupplier.get();
         } else {
@@ -490,7 +500,8 @@ public class ClassProto implements TypeProto {
         }
     }
 
-    @Nonnull private final Supplier<SparseArray<FieldReference>> dalvikInstanceFieldsSupplier =
+    @Nonnull
+    private final Supplier<SparseArray<FieldReference>> dalvikInstanceFieldsSupplier =
             Suppliers.memoize(new Supplier<SparseArray<FieldReference>>() {
                 @Override public SparseArray<FieldReference> get() {
                     //This is a bit of an "involved" operation. We need to follow the same algorithm that dalvik uses to
@@ -687,7 +698,8 @@ public class ClassProto implements TypeProto {
         }
     }
 
-    @Nonnull private final Supplier<SparseArray<FieldReference>> artInstanceFieldsSupplier =
+    @Nonnull
+    private final Supplier<SparseArray<FieldReference>> artInstanceFieldsSupplier =
             Suppliers.memoize(new Supplier<SparseArray<FieldReference>>() {
 
                 @Override public SparseArray<FieldReference> get() {
@@ -864,7 +876,8 @@ public class ClassProto implements TypeProto {
         throw new ExceptionWithContext("Invalid type: %s", type);
     }
 
-    @Nonnull public List<Method> getVtable() {
+    @Nonnull
+    public List<Method> getVtable() {
         if (!classPath.isArt() || classPath.oatVersion < 72) {
             return preDefaultMethodVtableSupplier.get();
         } else if (classPath.oatVersion < 87) {
@@ -875,7 +888,8 @@ public class ClassProto implements TypeProto {
     }
 
     //TODO: check the case when we have a package private method that overrides an interface method
-    @Nonnull private final Supplier<List<Method>> preDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
+    @Nonnull
+    private final Supplier<List<Method>> preDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
         @Override public List<Method> get() {
             List<Method> vtable = ListUtil.newArrayList();
 
@@ -926,7 +940,8 @@ public class ClassProto implements TypeProto {
      * produce multiple vtable entries for a given virtual method. This supplier duplicates this buggy logic in order to
      * generate an identical vtable
      */
-    @Nonnull private final Supplier<List<Method>> buggyPostDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
+    @Nonnull
+    private final Supplier<List<Method>> buggyPostDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
         @Override public List<Method> get() {
             List<Method> vtable = ListUtil.newArrayList();
 
@@ -1073,7 +1088,8 @@ public class ClassProto implements TypeProto {
         }
     });
 
-    @Nonnull private final Supplier<List<Method>> postDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
+    @Nonnull
+    private final Supplier<List<Method>> postDefaultMethodVtableSupplier = Suppliers.memoize(new Supplier<List<Method>>() {
         @Override public List<Method> get() {
             List<Method> vtable = ListUtil.newArrayList();
 

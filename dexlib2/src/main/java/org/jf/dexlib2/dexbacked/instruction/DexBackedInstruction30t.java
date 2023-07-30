@@ -44,5 +44,6 @@ public class DexBackedInstruction30t extends DexBackedInstruction implements Ins
         super(dexFile, opcode, instructionStart);
     }
 
-    @Override public int getCodeOffset() { return dexFile.getDataBuffer().readInt(instructionStart + 2); }
+    @Override
+    public int getCodeOffset() { return dexFile.getDataBuffer().readInt(instructionStart + 2); }
 }

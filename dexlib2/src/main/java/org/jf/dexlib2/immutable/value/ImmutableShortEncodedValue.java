@@ -48,5 +48,6 @@ public class ImmutableShortEncodedValue extends BaseShortEncodedValue implements
         return new ImmutableShortEncodedValue(shortEncodedValue.getValue());
     }
 
-    @Override public short getValue() { return value; }
+    @Override 
+    public short getValue() { return value; }
 }

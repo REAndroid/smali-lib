@@ -62,7 +62,8 @@ public abstract class BaseShortEncodedValue implements ShortEncodedValue {
 
     public int getValueType() { return ValueType.SHORT; }
 
-    @Override public String toString() {
+    @Override 
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

@@ -65,6 +65,18 @@ public class ByteStreams {
         in.close();
         return outputStream.toByteArray();
     }
+    public static byte[] toByteArray(File file) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream((int) file.length());
+        InputStream inputStream = new FileInputStream(file);
+        byte[] buffer = new byte[8192];
+        int length;
+        while((length = inputStream.read(buffer))>0){
+            outputStream.write(buffer, 0, length);
+        }
+        outputStream.close();
+        inputStream.close();
+        return outputStream.toByteArray();
+    }
 
     private static final byte[] DUMMY_BUFFER = new byte[4096];
 }

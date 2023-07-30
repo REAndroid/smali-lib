@@ -48,11 +48,13 @@ public class BuilderTypeList extends AbstractList<BuilderTypeReference> {
         this.types = types;
     }
 
-    @Override public BuilderTypeReference get(int index) {
+    @Override
+    public BuilderTypeReference get(int index) {
         return types.get(index);
     }
 
-    @Override public int size() {
+    @Override
+    public int size() {
         return types.size();
     }
 

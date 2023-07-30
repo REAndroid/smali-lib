@@ -63,7 +63,8 @@ public abstract class BaseIntEncodedValue implements IntEncodedValue {
 
     public int getValueType() { return ValueType.INT; }
 
-    @Override public String toString() {
+    @Override 
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

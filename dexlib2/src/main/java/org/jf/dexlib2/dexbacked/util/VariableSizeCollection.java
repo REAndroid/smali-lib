@@ -38,7 +38,8 @@ import javax.annotation.Nonnull;
 import java.util.AbstractCollection;
 
 public abstract class VariableSizeCollection<T> extends AbstractCollection<T> {
-    @Nonnull private final DexBuffer buffer;
+    @Nonnull
+    private final DexBuffer buffer;
     private final int offset;
     private final int size;
 
@@ -61,5 +62,6 @@ public abstract class VariableSizeCollection<T> extends AbstractCollection<T> {
         };
     }
 
-    @Override public int size() { return size; }
+    @Override
+    public int size() { return size; }
 }

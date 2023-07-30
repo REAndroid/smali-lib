@@ -62,7 +62,8 @@ public abstract class BaseStringEncodedValue implements StringEncodedValue {
 
     public int getValueType() { return ValueType.STRING; }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

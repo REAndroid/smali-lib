@@ -47,10 +47,14 @@ import java.util.List;
 import java.util.Set;
 
 public class ClassDefinition {
-    @Nonnull public final BaksmaliOptions options;
-    @Nonnull public final ClassDef classDef;
-    @Nonnull private final HashSet<String> fieldsSetInStaticConstructor;
-    @Nonnull private final BaksmaliFormatter formatter;
+    @Nonnull
+    public final BaksmaliOptions options;
+    @Nonnull
+    public final ClassDef classDef;
+    @Nonnull
+    private final HashSet<String> fieldsSetInStaticConstructor;
+    @Nonnull
+    private final BaksmaliFormatter formatter;
 
     protected boolean validationErrors;
 

@@ -44,8 +44,10 @@ import java.util.Set;
 
 public class ImmutableAnnotation extends BaseAnnotation {
     protected final int visibility;
-    @Nonnull protected final String type;
-    @Nonnull protected final Set<? extends ImmutableAnnotationElement> elements;
+    @Nonnull
+    protected final String type;
+    @Nonnull
+    protected final Set<? extends ImmutableAnnotationElement> elements;
 
     public ImmutableAnnotation(int visibility,
                                @Nonnull String type,
@@ -73,9 +75,14 @@ public class ImmutableAnnotation extends BaseAnnotation {
                 annotation.getElements());
     }
 
-    @Override public int getVisibility() { return visibility; }
-    @Nonnull @Override public String getType() { return type; }
-    @Nonnull @Override public Set<? extends ImmutableAnnotationElement> getElements() { return elements; }
+    @Override 
+    public int getVisibility() { return visibility; }
+    @Nonnull
+    @Override
+    public String getType() { return type; }
+    @Nonnull
+    @Override
+    public Set<? extends ImmutableAnnotationElement> getElements() { return elements; }
 
     @Nonnull
     public static Set<ImmutableAnnotation> immutableSetOf(@Nullable Iterable<? extends Annotation> list) {

@@ -55,7 +55,8 @@ public class ListClassesCommand extends DexInputCommand {
         super(commandAncestors);
     }
 
-    @Override public void run() {
+    @Override
+    public void run() {
         if (help || inputList == null || inputList.isEmpty()) {
             usage();
             return;

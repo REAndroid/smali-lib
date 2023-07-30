@@ -66,8 +66,12 @@ public class BuilderSparseSwitchPayload extends BuilderSwitchPayload implements 
         }
     }
 
-    @Nonnull @Override public List<BuilderSwitchElement> getSwitchElements() { return switchElements; }
+    @Nonnull
+    @Override
+    public List<BuilderSwitchElement> getSwitchElements() { return switchElements; }
 
-    @Override public int getCodeUnits() { return 2 + switchElements.size() * 4; }
-    @Override public Format getFormat() { return OPCODE.format; }
+    @Override 
+    public int getCodeUnits() { return 2 + switchElements.size() * 4; }
+    @Override 
+    public Format getFormat() { return OPCODE.format; }
 }

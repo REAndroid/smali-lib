@@ -63,7 +63,8 @@ public abstract class BaseFieldEncodedValue implements FieldEncodedValue {
 
     public int getValueType() { return ValueType.FIELD; }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

@@ -75,7 +75,8 @@ public class MethodHandleType {
         typeNamesMethodHandle.put("invoke-direct", INVOKE_DIRECT);
         typeNamesMethodHandle.put("invoke-interface", INVOKE_INTERFACE);
     }
-    @Nonnull public static String toString(int methodHandleType) {
+    @Nonnull
+    public static String toString(int methodHandleType) {
         String val = methodHandleTypeNames.get(methodHandleType);
         if (val == null) {
             throw new InvalidMethodHandleTypeException(methodHandleType);

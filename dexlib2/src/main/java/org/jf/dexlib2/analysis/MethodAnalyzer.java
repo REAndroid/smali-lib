@@ -69,22 +69,27 @@ import java.util.function.Function;
  * ClassPath.InitializeClassPath
  */
 public class MethodAnalyzer {
-    @Nonnull private final Method method;
-    @Nonnull private final MethodImplementation methodImpl;
+    @Nonnull
+    private final Method method;
+    @Nonnull
+    private final MethodImplementation methodImpl;
 
     private final boolean normalizeVirtualMethods;
 
     private final int paramRegisterCount;
 
-    @Nonnull private final ClassPath classPath;
+    @Nonnull
+    private final ClassPath classPath;
     @Nullable private final InlineMethodResolver inlineResolver;
 
     // This contains all the AnalyzedInstruction instances, keyed by the code unit address of the instruction
-    @Nonnull private final SparseArray<AnalyzedInstruction> analyzedInstructions =
+    @Nonnull
+    private final SparseArray<AnalyzedInstruction> analyzedInstructions =
             new SparseArray<AnalyzedInstruction>(0);
 
     // Which instructions have been analyzed, keyed by instruction index
-    @Nonnull private final BitSet analyzedState;
+    @Nonnull
+    private final BitSet analyzedState;
 
     @Nullable private AnalysisException analysisException = null;
 

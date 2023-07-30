@@ -38,7 +38,8 @@ import org.jf.dexlib2.immutable.reference.ImmutableMethodHandleReference;
 import javax.annotation.Nonnull;
 
 public class ImmutableMethodHandleEncodedValue extends BaseMethodHandleEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final ImmutableMethodHandleReference methodHandleReference;
+    @Nonnull
+    protected final ImmutableMethodHandleReference methodHandleReference;
 
     public ImmutableMethodHandleEncodedValue(@Nonnull ImmutableMethodHandleReference methodHandleReference) {
         this.methodHandleReference = methodHandleReference;
@@ -53,5 +54,7 @@ public class ImmutableMethodHandleEncodedValue extends BaseMethodHandleEncodedVa
                 ImmutableMethodHandleReference.of(methodHandleEncodedValue.getValue()));
     }
 
-    @Nonnull @Override public ImmutableMethodHandleReference getValue() { return methodHandleReference; }
+    @Nonnull
+    @Override
+    public ImmutableMethodHandleReference getValue() { return methodHandleReference; }
 }

@@ -82,13 +82,21 @@ public class ImmutableInstruction35mi extends ImmutableInstruction implements In
                 instruction.getInlineIndex());
     }
 
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getRegisterC() { return registerC; }
-    @Override public int getRegisterD() { return registerD; }
-    @Override public int getRegisterE() { return registerE; }
-    @Override public int getRegisterF() { return registerF; }
-    @Override public int getRegisterG() { return registerG; }
-    @Override public int getInlineIndex() { return inlineIndex; }
+    @Override
+    public int getRegisterCount() { return registerCount; }
+    @Override
+    public int getRegisterC() { return registerC; }
+    @Override
+    public int getRegisterD() { return registerD; }
+    @Override
+    public int getRegisterE() { return registerE; }
+    @Override
+    public int getRegisterF() { return registerF; }
+    @Override
+    public int getRegisterG() { return registerG; }
+    @Override
+    public int getInlineIndex() { return inlineIndex; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }

@@ -44,7 +44,8 @@ public abstract class BaseNullableOffsetPool<Key> extends BaseOffsetPool<Key>
         super(dexPool);
     }
 
-    @Override public int getNullableItemOffset(@Nullable Key key) {
+    @Override 
+    public int getNullableItemOffset(@Nullable Key key) {
         if (key == null) {
             return DexWriter.NO_OFFSET;
         }

@@ -38,7 +38,8 @@ import javax.annotation.Nonnull;
 import java.util.Set;
 
 public class DexBackedAnnotation extends BaseAnnotation {
-    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
 
     public final int visibility;
     public final int typeIndex;
@@ -48,25 +49,30 @@ public class DexBackedAnnotation extends BaseAnnotation {
                                int annotationOffset) {
         this.dexFile = dexFile;
 
-        DexReader reader = dexFile.getDataBuffer().readerAt(annotationOffset);
+        DexReader<?> reader = dexFile.getDataBuffer().readerAt(annotationOffset);
         this.visibility = reader.readUbyte();
         this.typeIndex = reader.readSmallUleb128();
         this.elementsOffset = reader.getOffset();
     }
 
-    @Override public int getVisibility() { return visibility; }
-    @Nonnull @Override public String getType() { return dexFile.getTypeSection().get(typeIndex); }
+    @Override
+    public int getVisibility() { return visibility; }
+    @Nonnull
+    @Override
+    public String getType() { return dexFile.getTypeSection().get(typeIndex); }
 
     @Nonnull
     @Override
     public Set<? extends DexBackedAnnotationElement> getElements() {
-        DexReader reader = dexFile.getDataBuffer().readerAt(elementsOffset);
+        DexReader<?> reader = dexFile.getDataBuffer().readerAt(elementsOffset);
         final int size = reader.readSmallUleb128();
 
-        return new VariableSizeSet<DexBackedAnnotationElement>(dexFile.getDataBuffer(), reader.getOffset(), size) {
+        return new VariableSizeSet<DexBackedAnnotationElement>(dexFile.getDataBuffer(),
+                reader.getOffset(), size) {
+
             @Nonnull
             @Override
-            protected DexBackedAnnotationElement readNextItem(@Nonnull DexReader reader, int index) {
+            protected DexBackedAnnotationElement readNextItem(@Nonnull DexReader<?> reader, int index) {
                 return new DexBackedAnnotationElement(dexFile, reader);
             }
         };

@@ -46,7 +46,8 @@ public class DexBackedInstruction4rcc extends DexBackedInstruction implements In
         super(dexFile, opcode, instructionStart);
     }
 
-    @Override public int getRegisterCount() {
+    @Override
+    public int getRegisterCount() {
         return dexFile.getDataBuffer().readUbyte(instructionStart + 1);
     }
 

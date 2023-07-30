@@ -102,7 +102,8 @@ public class CodeItem {
 
             private List<Integer> sortedItems;
 
-            @Override public void annotateSection(@Nonnull AnnotatedBytes out) {
+            @Override
+    public void annotateSection(@Nonnull AnnotatedBytes out) {
                 sortedItems = new ArrayList<>(itemIdentities.keySet());
                 sortedItems.sort(Integer::compareTo);
 
@@ -236,7 +237,8 @@ public class CodeItem {
             return "code_item";
         }
 
-        @Override public int getItemAlignment() {
+        @Override
+    public int getItemAlignment() {
             return 4;
         }
 

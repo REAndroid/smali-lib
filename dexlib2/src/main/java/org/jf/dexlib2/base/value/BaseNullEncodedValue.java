@@ -58,7 +58,8 @@ public abstract class BaseNullEncodedValue implements NullEncodedValue {
 
     public int getValueType() { return ValueType.NULL; }
 
-    @Override public String toString() {
+    @Override 
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

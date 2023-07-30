@@ -55,8 +55,10 @@ import java.util.List;
 import java.util.Set;
 
 public class DexBackedMethod extends BaseMethodReference implements Method {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final DexBackedClassDef classDef;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedClassDef classDef;
 
     public final int accessFlags;
 
@@ -117,8 +119,11 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
     }
 
     public int getMethodIndex() { return methodIndex; }
-    @Nonnull @Override public String getDefiningClass() { return classDef.getType(); }
-    @Override public int getAccessFlags() { return accessFlags; }
+    @Nonnull
+    @Override
+    public String getDefiningClass() { return classDef.getType(); }
+    @Override
+    public int getAccessFlags() { return accessFlags; }
 
     @Nonnull
     @Override
@@ -148,7 +153,8 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
                             getParameterNames());
                 }
 
-                @Override public int size() {
+                @Override
+    public int size() {
                     return parameterTypes.size();
                 }
             };
@@ -183,7 +189,8 @@ public class DexBackedMethod extends BaseMethodReference implements Method {
                 public String readItem(final int index) {
                     return dexFile.getTypeSection().get(dexFile.getDataBuffer().readUshort(paramListStart + 2*index));
                 }
-                @Override public int size() { return parameterCount; }
+                @Override
+    public int size() { return parameterCount; }
             };
         }
         return EmptyList.of();

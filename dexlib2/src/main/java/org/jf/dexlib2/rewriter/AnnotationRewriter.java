@@ -39,13 +39,16 @@ import javax.annotation.Nonnull;
 import java.util.Set;
 
 public class AnnotationRewriter implements Rewriter<Annotation> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public AnnotationRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public Annotation rewrite(@Nonnull Annotation value) {
+    @Nonnull
+    @Override
+    public Annotation rewrite(@Nonnull Annotation value) {
         return new RewrittenAnnotation(value);
     }
 

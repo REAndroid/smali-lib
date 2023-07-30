@@ -38,7 +38,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 public abstract class BuilderMapEntryCollection<Key> extends AbstractCollection<Map.Entry<Key, Integer>> {
-    @Nonnull private final Collection<Key> keys;
+    @Nonnull
+    private final Collection<Key> keys;
 
     public BuilderMapEntryCollection(@Nonnull Collection<Key> keys) {
         this.keys = keys;
@@ -60,7 +61,9 @@ public abstract class BuilderMapEntryCollection<Key> extends AbstractCollection<
         }
     }
 
-    @Nonnull @Override public Iterator<Map.Entry<Key, Integer>> iterator() {
+    @Nonnull
+    @Override
+    public Iterator<Map.Entry<Key, Integer>> iterator() {
         final Iterator<Key> iter = keys.iterator();
 
         return new Iterator<Map.Entry<Key, Integer>>() {
@@ -80,7 +83,8 @@ public abstract class BuilderMapEntryCollection<Key> extends AbstractCollection<
         };
     }
 
-    @Override public int size() {
+    @Override
+    public int size() {
         return keys.size();
     }
 

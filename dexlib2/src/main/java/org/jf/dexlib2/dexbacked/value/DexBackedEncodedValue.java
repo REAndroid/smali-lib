@@ -43,7 +43,7 @@ import javax.annotation.Nonnull;
 
 public abstract class DexBackedEncodedValue {
     @Nonnull
-    public static EncodedValue readFrom(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader reader) {
+    public static EncodedValue readFrom(@Nonnull DexBackedDexFile dexFile, @Nonnull DexReader<?> reader) {
         int startOffset = reader.getOffset();
 
         try {
@@ -116,7 +116,7 @@ public abstract class DexBackedEncodedValue {
         }
     }
 
-    public static void skipFrom(@Nonnull DexReader reader) {
+    public static void skipFrom(@Nonnull DexReader<?> reader) {
         int startOffset = reader.getOffset();
 
         try {

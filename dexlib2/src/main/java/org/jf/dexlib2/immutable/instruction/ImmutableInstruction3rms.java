@@ -66,10 +66,14 @@ public class ImmutableInstruction3rms extends ImmutableInstruction implements In
                 instruction.getVtableIndex());
     }
 
-    @Override public int getStartRegister() { return startRegister; }
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getVtableIndex() { return vtableIndex; }
+    @Override 
+    public int getStartRegister() { return startRegister; }
+    @Override 
+    public int getRegisterCount() { return registerCount; }
+    @Override 
+    public int getVtableIndex() { return vtableIndex; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override 
+    public Format getFormat() { return FORMAT; }
 }
 

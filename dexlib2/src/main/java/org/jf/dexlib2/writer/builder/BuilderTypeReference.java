@@ -44,15 +44,19 @@ public class BuilderTypeReference extends BaseTypeReference implements BuilderRe
         this.stringReference = stringReference;
     }
 
-    @Nonnull @Override public String getType() {
+    @Nonnull
+    @Override
+    public String getType() {
         return stringReference.getString();
     }
 
-    @Override public int getIndex() {
+    @Override
+    public int getIndex() {
         return index;
     }
 
-    @Override public void setIndex(int index) {
+    @Override
+    public void setIndex(int index) {
         this.index = index;
     }
 }

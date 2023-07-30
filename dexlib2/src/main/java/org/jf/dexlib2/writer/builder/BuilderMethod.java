@@ -70,10 +70,15 @@ public class BuilderMethod extends BaseMethodReference implements Method {
     @Override @Nonnull public String getDefiningClass() { return methodReference.definingClass.getType(); }
     @Override @Nonnull public String getName() { return methodReference.name.getString(); }
     @Override @Nonnull public BuilderTypeList getParameterTypes() { return methodReference.proto.parameterTypes; }
-    @Nonnull @Override public String getReturnType() { return methodReference.proto.returnType.getType(); }
+    @Nonnull
+    @Override
+    public String getReturnType() { return methodReference.proto.returnType.getType(); }
     @Override @Nonnull public List<? extends BuilderMethodParameter> getParameters() { return parameters; }
-    @Override public int getAccessFlags() { return accessFlags; }
+    @Override 
+    public int getAccessFlags() { return accessFlags; }
     @Override @Nonnull public BuilderAnnotationSet getAnnotations() { return annotations; }
-    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() { return hiddenApiRestrictions; }
+    @Nonnull
+    @Override
+    public Set<HiddenApiRestriction> getHiddenApiRestrictions() { return hiddenApiRestrictions; }
     @Override @Nullable public MethodImplementation getImplementation() { return methodImplementation; }
 }

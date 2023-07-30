@@ -63,7 +63,8 @@ public abstract class BaseEnumEncodedValue implements EnumEncodedValue {
 
     public int getValueType() { return ValueType.ENUM; }
 
-    @Override public String toString() {
+    @Override 
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

@@ -41,9 +41,12 @@ import java.util.BitSet;
 
 public class PreInstructionRegisterInfoMethodItem extends MethodItem {
     private final int registerInfo;
-    @Nonnull private final MethodAnalyzer methodAnalyzer;
-    @Nonnull private final RegisterFormatter registerFormatter;
-    @Nonnull private final AnalyzedInstruction analyzedInstruction;
+    @Nonnull
+    private final MethodAnalyzer methodAnalyzer;
+    @Nonnull
+    private final RegisterFormatter registerFormatter;
+    @Nonnull
+    private final AnalyzedInstruction analyzedInstruction;
 
     public PreInstructionRegisterInfoMethodItem(int registerInfo,
                                                 @Nonnull MethodAnalyzer methodAnalyzer,

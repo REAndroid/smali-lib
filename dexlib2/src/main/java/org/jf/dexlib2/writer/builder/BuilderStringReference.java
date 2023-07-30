@@ -44,15 +44,19 @@ public class BuilderStringReference extends BaseStringReference implements Build
         this.string = string;
     }
 
-    @Nonnull @Override public String getString() {
+    @Nonnull
+    @Override
+    public String getString() {
         return string;
     }
 
-    @Override public int getIndex() {
+    @Override 
+    public int getIndex() {
         return index;
     }
 
-    @Override public void setIndex(int index) {
+    @Override 
+    public void setIndex(int index) {
         this.index = index;
     }
 }

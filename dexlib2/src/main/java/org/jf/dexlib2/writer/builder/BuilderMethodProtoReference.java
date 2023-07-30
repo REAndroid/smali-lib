@@ -52,11 +52,15 @@ public class BuilderMethodProtoReference extends BaseMethodProtoReference implem
         this.returnType = returnType;
     }
 
-    @Nonnull @Override public List<? extends CharSequence> getParameterTypes() {
+    @Nonnull
+    @Override
+    public List<? extends CharSequence> getParameterTypes() {
         return parameterTypes;
     }
 
-    @Nonnull @Override public String getReturnType() {
+    @Nonnull
+    @Override
+    public String getReturnType() {
         return returnType.getType();
     }
 

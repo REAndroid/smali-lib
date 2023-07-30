@@ -65,38 +65,49 @@ public class ArrayProto implements TypeProto {
         elementType = type.substring(i);
     }
 
-    @Override public String toString() { return getType(); }
-    @Nonnull @Override public ClassPath getClassPath() { return classPath; }
-    @Nonnull @Override public String getType() { return makeArrayType(elementType, dimensions); }
+    @Override 
+    public String toString() { return getType(); }
+    @Nonnull
+    @Override
+    public ClassPath getClassPath() { return classPath; }
+    @Nonnull
+    @Override
+    public String getType() { return makeArrayType(elementType, dimensions); }
     public int getDimensions() { return dimensions; }
-    @Override public boolean isInterface() { return false; }
+    @Override 
+    public boolean isInterface() { return false; }
 
     /**
      * @return The base element type of this array. E.g. This would return Ljava/lang/String; for [[Ljava/lang/String;
      */
-    @Nonnull public String getElementType() { return elementType; }
+    @Nonnull
+    public String getElementType() { return elementType; }
 
     /**
      * @return The immediate element type of this array. E.g. This would return [Ljava/lang/String; for
      * [[Ljava/lang/String;
      */
-    @Nonnull public String getImmediateElementType() {
+    @Nonnull
+    public String getImmediateElementType() {
         if (dimensions > 1) {
             return makeArrayType(elementType, dimensions-1);
         }
         return elementType;
     }
 
-    @Override public boolean implementsInterface(@Nonnull String iface) {
+    @Override 
+    public boolean implementsInterface(@Nonnull String iface) {
         return iface.equals("Ljava/lang/Cloneable;") || iface.equals("Ljava/io/Serializable;");
     }
 
-    @Nullable @Override
+    @Nullable
+    @Override
     public String getSuperclass() {
         return "Ljava/lang/Object;";
     }
 
-    @Nonnull @Override
+    @Nonnull
+    @Override
     public TypeProto getCommonSuperclass(@Nonnull TypeProto other) {
         if (other instanceof ArrayProto) {
             if (TypeUtils.isPrimitiveType(getElementType()) ||
@@ -165,7 +176,8 @@ public class ArrayProto implements TypeProto {
         return classPath.getClass("Ljava/lang/Object;").getMethodByVtableIndex(vtableIndex);
     }
 
-    @Override public int findMethodIndexInVtable(@Nonnull MethodReference method) {
+    @Override 
+    public int findMethodIndexInVtable(@Nonnull MethodReference method) {
         return classPath.getClass("Ljava/lang/Object;").findMethodIndexInVtable(method);
     }
 }

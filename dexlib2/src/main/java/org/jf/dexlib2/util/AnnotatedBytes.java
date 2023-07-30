@@ -64,7 +64,8 @@ public class AnnotatedBytes {
      * is the exclusive end point. The range annotation for a range is associated with the first key for that range.
      * The point annotations for a point are associated with the key at that point.
      */
-    @Nonnull private TreeMap<Integer, AnnotationEndpoint> annotatations = new TreeMap<>();
+    @Nonnull
+    private TreeMap<Integer, AnnotationEndpoint> annotatations = new TreeMap<>();
 
     private int cursor;
     private int indentLevel;

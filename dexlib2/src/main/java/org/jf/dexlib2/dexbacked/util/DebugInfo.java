@@ -57,7 +57,8 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
      *               field, and will
      * @return An iterator that yields the parameter names as strings
      */
-    @Nonnull public abstract Iterator<String> getParameterNames(@Nullable DexReader reader);
+    @Nonnull
+    public abstract Iterator<String> getParameterNames(@Nullable DexReader<?> reader);
 
     /**
      * Calculate and return the private size of debuginfo.
@@ -82,7 +83,7 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
             return EmptySet.<DebugItem>of().iterator();
         }
 
-        @Nonnull @Override public Iterator<String> getParameterNames(@Nullable DexReader reader) {
+        @Nonnull @Override public Iterator<String> getParameterNames(@Nullable DexReader<?> reader) {
             return EmptySet.<String>of().iterator();
         }
 
@@ -93,7 +94,8 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
     }
 
     private static class DebugInfoImpl extends DebugInfo {
-        @Nonnull public final DexBackedDexFile dexFile;
+        @Nonnull
+    public final DexBackedDexFile dexFile;
         private final int debugInfoOffset;
         @Nonnull private final DexBackedMethodImplementation methodImpl;
 
@@ -114,7 +116,7 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
         @Nonnull
         @Override
         public Iterator<DebugItem> iterator() {
-            DexReader reader = dexFile.getDataBuffer().readerAt(debugInfoOffset);
+            DexReader<?> reader = dexFile.getDataBuffer().readerAt(debugInfoOffset);
             final int lineNumberStart = reader.readBigUleb128();
             int registerCount = methodImpl.getRegisterCount();
 
@@ -138,9 +140,12 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
             if (!AccessFlags.STATIC.isSet(methodImpl.method.getAccessFlags())) {
                 // add the local info for the "this" parameter
                 locals[parameterIndex++] = new LocalInfo() {
-                    @Override public String getName() { return "this"; }
-                    @Override public String getType() { return methodImpl.method.getDefiningClass(); }
-                    @Override public String getSignature() { return null; }
+                    @Override
+    public String getName() { return "this"; }
+                    @Override
+    public String getType() { return methodImpl.method.getDefiningClass(); }
+                    @Override
+    public String getSignature() { return null; }
                 };
             }
             while (parameterIterator.hasNext()) {
@@ -171,7 +176,7 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
                 private int lineNumber = lineNumberStart;
 
                 @Nullable
-                protected DebugItem readNextItem(@Nonnull DexReader reader) {
+                protected DebugItem readNextItem(@Nonnull DexReader<?> reader) {
                     while (true) {
                         int next = reader.readUbyte();
                         switch (next) {
@@ -190,8 +195,8 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
                             }
                             case DebugItemType.START_LOCAL: {
                                 int register = reader.readSmallUleb128();
-                                String name = dexFile.getStringSection().getOptional(reader.readSmallUleb128() - 1);
-                                String type = dexFile.getTypeSection().getOptional(reader.readSmallUleb128() - 1);
+                                String name = dexFile.getStringSection().get(reader.readSmallUleb128() - 1);
+                                String type = dexFile.getTypeSection().get(reader.readSmallUleb128() - 1);
                                 ImmutableStartLocal startLocal =
                                         new ImmutableStartLocal(codeAddress, register, name, type, null);
                                 if (register >= 0 && register < locals.length) {
@@ -201,9 +206,9 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
                             }
                             case DebugItemType.START_LOCAL_EXTENDED: {
                                 int register = reader.readSmallUleb128();
-                                String name = dexFile.getStringSection().getOptional(reader.readSmallUleb128() - 1);
-                                String type = dexFile.getTypeSection().getOptional(reader.readSmallUleb128() - 1);
-                                String signature = dexFile.getStringSection().getOptional(
+                                String name = dexFile.getStringSection().get(reader.readSmallUleb128() - 1);
+                                String type = dexFile.getTypeSection().get(reader.readSmallUleb128() - 1);
+                                String signature = dexFile.getStringSection().get(
                                         reader.readSmallUleb128() - 1);
                                 ImmutableStartLocal startLocal =
                                         new ImmutableStartLocal(codeAddress, register, name, type, signature);
@@ -262,7 +267,7 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
                                 return new ImmutableEpilogueBegin(codeAddress);
                             }
                             case DebugItemType.SET_SOURCE_FILE: {
-                                String sourceFile = dexFile.getStringSection().getOptional(
+                                String sourceFile = dexFile.getStringSection().get(
                                         reader.readSmallUleb128() - 1);
                                 return new ImmutableSetSourceFile(codeAddress, sourceFile);
                             }
@@ -280,7 +285,7 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
 
         @Nonnull
         @Override
-        public VariableSizeIterator<String> getParameterNames(@Nullable DexReader reader) {
+        public VariableSizeIterator<String> getParameterNames(@Nullable DexReader<?> reader) {
             if (reader == null) {
                 reader = dexFile.getDataBuffer().readerAt(debugInfoOffset);
                 reader.skipUleb128();
@@ -288,8 +293,8 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
             //TODO: make sure dalvik doesn't allow more parameter names than we have parameters
             final int parameterNameCount = reader.readSmallUleb128();
             return new VariableSizeIterator<String>(reader, parameterNameCount) {
-                @Override protected String readNextItem(@Nonnull DexReader reader, int index) {
-                    return dexFile.getStringSection().getOptional(reader.readSmallUleb128() - 1);
+                @Override protected String readNextItem(@Nonnull DexReader<?> reader, int index) {
+                    return dexFile.getStringSection().get(reader.readSmallUleb128() - 1);
                 }
             };
         }
@@ -300,7 +305,7 @@ public abstract class DebugInfo implements Iterable<DebugItem> {
             while(iter.hasNext()) {
                 iter.next();
             }
-            return ((VariableSizeLookaheadIterator) iter).getReaderOffset() - debugInfoOffset;
+            return ((VariableSizeLookaheadIterator<?>) iter).getReaderOffset() - debugInfoOffset;
         }
     }
 }

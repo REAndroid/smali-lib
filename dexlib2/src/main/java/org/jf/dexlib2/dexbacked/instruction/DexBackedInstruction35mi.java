@@ -45,7 +45,8 @@ public class DexBackedInstruction35mi extends DexBackedInstruction implements In
         super(dexFile, opcode, instructionStart);
     }
 
-    @Override public int getRegisterCount() {
+    @Override
+    public int getRegisterCount() {
         return NibbleUtils.extractHighUnsignedNibble(dexFile.getDataBuffer().readUbyte(instructionStart + 1));
     }
 

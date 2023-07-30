@@ -60,20 +60,30 @@ import java.io.IOException;
 import java.util.*;
 
 public class MethodDefinition {
-    @Nonnull public final ClassDefinition classDef;
-    @Nonnull public final Method method;
-    @Nonnull public final MethodImplementation methodImpl;
-    @Nonnull public final List<Instruction> instructions;
-    @Nonnull public final List<Instruction> effectiveInstructions;
+    @Nonnull
+    public final ClassDefinition classDef;
+    @Nonnull
+    public final Method method;
+    @Nonnull
+    public final MethodImplementation methodImpl;
+    @Nonnull
+    public final List<Instruction> instructions;
+    @Nonnull
+    public final List<Instruction> effectiveInstructions;
 
-    @Nonnull public final List<MethodParameter> methodParameters;
+    @Nonnull
+    public final List<MethodParameter> methodParameters;
     public RegisterFormatter registerFormatter;
 
-    @Nonnull private final LabelCache labelCache = new LabelCache();
+    @Nonnull
+    private final LabelCache labelCache = new LabelCache();
 
-    @Nonnull private final SparseIntArray packedSwitchMap;
-    @Nonnull private final SparseIntArray sparseSwitchMap;
-    @Nonnull private final InstructionOffsetMap instructionOffsetMap;
+    @Nonnull
+    private final SparseIntArray packedSwitchMap;
+    @Nonnull
+    private final SparseIntArray sparseSwitchMap;
+    @Nonnull
+    private final InstructionOffsetMap instructionOffsetMap;
 
     public MethodDefinition(@Nonnull ClassDefinition classDef, @Nonnull Method method,
                             @Nonnull MethodImplementation methodImpl) {

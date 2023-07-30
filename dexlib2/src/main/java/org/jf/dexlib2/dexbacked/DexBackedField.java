@@ -49,11 +49,14 @@ import java.util.EnumSet;
 import java.util.Set;
 
 public class DexBackedField extends BaseFieldReference implements Field {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final ClassDef classDef;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final ClassDef classDef;
 
     public final int accessFlags;
-    @Nullable public final EncodedValue initialValue;
+    @Nullable
+    public final EncodedValue initialValue;
     public final int annotationSetOffset;
 
     public final int fieldIndex;
@@ -64,7 +67,7 @@ public class DexBackedField extends BaseFieldReference implements Field {
     private int fieldIdItemOffset;
 
     public DexBackedField(@Nonnull DexBackedDexFile dexFile,
-                          @Nonnull DexReader reader,
+                          @Nonnull DexReader<?> reader,
                           @Nonnull DexBackedClassDef classDef,
                           int previousFieldIndex,
                           @Nonnull EncodedArrayItemIterator staticInitialValueIterator,
@@ -87,7 +90,7 @@ public class DexBackedField extends BaseFieldReference implements Field {
     }
 
     public DexBackedField(@Nonnull DexBackedDexFile dexFile,
-                          @Nonnull DexReader reader,
+                          @Nonnull DexReader<?> reader,
                           @Nonnull DexBackedClassDef classDef,
                           int previousFieldIndex,
                           @Nonnull AnnotationsDirectory.AnnotationIterator annotationIterator,
@@ -122,9 +125,16 @@ public class DexBackedField extends BaseFieldReference implements Field {
                 dexFile.getBuffer().readUshort(getFieldIdItemOffset() + FieldIdItem.TYPE_OFFSET));
     }
 
-    @Nonnull @Override public String getDefiningClass() { return classDef.getType(); }
-    @Override public int getAccessFlags() { return accessFlags; }
-    @Nullable @Override public EncodedValue getInitialValue() { return initialValue; }
+    @Nonnull
+    @Override
+    public String getDefiningClass() { return classDef.getType(); }
+    @Override
+    public int getAccessFlags() { return accessFlags; }
+    @Nullable
+    @Override
+    public EncodedValue getInitialValue() {
+        return initialValue;
+    }
 
     @Nonnull
     @Override
@@ -148,7 +158,7 @@ public class DexBackedField extends BaseFieldReference implements Field {
      * @param reader The reader to skip
      * @param count The number of encoded_field structures to skip over
      */
-    public static void skipFields(@Nonnull DexReader reader, int count) {
+    public static void skipFields(@Nonnull DexReader<?> reader, int count) {
         for (int i=0; i<count; i++) {
             reader.skipUleb128();
             reader.skipUleb128();
@@ -172,7 +182,7 @@ public class DexBackedField extends BaseFieldReference implements Field {
      */
     public int getSize() {
         int size = 0;
-        DexReader reader = dexFile.getBuffer().readerAt(startOffset);
+        DexReader<?> reader = dexFile.getBuffer().readerAt(startOffset);
         reader.readLargeUleb128(); //field_idx_diff
         reader.readSmallUleb128(); //access_flags
         size += reader.getOffset() - startOffset;

@@ -40,7 +40,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class ImmutableArrayEncodedValue extends BaseArrayEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final List<? extends ImmutableEncodedValue> value;
+    @Nonnull
+    protected final List<? extends ImmutableEncodedValue> value;
 
     public ImmutableArrayEncodedValue(@Nonnull Collection<? extends EncodedValue> value) {
         this.value = ImmutableEncodedValueFactory.immutableListOf(value);
@@ -57,5 +58,6 @@ public class ImmutableArrayEncodedValue extends BaseArrayEncodedValue implements
         return new ImmutableArrayEncodedValue(arrayEncodedValue.getValue());
     }
 
-    @Nonnull public List<? extends ImmutableEncodedValue> getValue() { return value; }
+    @Nonnull
+    public List<? extends ImmutableEncodedValue> getValue() { return value; }
 }

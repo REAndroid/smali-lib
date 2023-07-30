@@ -43,14 +43,16 @@ import java.util.concurrent.ConcurrentMap;
 
 class BuilderAnnotationPool extends BaseBuilderPool implements AnnotationSection<BuilderStringReference,
         BuilderTypeReference, BuilderAnnotation, BuilderAnnotationElement, BuilderEncodedValue> {
-    @Nonnull private final ConcurrentMap<Annotation, BuilderAnnotation> internedItems =
+    @Nonnull
+    private final ConcurrentMap<Annotation, BuilderAnnotation> internedItems =
             new ConcurrentHashMap<>();
 
     public BuilderAnnotationPool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    @Nonnull public BuilderAnnotation internAnnotation(@Nonnull Annotation annotation) {
+    @Nonnull
+    public BuilderAnnotation internAnnotation(@Nonnull Annotation annotation) {
         BuilderAnnotation ret = internedItems.get(annotation);
         if (ret != null) {
             return ret;
@@ -64,34 +66,43 @@ class BuilderAnnotationPool extends BaseBuilderPool implements AnnotationSection
         return ret==null?dexBuilderAnnotation:ret;
     }
 
-    @Override public int getVisibility(@Nonnull BuilderAnnotation key) {
+    @Override
+    public int getVisibility(@Nonnull BuilderAnnotation key) {
         return key.visibility;
     }
 
-    @Nonnull @Override public BuilderTypeReference getType(@Nonnull BuilderAnnotation key) {
+    @Nonnull
+    @Override
+    public BuilderTypeReference getType(@Nonnull BuilderAnnotation key) {
         return key.type;
     }
 
-    @Nonnull @Override
+    @Nonnull
+    @Override
     public Collection<? extends BuilderAnnotationElement> getElements(@Nonnull BuilderAnnotation key) {
         return key.elements;
     }
 
-    @Nonnull @Override
+    @Nonnull
+    @Override
     public BuilderStringReference getElementName(@Nonnull BuilderAnnotationElement element) {
         return element.name;
     }
 
-    @Nonnull @Override
+    @Nonnull
+    @Override
     public BuilderEncodedValue getElementValue(@Nonnull BuilderAnnotationElement element) {
         return element.value;
     }
 
-    @Override public int getItemOffset(@Nonnull BuilderAnnotation key) {
+    @Override
+    public int getItemOffset(@Nonnull BuilderAnnotation key) {
         return key.offset;
     }
 
-    @Nonnull @Override public Collection<? extends Entry<? extends BuilderAnnotation, Integer>> getItems() {
+    @Nonnull
+    @Override
+    public Collection<? extends Entry<? extends BuilderAnnotation, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderAnnotation>(internedItems.values()) {
             @Override protected int getValue(@Nonnull BuilderAnnotation key) {
                 return key.offset;

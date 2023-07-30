@@ -65,7 +65,8 @@ public abstract class BaseLongEncodedValue implements LongEncodedValue {
 
     public int getValueType() { return ValueType.LONG; }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

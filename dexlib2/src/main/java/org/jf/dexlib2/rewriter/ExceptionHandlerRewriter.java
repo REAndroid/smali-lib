@@ -38,13 +38,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ExceptionHandlerRewriter implements Rewriter<ExceptionHandler> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public ExceptionHandlerRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public ExceptionHandler rewrite(@Nonnull ExceptionHandler value) {
+    @Nonnull
+    @Override
+    public ExceptionHandler rewrite(@Nonnull ExceptionHandler value) {
         return new RewrittenExceptionHandler(value);
     }
 

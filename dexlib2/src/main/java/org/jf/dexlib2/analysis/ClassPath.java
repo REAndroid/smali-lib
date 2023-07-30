@@ -46,8 +46,10 @@ import java.util.List;
 import java.util.Map;
 
 public class ClassPath {
-    @Nonnull private final TypeProto unknownClass;
-    @Nonnull private List<ClassProvider> classProviders;
+    @Nonnull
+    private final TypeProto unknownClass;
+    @Nonnull
+    private List<ClassProvider> classProviders;
     private final boolean checkPackagePrivateAccess;
     public final int oatVersion;
 

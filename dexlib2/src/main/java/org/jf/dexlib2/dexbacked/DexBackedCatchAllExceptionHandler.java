@@ -31,19 +31,23 @@
 
 package org.jf.dexlib2.dexbacked;
 
-import org.jf.dexlib2.base.BaseExceptionHandler;
-import org.jf.dexlib2.iface.ExceptionHandler;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DexBackedCatchAllExceptionHandler extends DexBackedExceptionHandler {
     private final int handlerCodeAddress;
 
-    public DexBackedCatchAllExceptionHandler(@Nonnull DexReader reader) {
+    public DexBackedCatchAllExceptionHandler(@Nonnull DexReader<?> reader) {
         this.handlerCodeAddress = reader.readSmallUleb128();
     }
 
-    @Nullable @Override public String getExceptionType() { return null; }
-    @Override public int getHandlerCodeAddress() { return handlerCodeAddress; }
+    @Nullable
+    @Override
+    public String getExceptionType() {
+        return null;
+    }
+    @Override
+    public int getHandlerCodeAddress() {
+        return handlerCodeAddress;
+    }
 }

@@ -55,8 +55,11 @@ public abstract class BaseStringReference extends BaseReference implements Strin
         return getString().compareTo(o.toString());
     }
 
-    @Override public int length() { return getString().length(); }
-    @Override public char charAt(int index) { return getString().charAt(index); }
-    @Override public CharSequence subSequence(int start, int end) { return getString().subSequence(start, end); }
+    @Override
+    public int length() { return getString().length(); }
+    @Override
+    public char charAt(int index) { return getString().charAt(index); }
+    @Override
+    public CharSequence subSequence(int start, int end) { return getString().subSequence(start, end); }
     @Override @Nonnull public String toString() { return getString(); }
 }

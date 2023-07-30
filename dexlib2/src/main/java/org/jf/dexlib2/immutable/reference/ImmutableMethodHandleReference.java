@@ -43,7 +43,8 @@ import javax.annotation.Nonnull;
 
 public class ImmutableMethodHandleReference extends BaseMethodHandleReference implements ImmutableReference {
     protected final int methodHandleType;
-    @Nonnull protected final ImmutableReference memberReference;
+    @Nonnull
+    protected final ImmutableReference memberReference;
 
     public ImmutableMethodHandleReference(int methodHandleType, @Nonnull ImmutableReference memberReference) {
         this.methodHandleType = methodHandleType;
@@ -85,6 +86,9 @@ public class ImmutableMethodHandleReference extends BaseMethodHandleReference im
         return new ImmutableMethodHandleReference(methodHandleType, memberReference);
     }
 
-    @Override public int getMethodHandleType() { return methodHandleType; }
-    @Nonnull @Override public Reference getMemberReference() { return memberReference; }
+    @Override
+    public int getMethodHandleType() { return methodHandleType; }
+    @Nonnull
+    @Override
+    public Reference getMemberReference() { return memberReference; }
 }

@@ -40,7 +40,8 @@ import org.jf.dexlib2.iface.reference.MethodHandleReference;
 import javax.annotation.Nonnull;
 
 public class DexBackedMethodHandleEncodedValue extends BaseMethodHandleEncodedValue {
-    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
     private final int methodHandleIndex;
 
     public DexBackedMethodHandleEncodedValue(

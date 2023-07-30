@@ -58,8 +58,12 @@ public class BuilderInstruction22cs extends BuilderInstruction implements Instru
         this.fieldOffset = fieldOffset;
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Override public int getFieldOffset() { return fieldOffset; }
-    @Override public Format getFormat() { return FORMAT; }
+    @Override 
+    public int getRegisterA() { return registerA; }
+    @Override 
+    public int getRegisterB() { return registerB; }
+    @Override 
+    public int getFieldOffset() { return fieldOffset; }
+    @Override 
+    public Format getFormat() { return FORMAT; }
 }

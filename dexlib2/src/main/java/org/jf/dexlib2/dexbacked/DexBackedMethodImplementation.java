@@ -50,8 +50,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class DexBackedMethodImplementation implements MethodImplementation {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final DexBackedMethod method;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedMethod method;
     protected final int codeOffset;
 
     protected DexBackedMethodImplementation(@Nonnull DexBackedDexFile dexFile,
@@ -62,7 +64,8 @@ public class DexBackedMethodImplementation implements MethodImplementation {
         this.codeOffset = codeOffset;
     }
 
-    @Override public int getRegisterCount() {
+    @Override
+    public int getRegisterCount() {
         return dexFile.getDataBuffer().readUshort(codeOffset);
     }
 
@@ -74,19 +77,22 @@ public class DexBackedMethodImplementation implements MethodImplementation {
         return codeOffset + CodeItem.INSTRUCTION_START_OFFSET;
     }
 
-    @Nonnull @Override public Iterable<? extends Instruction> getInstructions() {
+    @Nonnull
+    @Override
+    public Iterable<? extends Instruction> getInstructions() {
         // instructionsSize is the number of 16-bit code units in the instruction list, not the number of instructions
         int instructionsSize = getInstructionsSize();
 
         final int instructionsStartOffset = getInstructionsStartOffset();
         final int endOffset = instructionsStartOffset + (instructionsSize*2);
         return new Iterable<Instruction>() {
+            @Nonnull
             @Override
             public Iterator<Instruction> iterator() {
                 return new VariableSizeLookaheadIterator<Instruction>(
                         dexFile.getDataBuffer(), instructionsStartOffset) {
                     @Override
-                    protected Instruction readNextItem(@Nonnull DexReader reader) {
+                    protected Instruction readNextItem(@Nonnull DexReader<?> reader) {
                         if (reader.getOffset() >= endOffset) {
                             return endOfData();
                         }
@@ -159,7 +165,8 @@ public class DexBackedMethodImplementation implements MethodImplementation {
         return DebugInfo.newOrEmpty(dexFile, debugOffset, this);
     }
 
-    @Nonnull @Override
+    @Nonnull
+    @Override
     public Iterable<? extends DebugItem> getDebugItems() {
         return getDebugInfo();
     }
@@ -192,7 +199,7 @@ public class DexBackedMethodImplementation implements MethodImplementation {
             while (tryHandlerIter.hasNext()) {
                 tryHandlerIter.next();
             }
-            lastOffset = ((VariableSizeListIterator)tryHandlerIter).getReaderOffset();
+            lastOffset = ((VariableSizeListIterator<?>)tryHandlerIter).getReaderOffset();
         }
 
         //method impl size = debug block size + code_item size

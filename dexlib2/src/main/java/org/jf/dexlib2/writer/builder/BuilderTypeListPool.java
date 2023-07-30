@@ -46,14 +46,16 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.function.Function;
 
 class BuilderTypeListPool extends BaseBuilderPool implements TypeListSection<BuilderTypeReference, BuilderTypeList> {
-    @Nonnull private final ConcurrentMap<List<? extends CharSequence>, BuilderTypeList> internedItems =
+    @Nonnull
+    private final ConcurrentMap<List<? extends CharSequence>, BuilderTypeList> internedItems =
             new ConcurrentHashMap<>();
 
     public BuilderTypeListPool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    @Nonnull public BuilderTypeList internTypeList(@Nullable List<? extends CharSequence> types) {
+    @Nonnull
+    public BuilderTypeList internTypeList(@Nullable List<? extends CharSequence> types) {
         if (types == null || types.size() == 0) {
             return BuilderTypeList.EMPTY;
         }
@@ -76,20 +78,25 @@ class BuilderTypeListPool extends BaseBuilderPool implements TypeListSection<Bui
         return ret==null?typeList:ret;
     }
 
-    @Override public int getNullableItemOffset(@Nullable BuilderTypeList key) {
+    @Override
+    public int getNullableItemOffset(@Nullable BuilderTypeList key) {
         return (key==null||key.size()==0)?DexWriter.NO_OFFSET:key.offset;
     }
 
-    @Nonnull @Override
+    @Nonnull
+    @Override
     public Collection<? extends BuilderTypeReference> getTypes(@Nullable BuilderTypeList key) {
         return key==null?BuilderTypeList.EMPTY:key.types;
     }
 
-    @Override public int getItemOffset(@Nonnull BuilderTypeList key) {
+    @Override
+    public int getItemOffset(@Nonnull BuilderTypeList key) {
         return key.offset;
     }
 
-    @Nonnull @Override public Collection<? extends Entry<? extends BuilderTypeList, Integer>> getItems() {
+    @Nonnull
+    @Override
+    public Collection<? extends Entry<? extends BuilderTypeList, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderTypeList>(internedItems.values()) {
             @Override protected int getValue(@Nonnull BuilderTypeList key) {
                 return key.offset;

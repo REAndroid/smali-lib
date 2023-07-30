@@ -49,7 +49,8 @@ public class BuilderInstruction35c extends BuilderInstruction implements Instruc
     protected final int registerE;
     protected final int registerF;
     protected final int registerG;
-    @Nonnull protected final Reference reference;
+    @Nonnull
+    protected final Reference reference;
 
     public BuilderInstruction35c(@Nonnull Opcode opcode,
                                  int registerCount,
@@ -69,14 +70,24 @@ public class BuilderInstruction35c extends BuilderInstruction implements Instruc
         this.reference = reference;
     }
 
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getRegisterC() { return registerC; }
-    @Override public int getRegisterD() { return registerD; }
-    @Override public int getRegisterE() { return registerE; }
-    @Override public int getRegisterF() { return registerF; }
-    @Override public int getRegisterG() { return registerG; }
-    @Nonnull @Override public Reference getReference() { return reference; }
-    @Override public int getReferenceType() { return opcode.referenceType; }
+    @Override
+    public int getRegisterCount() { return registerCount; }
+    @Override
+    public int getRegisterC() { return registerC; }
+    @Override
+    public int getRegisterD() { return registerD; }
+    @Override
+    public int getRegisterE() { return registerE; }
+    @Override
+    public int getRegisterF() { return registerF; }
+    @Override
+    public int getRegisterG() { return registerG; }
+    @Nonnull
+    @Override
+    public Reference getReference() { return reference; }
+    @Override
+    public int getReferenceType() { return opcode.referenceType; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }

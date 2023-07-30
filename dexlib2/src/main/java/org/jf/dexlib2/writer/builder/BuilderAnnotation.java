@@ -50,15 +50,20 @@ class BuilderAnnotation extends BaseAnnotation {
         this.elements = elements;
     }
 
-    @Override public int getVisibility() {
+    @Override
+    public int getVisibility() {
         return visibility;
     }
 
-    @Nonnull @Override public String getType() {
+    @Nonnull
+    @Override
+    public String getType() {
         return type.getType();
     }
 
-    @Nonnull @Override public Set<? extends BuilderAnnotationElement> getElements() {
+    @Nonnull
+    @Override
+    public Set<? extends BuilderAnnotationElement> getElements() {
         return elements;
     }
 }

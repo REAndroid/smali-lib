@@ -45,14 +45,22 @@ import java.util.Collection;
 public abstract class EncodedValueWriter<StringKey, TypeKey, FieldRefKey extends FieldReference,
         MethodRefKey extends MethodReference, AnnotationElement extends org.jf.dexlib2.iface.AnnotationElement,
         ProtoRefKey, MethodHandleKey extends MethodHandleReference, EncodedValue> {
-    @Nonnull private final DexDataWriter writer;
-    @Nonnull private final StringSection<StringKey, ?> stringSection;
-    @Nonnull private final TypeSection<?, TypeKey, ?> typeSection;
-    @Nonnull private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
-    @Nonnull private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
-    @Nonnull private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
-    @Nonnull private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
-    @Nonnull private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
+    @Nonnull
+    private final DexDataWriter writer;
+    @Nonnull
+    private final StringSection<StringKey, ?> stringSection;
+    @Nonnull
+    private final TypeSection<?, TypeKey, ?> typeSection;
+    @Nonnull
+    private final FieldSection<?, ?, FieldRefKey, ?> fieldSection;
+    @Nonnull
+    private final MethodSection<?, ?, ?, MethodRefKey, ?> methodSection;
+    @Nonnull
+    private final ProtoSection<?, ?, ProtoRefKey, ?> protoSection;
+    @Nonnull
+    private final MethodHandleSection<MethodHandleKey, ?, ?> methodHandleSection;
+    @Nonnull
+    private final AnnotationSection<StringKey, TypeKey, ?, AnnotationElement, EncodedValue> annotationSection;
 
     public EncodedValueWriter(
             @Nonnull DexDataWriter writer,

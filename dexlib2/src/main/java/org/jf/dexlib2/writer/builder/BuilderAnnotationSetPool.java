@@ -48,14 +48,16 @@ import java.util.function.Function;
 
 class BuilderAnnotationSetPool extends BaseBuilderPool
         implements AnnotationSetSection<BuilderAnnotation, BuilderAnnotationSet> {
-    @Nonnull private final ConcurrentMap<Set<? extends Annotation>, BuilderAnnotationSet> internedItems =
+    @Nonnull
+    private final ConcurrentMap<Set<? extends Annotation>, BuilderAnnotationSet> internedItems =
             new ConcurrentHashMap<>();
 
     public BuilderAnnotationSetPool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    @Nonnull public BuilderAnnotationSet internAnnotationSet(@Nullable Set<? extends Annotation> annotations) {
+    @Nonnull
+    public BuilderAnnotationSet internAnnotationSet(@Nullable Set<? extends Annotation> annotations) {
         if (annotations == null) {
             return BuilderAnnotationSet.EMPTY;
         }
@@ -79,20 +81,25 @@ class BuilderAnnotationSetPool extends BaseBuilderPool
         return ret==null?annotationSet:ret;
     }
 
-    @Nonnull @Override
+    @Nonnull
+    @Override
     public Collection<? extends BuilderAnnotation> getAnnotations(@Nonnull BuilderAnnotationSet key) {
         return key.annotations; 
     }
 
-    @Override public int getNullableItemOffset(@Nullable BuilderAnnotationSet key) {
+    @Override
+    public int getNullableItemOffset(@Nullable BuilderAnnotationSet key) {
         return key==null?DexWriter.NO_OFFSET:key.offset;
     }
 
-    @Override public int getItemOffset(@Nonnull BuilderAnnotationSet key) {
+    @Override
+    public int getItemOffset(@Nonnull BuilderAnnotationSet key) {
         return key.offset;
     }
 
-    @Nonnull @Override public Collection<? extends Entry<? extends BuilderAnnotationSet, Integer>> getItems() {
+    @Nonnull
+    @Override
+    public Collection<? extends Entry<? extends BuilderAnnotationSet, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderAnnotationSet>(internedItems.values()) {
             @Override protected int getValue(@Nonnull BuilderAnnotationSet key) {
                 return key.offset;

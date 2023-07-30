@@ -38,7 +38,8 @@ import javax.annotation.Nonnull;
 import java.util.AbstractSet;
 
 public abstract class VariableSizeSet<T> extends AbstractSet<T> {
-    @Nonnull private final DexBuffer buffer;
+    @Nonnull
+    private final DexBuffer buffer;
     private final int offset;
     private final int size;
 
@@ -48,18 +49,19 @@ public abstract class VariableSizeSet<T> extends AbstractSet<T> {
         this.size = size;
     }
 
-    protected abstract T readNextItem(@Nonnull DexReader reader, int index);
+    protected abstract T readNextItem(@Nonnull DexReader<?> reader, int index);
 
     @Override
     @Nonnull
     public VariableSizeIterator<T> iterator() {
         return new VariableSizeIterator<T>(buffer, offset, size) {
             @Override
-            protected T readNextItem(@Nonnull DexReader reader, int index) {
+            protected T readNextItem(@Nonnull DexReader<?> reader, int index) {
                 return VariableSizeSet.this.readNextItem(reader, index);
             }
         };
     }
 
-    @Override public int size() { return size; }
+    @Override
+    public int size() { return size; }
 }

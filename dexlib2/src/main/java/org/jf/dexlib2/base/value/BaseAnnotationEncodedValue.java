@@ -71,7 +71,8 @@ public abstract class BaseAnnotationEncodedValue implements AnnotationEncodedVal
         return ValueType.ANNOTATION;
     }
 
-    @Override public String toString() {
+    @Override 
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

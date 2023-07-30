@@ -38,13 +38,16 @@ import org.jf.dexlib2.iface.value.EncodedValue;
 import javax.annotation.Nonnull;
 
 public class AnnotationElementRewriter implements Rewriter<AnnotationElement> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public AnnotationElementRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public AnnotationElement rewrite(@Nonnull AnnotationElement annotationElement) {
+    @Nonnull
+    @Override
+    public AnnotationElement rewrite(@Nonnull AnnotationElement annotationElement) {
         return new RewrittenAnnotationElement(annotationElement);
     }
 

@@ -44,13 +44,16 @@ import org.jf.dexlib2.iface.reference.TypeReference;
 import javax.annotation.Nonnull;
 
 public class InstructionRewriter implements Rewriter<Instruction> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public InstructionRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public Instruction rewrite(@Nonnull Instruction instruction) {
+    @Nonnull
+    @Override
+    public Instruction rewrite(@Nonnull Instruction instruction) {
         if (instruction instanceof ReferenceInstruction) {
             switch (instruction.getOpcode().format) {
                 case Format20bc:

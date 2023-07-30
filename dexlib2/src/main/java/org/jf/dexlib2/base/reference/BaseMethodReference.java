@@ -72,7 +72,8 @@ public abstract class BaseMethodReference extends BaseReference implements Metho
         return CollectionUtils.compareAsIterable(ListUtil.toStringComparator(), getParameterTypes(), o.getParameterTypes());
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return DexFormatter.INSTANCE.getMethodDescriptor(this);
     }
 }

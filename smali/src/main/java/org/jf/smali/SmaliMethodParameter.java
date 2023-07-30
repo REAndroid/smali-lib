@@ -42,8 +42,10 @@ import java.util.Set;
 
 public class SmaliMethodParameter extends BaseMethodParameter implements WithRegister {
     public final int register;
-    @Nonnull public final String type;
-    @Nonnull public Set<? extends Annotation> annotations;
+    @Nonnull
+    public final String type;
+    @Nonnull
+    public Set<? extends Annotation> annotations;
     @Nullable public String name;
 
     public SmaliMethodParameter(int register, @Nonnull String type) {
@@ -52,11 +54,20 @@ public class SmaliMethodParameter extends BaseMethodParameter implements WithReg
         this.annotations = EmptySet.of();
     }
 
-    @Override public int getRegister() { return register; }
-    @Nonnull @Override public String getType() { return type; }
-    @Nonnull @Override public Set<? extends Annotation> getAnnotations() { return annotations; }
-    @Nullable @Override public String getName() { return name; }
-    @Nullable @Override public String getSignature() { return null; }
+    @Override
+    public int getRegister() { return register; }
+    @Nonnull
+    @Override
+    public String getType() { return type; }
+    @Nonnull
+    @Override
+    public Set<? extends Annotation> getAnnotations() { return annotations; }
+    @Nullable
+    @Override
+    public String getName() { return name; }
+    @Nullable
+    @Override
+    public String getSignature() { return null; }
 
     public static final Comparator<WithRegister> COMPARATOR = new Comparator<WithRegister>() {
         @Override public int compare(WithRegister o1, WithRegister o2) {

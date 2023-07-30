@@ -60,9 +60,12 @@ public abstract class BaseTypeReference extends BaseReference implements TypeRef
         return getType().compareTo(o.toString());
     }
 
-    @Override public int length() { return getType().length(); }
-    @Override public char charAt(int index) { return getType().charAt(index); }
-    @Override public CharSequence subSequence(int start, int end) { return getType().subSequence(start, end); }
+    @Override
+    public int length() { return getType().length(); }
+    @Override
+    public char charAt(int index) { return getType().charAt(index); }
+    @Override
+    public CharSequence subSequence(int start, int end) { return getType().subSequence(start, end); }
 
     @Override @Nonnull public String toString() {
         return DexFormatter.INSTANCE.getType(this);

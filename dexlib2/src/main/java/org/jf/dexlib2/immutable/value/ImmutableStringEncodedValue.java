@@ -37,7 +37,8 @@ import org.jf.dexlib2.iface.value.StringEncodedValue;
 import javax.annotation.Nonnull;
 
 public class ImmutableStringEncodedValue extends BaseStringEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final String value;
+    @Nonnull
+    protected final String value;
 
     public ImmutableStringEncodedValue(@Nonnull String value) {
         this.value = value;
@@ -50,5 +51,7 @@ public class ImmutableStringEncodedValue extends BaseStringEncodedValue implemen
         return new ImmutableStringEncodedValue(stringEncodedValue.getValue());
     }
 
-    @Nonnull @Override public String getValue() { return value; }
+    @Nonnull
+    @Override
+    public String getValue() { return value; }
 }

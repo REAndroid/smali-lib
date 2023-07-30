@@ -39,7 +39,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class InstructionOffsetMap {
-    @Nonnull private final int[] instructionCodeOffsets;
+    @Nonnull
+    private final int[] instructionCodeOffsets;
 
     public InstructionOffsetMap(@Nonnull List<? extends Instruction> instructions) {
         this.instructionCodeOffsets = new int[instructions.size()];

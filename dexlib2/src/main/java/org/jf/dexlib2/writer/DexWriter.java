@@ -189,7 +189,8 @@ public abstract class DexWriter<
         };
     }
 
-    @Nonnull protected abstract SectionProvider getSectionProvider();
+    @Nonnull
+    protected abstract SectionProvider getSectionProvider();
 
     protected abstract void writeEncodedValue(@Nonnull InternalEncodedValueWriter writer,
                                               @Nonnull EncodedValue encodedValue) throws IOException;

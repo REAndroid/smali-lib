@@ -47,19 +47,24 @@ public class BuilderMethodHandleReference extends BaseMethodHandleReference impl
         this.memberReference = memberReference;
     }
 
-    @Override public int getMethodHandleType() {
+    @Override 
+    public int getMethodHandleType() {
         return methodHandleType;
     }
 
-    @Nonnull @Override public BuilderReference getMemberReference() {
+    @Nonnull
+    @Override
+    public BuilderReference getMemberReference() {
         return memberReference;
     }
 
-    @Override public int getIndex() {
+    @Override 
+    public int getIndex() {
         return index;
     }
 
-    @Override public void setIndex(int index) {
+    @Override 
+    public void setIndex(int index) {
         this.index = index;
     }
 }

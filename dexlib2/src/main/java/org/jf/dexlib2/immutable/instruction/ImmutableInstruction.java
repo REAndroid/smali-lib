@@ -42,7 +42,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public abstract class ImmutableInstruction implements Instruction {
-    @Nonnull protected final Opcode opcode;
+    @Nonnull
+    protected final Opcode opcode;
 
     protected ImmutableInstruction(@Nonnull Opcode opcode) {
         Preconditions.checkFormat(opcode, getFormat());
@@ -136,7 +137,8 @@ public abstract class ImmutableInstruction implements Instruction {
         }
     }
 
-    @Nonnull public Opcode getOpcode() {
+    @Nonnull
+    public Opcode getOpcode() {
         return opcode;
     }
 

@@ -82,7 +82,8 @@ class PoolMethod extends BaseMethodReference implements Method {
         return method.getReturnType();
     }
 
-    @Override public int getAccessFlags() {
+    @Override 
+    public int getAccessFlags() {
         return method.getAccessFlags();
     }
 
@@ -90,7 +91,9 @@ class PoolMethod extends BaseMethodReference implements Method {
         return method.getAnnotations();
     }
 
-    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
+    @Nonnull
+    @Override
+    public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
         return method.getHiddenApiRestrictions();
     }
 

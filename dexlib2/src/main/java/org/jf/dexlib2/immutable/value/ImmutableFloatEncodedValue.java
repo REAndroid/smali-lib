@@ -48,5 +48,6 @@ public class ImmutableFloatEncodedValue extends BaseFloatEncodedValue implements
         return new ImmutableFloatEncodedValue(floatEncodedValue.getValue());
     }
 
-    @Override public float getValue() { return value; }
+    @Override 
+    public float getValue() { return value; }
 }

@@ -208,14 +208,17 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
     }
 
     private List<PoolClassDef> sortedClasses = null;
-    @Nonnull @Override public Collection<? extends PoolClassDef> getSortedClasses() {
+    @Nonnull
+    @Override
+    public Collection<? extends PoolClassDef> getSortedClasses() {
         if (sortedClasses == null) {
             sortedClasses = ListUtil.sortedCopy(internedItems.values());
         }
         return sortedClasses;
     }
 
-    @Nullable @Override
+    @Nullable
+    @Override
     public Map.Entry<? extends PoolClassDef, Integer> getClassEntryByType(@Nullable CharSequence name) {
         if (name == null) {
             return null;
@@ -241,72 +244,103 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         };
     }
 
-    @Nonnull @Override public CharSequence getType(@Nonnull PoolClassDef classDef) {
+    @Nonnull
+    @Override
+    public CharSequence getType(@Nonnull PoolClassDef classDef) {
         return classDef.getType();
     }
 
-    @Override public int getAccessFlags(@Nonnull PoolClassDef classDef) {
+    @Override
+    public int getAccessFlags(@Nonnull PoolClassDef classDef) {
         return classDef.getAccessFlags();
     }
 
-    @Nullable @Override public CharSequence getSuperclass(@Nonnull PoolClassDef classDef) {
+    @Nullable
+    @Override
+    public CharSequence getSuperclass(@Nonnull PoolClassDef classDef) {
         return classDef.getSuperclass();
     }
 
-    @Nullable @Override public TypeListPool.Key<List<String>> getInterfaces(@Nonnull PoolClassDef classDef) {
+    @Nullable
+    @Override
+    public TypeListPool.Key<List<String>> getInterfaces(@Nonnull PoolClassDef classDef) {
         return classDef.interfaces;
     }
 
-    @Nullable @Override public CharSequence getSourceFile(@Nonnull PoolClassDef classDef) {
+    @Nullable
+    @Override
+    public CharSequence getSourceFile(@Nonnull PoolClassDef classDef) {
         return classDef.getSourceFile();
     }
 
-    @Nullable @Override public ArrayEncodedValue getStaticInitializers(
+    @Nullable
+    @Override
+    public ArrayEncodedValue getStaticInitializers(
             @Nonnull PoolClassDef classDef) {
         return StaticInitializerUtil.getStaticInitializers(classDef.getStaticFields());
     }
 
-    @Nonnull @Override public Collection<? extends Field> getSortedStaticFields(@Nonnull PoolClassDef classDef) {
+    @Nonnull
+    @Override
+    public Collection<? extends Field> getSortedStaticFields(@Nonnull PoolClassDef classDef) {
         return classDef.getStaticFields();
     }
 
-    @Nonnull @Override public Collection<? extends Field> getSortedInstanceFields(@Nonnull PoolClassDef classDef) {
+    @Nonnull
+    @Override
+    public Collection<? extends Field> getSortedInstanceFields(@Nonnull PoolClassDef classDef) {
         return classDef.getInstanceFields();
     }
 
-    @Nonnull @Override public Collection<? extends Field> getSortedFields(@Nonnull PoolClassDef classDef) {
+    @Nonnull
+    @Override
+    public Collection<? extends Field> getSortedFields(@Nonnull PoolClassDef classDef) {
         return classDef.getFields();
     }
 
-    @Nonnull @Override public Collection<PoolMethod> getSortedDirectMethods(@Nonnull PoolClassDef classDef) {
+    @Nonnull
+    @Override
+    public Collection<PoolMethod> getSortedDirectMethods(@Nonnull PoolClassDef classDef) {
         return classDef.getDirectMethods();
     }
 
-    @Nonnull @Override public Collection<PoolMethod> getSortedVirtualMethods(@Nonnull PoolClassDef classDef) {
+    @Nonnull
+    @Override
+    public Collection<PoolMethod> getSortedVirtualMethods(@Nonnull PoolClassDef classDef) {
         return classDef.getVirtualMethods();
     }
 
-    @Nonnull @Override public Collection<? extends PoolMethod> getSortedMethods(@Nonnull PoolClassDef classDef) {
+    @Nonnull
+    @Override
+    public Collection<? extends PoolMethod> getSortedMethods(@Nonnull PoolClassDef classDef) {
         return classDef.getMethods();
     }
 
-    @Override public int getFieldAccessFlags(@Nonnull Field field) {
+    @Override
+    public int getFieldAccessFlags(@Nonnull Field field) {
         return field.getAccessFlags();
     }
 
-    @Override public int getMethodAccessFlags(@Nonnull PoolMethod method) {
+    @Override
+    public int getMethodAccessFlags(@Nonnull PoolMethod method) {
         return method.getAccessFlags();
     }
 
-    @Nonnull @Override public Set<HiddenApiRestriction> getFieldHiddenApiRestrictions(@Nonnull Field field) {
+    @Nonnull
+    @Override
+    public Set<HiddenApiRestriction> getFieldHiddenApiRestrictions(@Nonnull Field field) {
         return field.getHiddenApiRestrictions();
     }
 
-    @Nonnull @Override public Set<HiddenApiRestriction> getMethodHiddenApiRestrictions(@Nonnull PoolMethod poolMethod) {
+    @Nonnull
+    @Override
+    public Set<HiddenApiRestriction> getMethodHiddenApiRestrictions(@Nonnull PoolMethod poolMethod) {
         return poolMethod.getHiddenApiRestrictions();
     }
 
-    @Nullable @Override public Set<? extends Annotation> getClassAnnotations(@Nonnull PoolClassDef classDef) {
+    @Nullable
+    @Override
+    public Set<? extends Annotation> getClassAnnotations(@Nonnull PoolClassDef classDef) {
         Set<? extends Annotation> annotations = classDef.getAnnotations();
         if (annotations.size() == 0) {
             return null;
@@ -314,7 +348,9 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         return annotations;
     }
 
-    @Nullable @Override public Set<? extends Annotation> getFieldAnnotations(@Nonnull Field field) {
+    @Nullable
+    @Override
+    public Set<? extends Annotation> getFieldAnnotations(@Nonnull Field field) {
         Set<? extends Annotation> annotations = field.getAnnotations();
         if (annotations.size() == 0) {
             return null;
@@ -322,7 +358,9 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         return annotations;
     }
 
-    @Nullable @Override public Set<? extends Annotation> getMethodAnnotations(@Nonnull PoolMethod method) {
+    @Nullable
+    @Override
+    public Set<? extends Annotation> getMethodAnnotations(@Nonnull PoolMethod method) {
         Set<? extends Annotation> annotations = method.getAnnotations();
         if (annotations.size() == 0) {
             return null;
@@ -345,7 +383,9 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
                 }
             };
 
-    @Nullable @Override public List<? extends Set<? extends Annotation>> getParameterAnnotations(
+    @Nullable
+    @Override
+    public List<? extends Set<? extends Annotation>> getParameterAnnotations(
             @Nonnull final PoolMethod method) {
         final List<? extends MethodParameter> parameters = method.getParameters();
         boolean hasParameterAnnotations = Iterables.any(parameters, HAS_PARAMETER_ANNOTATIONS);
@@ -366,7 +406,9 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         return null;
     }
 
-    @Nullable @Override public Iterable<? extends DebugItem> getDebugItems(@Nonnull PoolMethod method) {
+    @Nullable
+    @Override
+    public Iterable<? extends DebugItem> getDebugItems(@Nonnull PoolMethod method) {
         MethodImplementation impl = method.getImplementation();
         if (impl != null) {
             return impl.getDebugItems();
@@ -374,7 +416,9 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         return null;
     }
 
-    @Nullable @Override public Iterable<CharSequence> getParameterNames(@Nonnull PoolMethod method) {
+    @Nullable
+    @Override
+    public Iterable<CharSequence> getParameterNames(@Nonnull PoolMethod method) {
         return Iterables.transform(method.getParameters(), new Function<MethodParameter, CharSequence>() {
             @Nullable @Override public CharSequence apply(MethodParameter input) {
                 return input.getName();
@@ -382,7 +426,8 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         });
     }
 
-    @Override public int getRegisterCount(@Nonnull PoolMethod method) {
+    @Override
+    public int getRegisterCount(@Nonnull PoolMethod method) {
         MethodImplementation impl = method.getImplementation();
         if (impl != null) {
             return impl.getRegisterCount();
@@ -390,7 +435,9 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         return 0;
     }
 
-    @Nullable @Override public Iterable<? extends Instruction> getInstructions(@Nonnull PoolMethod method) {
+    @Nullable
+    @Override
+    public Iterable<? extends Instruction> getInstructions(@Nonnull PoolMethod method) {
         MethodImplementation impl = method.getImplementation();
         if (impl != null) {
             return impl.getInstructions();
@@ -398,7 +445,9 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         return null;
     }
 
-    @Nonnull @Override public List<? extends TryBlock<? extends ExceptionHandler>> getTryBlocks(
+    @Nonnull
+    @Override
+    public List<? extends TryBlock<? extends ExceptionHandler>> getTryBlocks(
             @Nonnull PoolMethod method) {
         MethodImplementation impl = method.getImplementation();
         if (impl != null) {
@@ -407,40 +456,50 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         return EmptyList.of();
     }
 
-    @Nullable @Override public CharSequence getExceptionType(@Nonnull ExceptionHandler handler) {
+    @Nullable
+    @Override
+    public CharSequence getExceptionType(@Nonnull ExceptionHandler handler) {
         return handler.getExceptionType();
     }
 
-    @Nonnull @Override
+    @Nonnull
+    @Override
     public MutableMethodImplementation makeMutableMethodImplementation(@Nonnull PoolMethod poolMethod) {
         return new MutableMethodImplementation(poolMethod.getImplementation());
     }
 
-    @Override public void setAnnotationDirectoryOffset(@Nonnull PoolClassDef classDef, int offset) {
+    @Override
+    public void setAnnotationDirectoryOffset(@Nonnull PoolClassDef classDef, int offset) {
         classDef.annotationDirectoryOffset = offset;
     }
 
-    @Override public int getAnnotationDirectoryOffset(@Nonnull PoolClassDef classDef) {
+    @Override
+    public int getAnnotationDirectoryOffset(@Nonnull PoolClassDef classDef) {
         return classDef.annotationDirectoryOffset;
     }
 
-    @Override public void setAnnotationSetRefListOffset(@Nonnull PoolMethod method, int offset) {
+    @Override
+    public void setAnnotationSetRefListOffset(@Nonnull PoolMethod method, int offset) {
         method.annotationSetRefListOffset = offset;
 
     }
-    @Override public int getAnnotationSetRefListOffset(@Nonnull PoolMethod method) {
+    @Override
+    public int getAnnotationSetRefListOffset(@Nonnull PoolMethod method) {
         return method.annotationSetRefListOffset;
     }
 
-    @Override public void setCodeItemOffset(@Nonnull PoolMethod method, int offset) {
+    @Override
+    public void setCodeItemOffset(@Nonnull PoolMethod method, int offset) {
         method.codeItemOffset = offset;
     }
 
-    @Override public int getCodeItemOffset(@Nonnull PoolMethod method) {
+    @Override
+    public int getCodeItemOffset(@Nonnull PoolMethod method) {
         return method.codeItemOffset;
     }
 
-    @Override public void writeDebugItem(@Nonnull DebugWriter<CharSequence, CharSequence> writer,
+    @Override
+    public void writeDebugItem(@Nonnull DebugWriter<CharSequence, CharSequence> writer,
                                          DebugItem debugItem) throws IOException {
         switch (debugItem.getDebugItemType()) {
             case DebugItemType.START_LOCAL: {
@@ -484,11 +543,14 @@ public class ClassPool extends BasePool<String, PoolClassDef> implements ClassSe
         }
     }
 
-    @Override public int getItemIndex(@Nonnull PoolClassDef classDef) {
+    @Override
+    public int getItemIndex(@Nonnull PoolClassDef classDef) {
         return classDef.classDefIndex;
     }
 
-    @Nonnull @Override public Collection<? extends Map.Entry<PoolClassDef, Integer>> getItems() {
+    @Nonnull
+    @Override
+    public Collection<? extends Map.Entry<PoolClassDef, Integer>> getItems() {
         class MapEntry implements Map.Entry<PoolClassDef, Integer> {
             @Nonnull private final PoolClassDef classDef;
 

@@ -40,13 +40,16 @@ import javax.annotation.Nullable;
 import java.util.Set;
 
 public class MethodParameterRewriter implements Rewriter<MethodParameter> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public MethodParameterRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public MethodParameter rewrite(@Nonnull MethodParameter methodParameter) {
+    @Nonnull
+    @Override
+    public MethodParameter rewrite(@Nonnull MethodParameter methodParameter) {
         return new RewrittenMethodParameter(methodParameter);
     }
 

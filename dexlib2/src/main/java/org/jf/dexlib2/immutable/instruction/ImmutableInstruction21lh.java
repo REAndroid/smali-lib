@@ -62,9 +62,13 @@ public class ImmutableInstruction21lh extends ImmutableInstruction implements In
                 instruction.getWideLiteral());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public long getWideLiteral() { return literal; }
-    @Override public short getHatLiteral() { return (short)(literal >>> 48); }
+    @Override 
+    public int getRegisterA() { return registerA; }
+    @Override 
+    public long getWideLiteral() { return literal; }
+    @Override 
+    public short getHatLiteral() { return (short)(literal >>> 48); }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override 
+    public Format getFormat() { return FORMAT; }
 }

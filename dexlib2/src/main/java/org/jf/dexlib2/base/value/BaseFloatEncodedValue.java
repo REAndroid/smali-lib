@@ -63,7 +63,8 @@ public abstract class BaseFloatEncodedValue implements FloatEncodedValue {
 
     public int getValueType() { return ValueType.FLOAT; }
 
-    @Override public String toString() {
+    @Override 
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

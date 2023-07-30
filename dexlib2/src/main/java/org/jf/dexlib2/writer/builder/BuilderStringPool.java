@@ -42,7 +42,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 class BuilderStringPool implements StringSection<BuilderStringReference, BuilderStringReference> {
-    @Nonnull private final ConcurrentMap<String, BuilderStringReference> internedItems = new ConcurrentHashMap<>();
+    @Nonnull
+    private final ConcurrentMap<String, BuilderStringReference> internedItems = new ConcurrentHashMap<>();
 
     @Nonnull BuilderStringReference internString(@Nonnull String string) {
         BuilderStringReference ret = internedItems.get(string);
@@ -61,19 +62,24 @@ class BuilderStringPool implements StringSection<BuilderStringReference, Builder
         return internString(string);
     }
 
-    @Override public int getNullableItemIndex(@Nullable BuilderStringReference key) {
+    @Override 
+    public int getNullableItemIndex(@Nullable BuilderStringReference key) {
         return key==null?DexWriter.NO_INDEX:key.index;
     }
 
-    @Override public int getItemIndex(@Nonnull BuilderStringReference key) {
+    @Override 
+    public int getItemIndex(@Nonnull BuilderStringReference key) {
         return key.index;
     }
 
-    @Override public boolean hasJumboIndexes() {
+    @Override 
+    public boolean hasJumboIndexes() {
         return internedItems.size() > 65536;
     }
 
-    @Nonnull @Override public Collection<? extends Entry<? extends BuilderStringReference, Integer>> getItems() {
+    @Nonnull
+    @Override
+    public Collection<? extends Entry<? extends BuilderStringReference, Integer>> getItems() {
         return new BuilderMapEntryCollection<BuilderStringReference>(internedItems.values()) {
             @Override protected int getValue(@Nonnull BuilderStringReference key) {
                 return key.index;
@@ -87,7 +93,8 @@ class BuilderStringPool implements StringSection<BuilderStringReference, Builder
         };
     }
 
-    @Override public int getItemCount() {
+    @Override 
+    public int getItemCount() {
         return internedItems.size();
     }
 }

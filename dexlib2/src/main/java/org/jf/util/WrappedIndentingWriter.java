@@ -92,7 +92,8 @@ public class WrappedIndentingWriter extends FilterWriter {
         }
     }
 
-    @Override public void write(int c) throws IOException {
+    @Override
+    public void write(int c) throws IOException {
         if (c == '\n') {
             out.write(line.toString());
             out.write(c);
@@ -106,19 +107,22 @@ public class WrappedIndentingWriter extends FilterWriter {
         }
     }
 
-    @Override public void write(char[] cbuf, int off, int len) throws IOException {
+    @Override
+    public void write(char[] cbuf, int off, int len) throws IOException {
         for (int i=0; i<len; i++) {
             write(cbuf[i+off]);
         }
     }
 
-    @Override public void write(String str, int off, int len) throws IOException {
+    @Override
+    public void write(String str, int off, int len) throws IOException {
         for (int i=0; i<len; i++) {
             write(str.charAt(i+off));
         }
     }
 
-    @Override public void flush() throws IOException {
+    @Override
+    public void flush() throws IOException {
         out.write(line.toString());
         line.replace(0, line.length(), "");
     }

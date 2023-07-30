@@ -88,7 +88,8 @@ public class BaksmaliWriter extends DexFormattedWriter {
         this.classContext = classContext;
     }
 
-    @Override public void writeMethodDescriptor(MethodReference methodReference) throws IOException {
+    @Override
+    public void writeMethodDescriptor(MethodReference methodReference) throws IOException {
         if (methodReference.getDefiningClass().equals(classContext)) {
             writeShortMethodDescriptor(methodReference);
         } else {
@@ -96,7 +97,8 @@ public class BaksmaliWriter extends DexFormattedWriter {
         }
     }
 
-    @Override public void writeFieldDescriptor(FieldReference fieldReference) throws IOException {
+    @Override
+    public void writeFieldDescriptor(FieldReference fieldReference) throws IOException {
         if (fieldReference.getDefiningClass().equals(classContext)) {
             writeShortFieldDescriptor(fieldReference);
         } else {
@@ -355,7 +357,8 @@ public class BaksmaliWriter extends DexFormattedWriter {
         writer.write("\n}");
     }
 
-    @Override public void writeCallSite(CallSiteReference callSiteReference) throws IOException {
+    @Override
+    public void writeCallSite(CallSiteReference callSiteReference) throws IOException {
         writeSimpleName(callSiteReference.getName());
         writer.write('(');
         writeQuotedString(callSiteReference.getMethodName());

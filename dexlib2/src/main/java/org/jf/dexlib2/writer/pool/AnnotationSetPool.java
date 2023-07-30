@@ -56,7 +56,9 @@ public class AnnotationSetPool extends BaseNullableOffsetPool<Set<? extends Anno
         }
     }
 
-    @Nonnull @Override public Collection<? extends Annotation> getAnnotations(
+    @Nonnull
+    @Override
+    public Collection<? extends Annotation> getAnnotations(
             @Nonnull Set<? extends Annotation> annotations) {
         return annotations;
     }

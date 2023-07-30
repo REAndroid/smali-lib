@@ -64,7 +64,8 @@ public class SyntheticAccessorFSM {
     public static final int NEGATIVE_ONE = -1;
     public static final int OTHER = 0;
 
-    @Nonnull private final Opcodes opcodes;
+    @Nonnull
+    private final Opcodes opcodes;
 
     public SyntheticAccessorFSM(@Nonnull Opcodes opcodes) {
         this.opcodes = opcodes;

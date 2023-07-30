@@ -43,7 +43,8 @@ import java.util.List;
 public class ImmutableTryBlock extends BaseTryBlock<ImmutableExceptionHandler> {
     protected final int startCodeAddress;
     protected final int codeUnitCount;
-    @Nonnull protected final List<? extends ImmutableExceptionHandler> exceptionHandlers;
+    @Nonnull
+    protected final List<? extends ImmutableExceptionHandler> exceptionHandlers;
 
     public ImmutableTryBlock(int startCodeAddress,
                              int codeUnitCount,
@@ -64,10 +65,14 @@ public class ImmutableTryBlock extends BaseTryBlock<ImmutableExceptionHandler> {
                 tryBlock.getExceptionHandlers());
     }
 
-    @Override public int getStartCodeAddress() { return startCodeAddress; }
-    @Override public int getCodeUnitCount() { return codeUnitCount; }
+    @Override 
+    public int getStartCodeAddress() { return startCodeAddress; }
+    @Override 
+    public int getCodeUnitCount() { return codeUnitCount; }
 
-    @Nonnull @Override public List<? extends ImmutableExceptionHandler> getExceptionHandlers() {
+    @Nonnull
+    @Override
+    public List<? extends ImmutableExceptionHandler> getExceptionHandlers() {
         return exceptionHandlers;
     }
 

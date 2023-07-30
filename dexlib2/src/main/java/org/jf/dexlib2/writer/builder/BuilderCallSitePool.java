@@ -44,14 +44,16 @@ import java.util.concurrent.ConcurrentMap;
 
 public class BuilderCallSitePool extends BaseBuilderPool
         implements CallSiteSection<BuilderCallSiteReference, BuilderArrayEncodedValue> {
-    @Nonnull private final ConcurrentMap<CallSiteReference, BuilderCallSiteReference> internedItems =
+    @Nonnull
+    private final ConcurrentMap<CallSiteReference, BuilderCallSiteReference> internedItems =
             new ConcurrentHashMap<>();
 
     public BuilderCallSitePool(@Nonnull DexBuilder dexBuilder) {
         super(dexBuilder);
     }
 
-    @Nonnull public BuilderCallSiteReference internCallSite(@Nonnull CallSiteReference callSiteReference) {
+    @Nonnull
+    public BuilderCallSiteReference internCallSite(@Nonnull CallSiteReference callSiteReference) {
         BuilderCallSiteReference internedCallSite = internedItems.get(callSiteReference);
         if (internedCallSite != null) {
             return internedCallSite;

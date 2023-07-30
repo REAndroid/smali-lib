@@ -39,13 +39,16 @@ import javax.annotation.Nonnull;
 import java.util.Set;
 
 public class DexFileRewriter implements Rewriter<DexFile> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public DexFileRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public DexFile rewrite(@Nonnull DexFile value) {
+    @Nonnull
+    @Override
+    public DexFile rewrite(@Nonnull DexFile value) {
         return new RewrittenDexFile(value);
     }
 

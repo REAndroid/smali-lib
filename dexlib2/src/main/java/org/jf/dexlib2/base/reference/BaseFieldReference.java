@@ -67,7 +67,8 @@ public abstract class BaseFieldReference extends BaseReference implements FieldR
         return getType().compareTo(o.getType());
     }
 
-    @Override public String toString() {
+    @Override 
+    public String toString() {
         return DexFormatter.INSTANCE.getFieldDescriptor(this);
     }
 }

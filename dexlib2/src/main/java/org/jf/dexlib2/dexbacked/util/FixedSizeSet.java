@@ -46,8 +46,10 @@ public abstract class FixedSizeSet<T> extends AbstractSet<T> {
         return new Iterator<T>() {
             int index = 0;
 
-            @Override public boolean hasNext() { return index < size(); }
-            @Override public void remove() { throw new UnsupportedOperationException(); }
+            @Override
+    public boolean hasNext() { return index < size(); }
+            @Override
+    public void remove() { throw new UnsupportedOperationException(); }
             @Override
             public T next() {
                 if (!hasNext()) {

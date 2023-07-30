@@ -49,13 +49,19 @@ import java.util.List;
 import java.util.Set;
 
 public class ImmutableMethod extends BaseMethodReference implements Method {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final List<? extends ImmutableMethodParameter> parameters;
-    @Nonnull protected final String returnType;
+    @Nonnull
+    protected final String definingClass;
+    @Nonnull
+    protected final String name;
+    @Nonnull
+    protected final List<? extends ImmutableMethodParameter> parameters;
+    @Nonnull
+    protected final String returnType;
     protected final int accessFlags;
-    @Nonnull protected final Set<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final Set<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nonnull
+    protected final Set<? extends ImmutableAnnotation> annotations;
+    @Nonnull
+    protected final Set<HiddenApiRestriction> hiddenApiRestrictions;
     @Nullable protected final ImmutableMethodImplementation methodImplementation;
 
     public ImmutableMethod(@Nonnull String definingClass,
@@ -117,9 +123,12 @@ public class ImmutableMethod extends BaseMethodReference implements Method {
         return parameters;
     }
     @Override @Nonnull public String getReturnType() { return returnType; }
-    @Override public int getAccessFlags() { return accessFlags; }
+    @Override 
+    public int getAccessFlags() { return accessFlags; }
     @Override @Nonnull public Set<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
-    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() { return hiddenApiRestrictions; }
+    @Nonnull
+    @Override
+    public Set<HiddenApiRestriction> getHiddenApiRestrictions() { return hiddenApiRestrictions; }
     @Override @Nullable public ImmutableMethodImplementation getImplementation() { return methodImplementation; }
 
     @Nonnull

@@ -41,8 +41,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ImmutableMethodProtoReference extends BaseMethodProtoReference implements ImmutableReference {
-    @Nonnull protected final List<String> parameters;
-    @Nonnull protected final String returnType;
+    @Nonnull
+    protected final List<String> parameters;
+    @Nonnull
+    protected final String returnType;
 
     public ImmutableMethodProtoReference(@Nullable List<String> parameters,
                                          @Nonnull String returnType) {
@@ -56,7 +58,8 @@ public class ImmutableMethodProtoReference extends BaseMethodProtoReference impl
         this.returnType = returnType;
     }
 
-    @Nonnull public static ImmutableMethodProtoReference of(@Nonnull MethodProtoReference methodProtoReference) {
+    @Nonnull
+    public static ImmutableMethodProtoReference of(@Nonnull MethodProtoReference methodProtoReference) {
         if (methodProtoReference instanceof ImmutableMethodProtoReference) {
             return (ImmutableMethodProtoReference) methodProtoReference;
         }

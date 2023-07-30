@@ -37,13 +37,16 @@ import org.jf.dexlib2.iface.reference.FieldReference;
 import javax.annotation.Nonnull;
 
 public class FieldReferenceRewriter implements Rewriter<FieldReference> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public FieldReferenceRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public FieldReference rewrite(@Nonnull FieldReference fieldReference) {
+    @Nonnull
+    @Override
+    public FieldReference rewrite(@Nonnull FieldReference fieldReference) {
         return new RewrittenFieldReference(fieldReference);
     }
 

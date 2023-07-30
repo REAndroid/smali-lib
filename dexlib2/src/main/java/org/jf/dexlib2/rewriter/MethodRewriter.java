@@ -44,13 +44,16 @@ import java.util.List;
 import java.util.Set;
 
 public class MethodRewriter implements Rewriter<Method> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public MethodRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public Method rewrite(@Nonnull Method value) {
+    @Nonnull
+    @Override
+    public Method rewrite(@Nonnull Method value) {
         return new RewrittenMethod(value);
     }
 

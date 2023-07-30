@@ -46,7 +46,8 @@ public abstract class DebugMethodItem extends MethodItem {
         this.sortOrder = sortOrder;
     }
 
-    @Override public double getSortOrder() { return sortOrder; }
+    @Override 
+    public double getSortOrder() { return sortOrder; }
 
     public static DebugMethodItem build(
             ClassDefinition classDef, RegisterFormatter registerFormatter, DebugItem debugItem) {

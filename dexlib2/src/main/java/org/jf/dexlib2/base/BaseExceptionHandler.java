@@ -41,7 +41,9 @@ import java.util.Comparator;
 import java.util.Objects;
 
 public abstract class BaseExceptionHandler implements ExceptionHandler {
-    @Nullable @Override public TypeReference getExceptionTypeReference() {
+    @Nullable
+    @Override
+    public TypeReference getExceptionTypeReference() {
         final String exceptionType = getExceptionType();
         if (exceptionType == null) {
             return null;

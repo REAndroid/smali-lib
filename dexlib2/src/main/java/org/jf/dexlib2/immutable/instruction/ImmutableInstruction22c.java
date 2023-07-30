@@ -46,7 +46,8 @@ public class ImmutableInstruction22c extends ImmutableInstruction implements Ins
 
     protected final int registerA;
     protected final int registerB;
-    @Nonnull protected final ImmutableReference reference;
+    @Nonnull
+    protected final ImmutableReference reference;
 
     public ImmutableInstruction22c(@Nonnull Opcode opcode,
                                    int registerA,
@@ -69,10 +70,16 @@ public class ImmutableInstruction22c extends ImmutableInstruction implements Ins
                 instruction.getReference());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Nonnull @Override public ImmutableReference getReference() { return reference; }
-    @Override public int getReferenceType() { return opcode.referenceType; }
+    @Override
+    public int getRegisterA() { return registerA; }
+    @Override
+    public int getRegisterB() { return registerB; }
+    @Nonnull
+    @Override
+    public ImmutableReference getReference() { return reference; }
+    @Override
+    public int getReferenceType() { return opcode.referenceType; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }

@@ -60,7 +60,8 @@ public class AnnotationSetRefList {
                 }
             }
 
-            @Override public int getItemAlignment() {
+            @Override
+    public int getItemAlignment() {
                 return 4;
             }
         };

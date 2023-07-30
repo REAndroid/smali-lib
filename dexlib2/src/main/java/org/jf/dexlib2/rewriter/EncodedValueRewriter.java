@@ -43,13 +43,16 @@ import java.util.List;
 import java.util.Set;
 
 public class EncodedValueRewriter implements Rewriter<EncodedValue> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public EncodedValueRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public EncodedValue rewrite(@Nonnull EncodedValue encodedValue) {
+    @Nonnull
+    @Override
+    public EncodedValue rewrite(@Nonnull EncodedValue encodedValue) {
         switch (encodedValue.getValueType()) {
             case ValueType.TYPE:
                 return new RewrittenTypeEncodedValue((TypeEncodedValue)encodedValue);

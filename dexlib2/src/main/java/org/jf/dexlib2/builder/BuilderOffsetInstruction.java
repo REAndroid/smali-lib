@@ -47,7 +47,8 @@ public abstract class BuilderOffsetInstruction extends BuilderInstruction implem
         this.target = target;
     }
 
-    @Override public int getCodeOffset() {
+    @Override 
+    public int getCodeOffset() {
         int codeOffset = internalGetCodeOffset();
         if (this.getCodeUnits() == 1) {
             if (codeOffset < Byte.MIN_VALUE || codeOffset > Byte.MAX_VALUE) {

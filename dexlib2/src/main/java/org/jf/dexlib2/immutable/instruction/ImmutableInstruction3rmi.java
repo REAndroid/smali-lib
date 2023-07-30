@@ -66,10 +66,14 @@ public class ImmutableInstruction3rmi extends ImmutableInstruction implements In
                 instruction.getInlineIndex());
     }
 
-    @Override public int getStartRegister() { return startRegister; }
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getInlineIndex() { return inlineIndex; }
+    @Override 
+    public int getStartRegister() { return startRegister; }
+    @Override 
+    public int getRegisterCount() { return registerCount; }
+    @Override 
+    public int getInlineIndex() { return inlineIndex; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override 
+    public Format getFormat() { return FORMAT; }
 }
 

@@ -63,7 +63,8 @@ public abstract class BaseByteEncodedValue implements ByteEncodedValue {
 
     public int getValueType() { return ValueType.BYTE; }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

@@ -49,13 +49,18 @@ import java.util.Collection;
 import java.util.Set;
 
 public class ImmutableField extends BaseFieldReference implements Field {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final String type;
+    @Nonnull
+    protected final String definingClass;
+    @Nonnull
+    protected final String name;
+    @Nonnull
+    protected final String type;
     protected final int accessFlags;
     @Nullable protected final ImmutableEncodedValue initialValue;
-    @Nonnull protected final Set<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final Set<HiddenApiRestriction> hiddenApiRestrictions;
+    @Nonnull
+    protected final Set<? extends ImmutableAnnotation> annotations;
+    @Nonnull
+    protected final Set<HiddenApiRestriction> hiddenApiRestrictions;
 
     public ImmutableField(@Nonnull String definingClass,
                           @Nonnull String name,
@@ -104,13 +109,25 @@ public class ImmutableField extends BaseFieldReference implements Field {
                 field.getHiddenApiRestrictions());
     }
 
-    @Nonnull @Override public String getDefiningClass() { return definingClass; }
-    @Nonnull @Override public String getName() { return name; }
-    @Nonnull @Override public String getType() { return type; }
-    @Override public int getAccessFlags() { return accessFlags; }
-    @Override public EncodedValue getInitialValue() { return initialValue;}
-    @Nonnull @Override public Set<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
-    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() { return hiddenApiRestrictions; }
+    @Nonnull
+    @Override
+    public String getDefiningClass() { return definingClass; }
+    @Nonnull
+    @Override
+    public String getName() { return name; }
+    @Nonnull
+    @Override
+    public String getType() { return type; }
+    @Override
+    public int getAccessFlags() { return accessFlags; }
+    @Override
+    public EncodedValue getInitialValue() { return initialValue;}
+    @Nonnull
+    @Override
+    public Set<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
+    @Nonnull
+    @Override
+    public Set<HiddenApiRestriction> getHiddenApiRestrictions() { return hiddenApiRestrictions; }
 
     @Nonnull
     public static Set<ImmutableField> immutableSetOf(@Nullable Iterable<? extends Field> list) {

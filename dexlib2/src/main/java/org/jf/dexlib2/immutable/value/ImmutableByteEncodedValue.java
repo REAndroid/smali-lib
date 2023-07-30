@@ -48,5 +48,6 @@ public class ImmutableByteEncodedValue extends BaseByteEncodedValue implements I
         return new ImmutableByteEncodedValue(byteEncodedValue.getValue());
     }
 
-    @Override public byte getValue() { return value; }
+    @Override
+    public byte getValue() { return value; }
 }

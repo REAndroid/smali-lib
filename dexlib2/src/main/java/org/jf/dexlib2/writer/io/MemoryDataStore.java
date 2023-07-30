@@ -30,7 +30,9 @@ public class MemoryDataStore implements DexDataStore {
         return Arrays.copyOf(buf, size);
     }
 
-    @Nonnull @Override public OutputStream outputAt(final int offset) {
+    @Nonnull
+    @Override
+    public OutputStream outputAt(final int offset) {
         if (offset < 0) throw new IllegalArgumentException();
         return new OutputStream() {
             private int position = offset;
@@ -69,7 +71,9 @@ public class MemoryDataStore implements DexDataStore {
         return Math.max(newMinSize + (newMinSize >> 2), currentSize + MIN_GROWTH_STEP);
     }
 
-    @Nonnull @Override public InputStream readAt(final int offset) {
+    @Nonnull
+    @Override
+    public InputStream readAt(final int offset) {
         if (offset < 0) throw new IllegalArgumentException();
         return new InputStream() {
             private int position = offset;
@@ -132,7 +136,8 @@ public class MemoryDataStore implements DexDataStore {
         };
     }
 
-    @Override public void close() throws IOException {
+    @Override 
+    public void close() throws IOException {
         // no-op
     }
 }

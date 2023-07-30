@@ -42,8 +42,10 @@ import java.util.Collection;
 import java.util.Set;
 
 public class ImmutableDexFile implements DexFile {
-    @Nonnull protected final Set<? extends ImmutableClassDef> classes;
-    @Nonnull private final Opcodes opcodes;
+    @Nonnull
+    protected final Set<? extends ImmutableClassDef> classes;
+    @Nonnull
+    private final Opcodes opcodes;
 
     public ImmutableDexFile(@Nonnull Opcodes opcodes, @Nullable Collection<? extends ClassDef> classes) {
         this.classes = ImmutableClassDef.immutableSetOf(classes);
@@ -62,6 +64,10 @@ public class ImmutableDexFile implements DexFile {
         return new ImmutableDexFile(dexFile.getOpcodes(), dexFile.getClasses());
     }
 
-    @Nonnull @Override public Set<? extends ImmutableClassDef> getClasses() { return classes; }
-    @Nonnull @Override public Opcodes getOpcodes() { return opcodes; }
+    @Nonnull
+    @Override
+    public Set<? extends ImmutableClassDef> getClasses() { return classes; }
+    @Nonnull
+    @Override
+    public Opcodes getOpcodes() { return opcodes; }
 }

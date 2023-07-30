@@ -39,9 +39,12 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 
 public class DebugWriter<StringKey extends CharSequence, TypeKey extends CharSequence> {
-    @Nonnull private final StringSection<StringKey, ?> stringSection;
-    @Nonnull private final TypeSection<StringKey, TypeKey, ?> typeSection;
-    @Nonnull private final DexDataWriter writer;
+    @Nonnull
+    private final StringSection<StringKey, ?> stringSection;
+    @Nonnull
+    private final TypeSection<StringKey, TypeKey, ?> typeSection;
+    @Nonnull
+    private final DexDataWriter writer;
     private int currentAddress;
     private int currentLine;
 

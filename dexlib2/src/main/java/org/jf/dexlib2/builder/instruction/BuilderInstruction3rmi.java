@@ -57,9 +57,13 @@ public class BuilderInstruction3rmi extends BuilderInstruction implements Instru
         this.inlineIndex = inlineIndex;
     }
 
-    @Override public int getStartRegister() { return startRegister; }
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getInlineIndex() { return inlineIndex; }
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public int getStartRegister() { return startRegister; }
+    @Override
+    public int getRegisterCount() { return registerCount; }
+    @Override
+    public int getInlineIndex() { return inlineIndex; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }
 

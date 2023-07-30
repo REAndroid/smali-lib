@@ -48,16 +48,23 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public class ImmutableClassDef extends BaseTypeReference implements ClassDef {
-    @Nonnull protected final String type;
+    @Nonnull
+    protected final String type;
     protected final int accessFlags;
     @Nullable protected final String superclass;
-    @Nonnull protected final List<String> interfaces;
+    @Nonnull
+    protected final List<String> interfaces;
     @Nullable protected final String sourceFile;
-    @Nonnull protected final Set<? extends ImmutableAnnotation> annotations;
-    @Nonnull protected final Set<? extends ImmutableField> staticFields;
-    @Nonnull protected final Set<? extends ImmutableField> instanceFields;
-    @Nonnull protected final Set<? extends ImmutableMethod> directMethods;
-    @Nonnull protected final Set<? extends ImmutableMethod> virtualMethods;
+    @Nonnull
+    protected final Set<? extends ImmutableAnnotation> annotations;
+    @Nonnull
+    protected final Set<? extends ImmutableField> staticFields;
+    @Nonnull
+    protected final Set<? extends ImmutableField> instanceFields;
+    @Nonnull
+    protected final Set<? extends ImmutableMethod> directMethods;
+    @Nonnull
+    protected final Set<? extends ImmutableMethod> virtualMethods;
 
     public ImmutableClassDef(@Nonnull String type,
                              int accessFlags,
@@ -147,20 +154,37 @@ public class ImmutableClassDef extends BaseTypeReference implements ClassDef {
                 classDef.getVirtualMethods());
     }
 
-    @Nonnull @Override public String getType() { return type; }
-    @Override public int getAccessFlags() { return accessFlags; }
-    @Nullable @Override public String getSuperclass() { return superclass; }
+    @Nonnull
+    @Override
+    public String getType() { return type; }
+    @Override 
+    public int getAccessFlags() { return accessFlags; }
+    @Nullable
+    @Override
+    public String getSuperclass() { return superclass; }
     @Nonnull
     @Override
     public List<String> getInterfaces() {
         return interfaces;
     }
-    @Nullable @Override public String getSourceFile() { return sourceFile; }
-    @Nonnull @Override public Set<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
-    @Nonnull @Override public Set<? extends ImmutableField> getStaticFields() { return staticFields; }
-    @Nonnull @Override public Set<? extends ImmutableField> getInstanceFields() { return instanceFields; }
-    @Nonnull @Override public Set<? extends ImmutableMethod> getDirectMethods() { return directMethods; }
-    @Nonnull @Override public Set<? extends ImmutableMethod> getVirtualMethods() { return virtualMethods; }
+    @Nullable
+    @Override
+    public String getSourceFile() { return sourceFile; }
+    @Nonnull
+    @Override
+    public Set<? extends ImmutableAnnotation> getAnnotations() { return annotations; }
+    @Nonnull
+    @Override
+    public Set<? extends ImmutableField> getStaticFields() { return staticFields; }
+    @Nonnull
+    @Override
+    public Set<? extends ImmutableField> getInstanceFields() { return instanceFields; }
+    @Nonnull
+    @Override
+    public Set<? extends ImmutableMethod> getDirectMethods() { return directMethods; }
+    @Nonnull
+    @Override
+    public Set<? extends ImmutableMethod> getVirtualMethods() { return virtualMethods; }
 
     @Nonnull
     @Override

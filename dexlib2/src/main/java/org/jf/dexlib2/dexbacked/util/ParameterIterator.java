@@ -55,11 +55,13 @@ public class ParameterIterator implements Iterator<MethodParameter> {
         this.parameterNames = parameterNames;
     }
 
-    @Override public boolean hasNext() {
+    @Override
+    public boolean hasNext() {
         return parameterTypes.hasNext();
     }
 
-    @Override public MethodParameter next() {
+    @Override
+    public MethodParameter next() {
         @Nonnull final String type = parameterTypes.next().toString();
         @Nonnull final Set<? extends Annotation> annotations;
         @Nullable final String name;
@@ -83,7 +85,8 @@ public class ParameterIterator implements Iterator<MethodParameter> {
         };
     }
 
-    @Override public void remove() {
+    @Override
+    public void remove() {
         throw new UnsupportedOperationException();
     }
 }

@@ -39,7 +39,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class DexBackedTryBlock extends BaseTryBlock<DexBackedExceptionHandler> {
-    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
     private final int tryItemOffset;
     private final int handlersStartOffset;
 
@@ -51,11 +52,13 @@ public class DexBackedTryBlock extends BaseTryBlock<DexBackedExceptionHandler> {
         this.handlersStartOffset = handlersStartOffset;
     }
 
-    @Override public int getStartCodeAddress() {
+    @Override
+    public int getStartCodeAddress() {
         return dexFile.getDataBuffer().readSmallUint(tryItemOffset + CodeItem.TryItem.START_ADDRESS_OFFSET);
     }
 
-    @Override public int getCodeUnitCount() {
+    @Override
+    public int getCodeUnitCount() {
         return dexFile.getDataBuffer().readUshort(tryItemOffset + CodeItem.TryItem.CODE_UNIT_COUNT_OFFSET);
     }
 

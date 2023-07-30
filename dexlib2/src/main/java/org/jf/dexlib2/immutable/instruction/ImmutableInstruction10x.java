@@ -51,5 +51,6 @@ public class ImmutableInstruction10x extends ImmutableInstruction implements Ins
         return new ImmutableInstruction10x(instruction.getOpcode());
     }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override 
+    public Format getFormat() { return FORMAT; }
 }

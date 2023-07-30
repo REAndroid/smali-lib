@@ -60,8 +60,12 @@ public class ImmutableSparseSwitchPayload extends ImmutableInstruction implement
                 instruction.getSwitchElements());
     }
 
-    @Nonnull @Override public List<? extends SwitchElement> getSwitchElements() { return switchElements; }
+    @Nonnull
+    @Override
+    public List<? extends SwitchElement> getSwitchElements() { return switchElements; }
 
-    @Override public int getCodeUnits() { return 2 + switchElements.size() * 4; }
-    @Override public Format getFormat() { return OPCODE.format; }
+    @Override 
+    public int getCodeUnits() { return 2 + switchElements.size() * 4; }
+    @Override 
+    public Format getFormat() { return OPCODE.format; }
 }

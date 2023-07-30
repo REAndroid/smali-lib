@@ -41,8 +41,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public abstract class DexBackedInstruction implements Instruction {
-    @Nonnull public final DexBackedDexFile dexFile;
-    @Nonnull public final Opcode opcode;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final Opcode opcode;
     public final int instructionStart;
 
     public DexBackedInstruction(@Nonnull DexBackedDexFile dexFile,
@@ -53,11 +55,13 @@ public abstract class DexBackedInstruction implements Instruction {
         this.instructionStart = instructionStart;
     }
 
-    @Nonnull public Opcode getOpcode() { return opcode; }
-    @Override public int getCodeUnits() { return opcode.format.size / 2; }
+    @Nonnull
+    public Opcode getOpcode() { return opcode; }
+    @Override
+    public int getCodeUnits() { return opcode.format.size / 2; }
 
     @Nonnull
-    public static Instruction readFrom(DexBackedDexFile dexFile, @Nonnull DexReader reader) {
+    public static Instruction readFrom(DexBackedDexFile dexFile, @Nonnull DexReader<?> reader) {
         int opcodeValue = reader.peekUbyte();
 
         if (opcodeValue == 0) {

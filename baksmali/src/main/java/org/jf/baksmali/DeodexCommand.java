@@ -67,7 +67,8 @@ public class DeodexCommand extends DisassembleCommand {
         super(commandAncestors);
     }
 
-    @Override protected BaksmaliOptions getOptions() {
+    @Override
+    protected BaksmaliOptions getOptions() {
         BaksmaliOptions options = super.getOptions();
 
         options.deodex = true;
@@ -95,15 +96,18 @@ public class DeodexCommand extends DisassembleCommand {
         return options;
     }
 
-    @Override protected boolean shouldCheckPackagePrivateAccess() {
+    @Override
+    protected boolean shouldCheckPackagePrivateAccess() {
         return checkPackagePrivateArgument.checkPackagePrivateAccess;
     }
 
-    @Override protected boolean needsClassPath() {
+    @Override
+    protected boolean needsClassPath() {
         return true;
     }
 
-    @Override protected boolean showDeodexWarning() {
+    @Override
+    protected boolean showDeodexWarning() {
         return false;
     }
 }

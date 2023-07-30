@@ -49,15 +49,21 @@ public class BuilderMethodParameter extends BaseMethodParameter {
         this.annotations = annotations;
     }
 
-    @Nonnull @Override public String getType() {
+    @Nonnull
+    @Override
+    public String getType() {
         return type.getType();
     }
 
-    @Nullable @Override public String getName() {
+    @Nullable
+    @Override
+    public String getName() {
         return name==null?null:name.getString();
     }
 
-    @Nonnull @Override public BuilderAnnotationSet getAnnotations() {
+    @Nonnull
+    @Override
+    public BuilderAnnotationSet getAnnotations() {
         return annotations;
     }
 }

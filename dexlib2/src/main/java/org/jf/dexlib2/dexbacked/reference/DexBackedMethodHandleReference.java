@@ -41,7 +41,8 @@ import org.jf.util.ExceptionWithContext;
 import javax.annotation.Nonnull;
 
 public class DexBackedMethodHandleReference extends BaseMethodHandleReference {
-    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
     public final int methodHandleIndex;
     public final int methodHandleOffset;
 

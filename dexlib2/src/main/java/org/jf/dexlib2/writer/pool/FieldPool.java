@@ -53,19 +53,26 @@ public class FieldPool extends BaseIndexPool<FieldReference>
         }
     }
 
-    @Nonnull @Override public CharSequence getDefiningClass(@Nonnull FieldReference fieldReference) {
+    @Nonnull
+    @Override
+    public CharSequence getDefiningClass(@Nonnull FieldReference fieldReference) {
         return fieldReference.getDefiningClass();
     }
 
-    @Nonnull @Override public CharSequence getFieldType(@Nonnull FieldReference fieldReference) {
+    @Nonnull
+    @Override
+    public CharSequence getFieldType(@Nonnull FieldReference fieldReference) {
         return fieldReference.getType();
     }
 
-    @Nonnull @Override public CharSequence getName(@Nonnull FieldReference fieldReference) {
+    @Nonnull
+    @Override
+    public CharSequence getName(@Nonnull FieldReference fieldReference) {
         return fieldReference.getName();
     }
 
-    @Override public int getFieldIndex(@Nonnull Field field) {
+    @Override
+    public int getFieldIndex(@Nonnull Field field) {
         return getItemIndex(field);
     }
 }

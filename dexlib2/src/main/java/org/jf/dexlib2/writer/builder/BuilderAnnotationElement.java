@@ -46,11 +46,15 @@ public class BuilderAnnotationElement extends BaseAnnotationElement {
         this.value = value;
     }
 
-    @Nonnull @Override public String getName() {
+    @Nonnull
+    @Override
+    public String getName() {
         return name.getString();
     }
 
-    @Nonnull @Override public EncodedValue getValue() {
+    @Nonnull
+    @Override
+    public EncodedValue getValue() {
         return value;
     }
 }

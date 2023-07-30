@@ -65,10 +65,12 @@ public class Main extends Command {
         super(new ArrayList<JCommander>());
     }
 
-    @Override public void run() {
+    @Override 
+    public void run() {
     }
 
-    @Override protected JCommander getJCommander() {
+    @Override
+    protected JCommander getJCommander() {
         return jc;
     }
 

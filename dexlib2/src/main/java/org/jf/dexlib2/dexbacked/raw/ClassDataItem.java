@@ -47,7 +47,8 @@ public class ClassDataItem {
         return new SectionAnnotator(annotator, mapItem) {
             private SectionAnnotator codeItemAnnotator = null;
 
-            @Override public void annotateSection(@Nonnull AnnotatedBytes out) {
+            @Override
+    public void annotateSection(@Nonnull AnnotatedBytes out) {
                 codeItemAnnotator = annotator.getAnnotator(ItemType.CODE_ITEM);
                 super.annotateSection(out);
             }

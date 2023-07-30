@@ -42,12 +42,16 @@ import javax.annotation.Nullable;
 public abstract class EncodedArrayItemIterator {
     public static final EncodedArrayItemIterator EMPTY = new EncodedArrayItemIterator() {
         @Nullable @Override public EncodedValue getNextOrNull() { return null; }
-        @Override public void skipNext() {}
-        @Override public int getReaderOffset() { return 0; }
-        @Override public int getItemCount() { return 0; }
+        @Override
+    public void skipNext() {}
+        @Override
+    public int getReaderOffset() { return 0; }
+        @Override
+    public int getItemCount() { return 0; }
     };
 
-    @Nullable public abstract EncodedValue getNextOrNull();
+    @Nullable
+    public abstract EncodedValue getNextOrNull();
     public abstract void skipNext();
     public abstract int getReaderOffset();
     public abstract int getItemCount();
@@ -61,8 +65,10 @@ public abstract class EncodedArrayItemIterator {
     }
 
     private static class EncodedArrayItemIteratorImpl extends EncodedArrayItemIterator {
-        @Nonnull private final DexReader reader;
-        @Nonnull private final DexBackedDexFile dexFile;
+        @Nonnull
+        private final DexReader<?> reader;
+        @Nonnull
+        private final DexBackedDexFile dexFile;
         private final int size;
         private int index = 0;
 

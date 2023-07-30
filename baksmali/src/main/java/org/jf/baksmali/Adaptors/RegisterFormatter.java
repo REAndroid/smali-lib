@@ -38,7 +38,8 @@ import java.io.IOException;
  * This class contains the logic used for formatting registers
  */
 public class RegisterFormatter {
-    @Nonnull public final BaksmaliOptions options;
+    @Nonnull
+    public final BaksmaliOptions options;
     public final int registerCount;
     public final int parameterRegisterCount;
 

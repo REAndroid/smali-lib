@@ -41,13 +41,16 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class MethodImplementationRewriter implements Rewriter<MethodImplementation> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public MethodImplementationRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public MethodImplementation rewrite(@Nonnull MethodImplementation methodImplementation) {
+    @Nonnull
+    @Override
+    public MethodImplementation rewrite(@Nonnull MethodImplementation methodImplementation) {
         return new RewrittenMethodImplementation(methodImplementation);
     }
 

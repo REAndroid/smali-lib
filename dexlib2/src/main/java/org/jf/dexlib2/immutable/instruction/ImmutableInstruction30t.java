@@ -57,7 +57,9 @@ public class ImmutableInstruction30t extends ImmutableInstruction implements Ins
                 instruction.getCodeOffset());
     }
 
-    @Override public int getCodeOffset() { return codeOffset; }
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public int getCodeOffset() { return codeOffset; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }
 

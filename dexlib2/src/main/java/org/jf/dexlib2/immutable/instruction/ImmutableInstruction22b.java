@@ -66,10 +66,15 @@ public class ImmutableInstruction22b extends ImmutableInstruction implements Ins
                 instruction.getNarrowLiteral());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Override public int getNarrowLiteral() { return literal; }
-    @Override public long getWideLiteral() { return literal; }
+    @Override 
+    public int getRegisterA() { return registerA; }
+    @Override 
+    public int getRegisterB() { return registerB; }
+    @Override 
+    public int getNarrowLiteral() { return literal; }
+    @Override 
+    public long getWideLiteral() { return literal; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override 
+    public Format getFormat() { return FORMAT; }
 }

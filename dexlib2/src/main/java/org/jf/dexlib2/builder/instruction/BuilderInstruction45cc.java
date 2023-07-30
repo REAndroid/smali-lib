@@ -49,8 +49,10 @@ public class BuilderInstruction45cc extends BuilderInstruction implements Instru
     protected final int registerE;
     protected final int registerF;
     protected final int registerG;
-    @Nonnull protected final Reference reference;
-    @Nonnull protected final Reference reference2;
+    @Nonnull
+    protected final Reference reference;
+    @Nonnull
+    protected final Reference reference2;
 
     public BuilderInstruction45cc(@Nonnull Opcode opcode,
                                   int registerCount,
@@ -72,16 +74,29 @@ public class BuilderInstruction45cc extends BuilderInstruction implements Instru
         this.reference2 = reference2;
     }
 
-    @Override public int getRegisterCount() { return registerCount; }
-    @Override public int getRegisterC() { return registerC; }
-    @Override public int getRegisterD() { return registerD; }
-    @Override public int getRegisterE() { return registerE; }
-    @Override public int getRegisterF() { return registerF; }
-    @Override public int getRegisterG() { return registerG; }
-    @Nonnull @Override public Reference getReference() { return reference; }
-    @Override public int getReferenceType() { return opcode.referenceType; }
-    @Nonnull @Override public Reference getReference2() { return reference2; }
-    @Override public int getReferenceType2() { return opcode.referenceType2; }
+    @Override
+    public int getRegisterCount() { return registerCount; }
+    @Override
+    public int getRegisterC() { return registerC; }
+    @Override
+    public int getRegisterD() { return registerD; }
+    @Override
+    public int getRegisterE() { return registerE; }
+    @Override
+    public int getRegisterF() { return registerF; }
+    @Override
+    public int getRegisterG() { return registerG; }
+    @Nonnull
+    @Override
+    public Reference getReference() { return reference; }
+    @Override
+    public int getReferenceType() { return opcode.referenceType; }
+    @Nonnull
+    @Override
+    public Reference getReference2() { return reference2; }
+    @Override
+    public int getReferenceType2() { return opcode.referenceType2; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }

@@ -66,9 +66,13 @@ public class ImmutableInstruction22cs extends ImmutableInstruction implements In
                 instruction.getFieldOffset());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
-    @Override public int getFieldOffset() { return fieldOffset; }
+    @Override 
+    public int getRegisterA() { return registerA; }
+    @Override 
+    public int getRegisterB() { return registerB; }
+    @Override 
+    public int getFieldOffset() { return fieldOffset; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override 
+    public Format getFormat() { return FORMAT; }
 }

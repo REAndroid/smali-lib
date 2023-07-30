@@ -54,7 +54,8 @@ public class StringPool extends StringTypeBasePool implements StringSection<Char
         }
     }
 
-    @Override public int getItemIndex(@Nonnull StringReference key) {
+    @Override 
+    public int getItemIndex(@Nonnull StringReference key) {
         Integer index = internedItems.get(key.toString());
         if (index == null) {
             throw new ExceptionWithContext("Item not found.: %s", key.toString());
@@ -62,7 +63,8 @@ public class StringPool extends StringTypeBasePool implements StringSection<Char
         return index;
     }
 
-    @Override public boolean hasJumboIndexes() {
+    @Override 
+    public boolean hasJumboIndexes() {
         return internedItems.size() > 65536;
     }
 }

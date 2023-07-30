@@ -43,8 +43,10 @@ import java.util.Collection;
 import java.util.Set;
 
 public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final String type;
-    @Nonnull protected final Set<? extends ImmutableAnnotationElement> elements;
+    @Nonnull
+    protected final String type;
+    @Nonnull
+    protected final Set<? extends ImmutableAnnotationElement> elements;
 
     public ImmutableAnnotationEncodedValue(@Nonnull String type,
                                            @Nullable Collection<? extends AnnotationElement> elements) {
@@ -67,6 +69,10 @@ public class ImmutableAnnotationEncodedValue extends BaseAnnotationEncodedValue 
                 annotationEncodedValue.getElements());
     }
 
-    @Nonnull @Override public String getType() { return type; }
-    @Nonnull @Override public Set<? extends ImmutableAnnotationElement> getElements() { return elements; }
+    @Nonnull
+    @Override
+    public String getType() { return type; }
+    @Nonnull
+    @Override
+    public Set<? extends ImmutableAnnotationElement> getElements() { return elements; }
 }

@@ -62,8 +62,11 @@ public class ImmutableInstruction12x extends ImmutableInstruction implements Ins
                 instruction.getRegisterB());
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
+    @Override
+    public int getRegisterA() { return registerA; }
+    @Override
+    public int getRegisterB() { return registerB; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }

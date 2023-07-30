@@ -48,5 +48,6 @@ public class ImmutableCharEncodedValue extends BaseCharEncodedValue implements I
         return new ImmutableCharEncodedValue(charEncodedValue.getValue());
     }
 
-    @Override public char getValue() { return value; }
+    @Override
+    public char getValue() { return value; }
 }

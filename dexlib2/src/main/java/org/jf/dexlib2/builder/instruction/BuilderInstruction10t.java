@@ -47,5 +47,6 @@ public class BuilderInstruction10t extends BuilderOffsetInstruction implements I
         super(opcode, target);
     }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }

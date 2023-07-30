@@ -50,7 +50,8 @@ public class AnnotationDirectoryItem {
                 return "annotation_directory_item";
             }
 
-            @Override public int getItemAlignment() {
+            @Override
+    public int getItemAlignment() {
                 return 4;
             }
 

@@ -55,7 +55,8 @@ public abstract class BaseArrayEncodedValue implements ArrayEncodedValue {
         return false;
     }
 
-    @Override public int compareTo(@Nonnull EncodedValue o) {
+    @Override
+    public int compareTo(@Nonnull EncodedValue o) {
         int res = Integer.compare(getValueType(), o.getValueType());
         if (res != 0) return res;
         return CollectionUtils.compareAsList(getValue(), ((ArrayEncodedValue)o).getValue());
@@ -63,7 +64,8 @@ public abstract class BaseArrayEncodedValue implements ArrayEncodedValue {
 
     public int getValueType() { return ValueType.ARRAY; }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

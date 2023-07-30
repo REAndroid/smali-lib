@@ -45,7 +45,8 @@ public class BuilderArrayPayload extends BuilderInstruction implements ArrayPayl
     public static final Opcode OPCODE = Opcode.ARRAY_PAYLOAD;
 
     protected final int elementWidth;
-    @Nonnull protected final List<Number> arrayElements;
+    @Nonnull
+    protected final List<Number> arrayElements;
 
     public BuilderArrayPayload(int elementWidth,
                                @Nullable List<Number> arrayElements) {
@@ -54,9 +55,14 @@ public class BuilderArrayPayload extends BuilderInstruction implements ArrayPayl
         this.arrayElements = arrayElements==null?EmptyList.<Number>of():arrayElements;
     }
 
-    @Override public int getElementWidth() { return elementWidth; }
-    @Nonnull @Override public List<Number> getArrayElements() { return arrayElements; }
+    @Override
+    public int getElementWidth() { return elementWidth; }
+    @Nonnull
+    @Override
+    public List<Number> getArrayElements() { return arrayElements; }
 
-    @Override public int getCodeUnits() { return 4 + (elementWidth * arrayElements.size() + 1) / 2; }
-    @Override public Format getFormat() { return OPCODE.format; }
+    @Override
+    public int getCodeUnits() { return 4 + (elementWidth * arrayElements.size() + 1) / 2; }
+    @Override
+    public Format getFormat() { return OPCODE.format; }
 }

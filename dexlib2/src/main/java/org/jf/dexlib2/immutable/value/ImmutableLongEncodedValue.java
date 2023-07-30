@@ -48,5 +48,6 @@ public class ImmutableLongEncodedValue extends BaseLongEncodedValue implements I
         return new ImmutableLongEncodedValue(longEncodedValue.getValue());
     }
 
-    @Override public long getValue() { return value; }
+    @Override
+    public long getValue() { return value; }
 }

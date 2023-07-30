@@ -37,7 +37,8 @@ import org.jf.util.Utf8Utils;
 import javax.annotation.Nonnull;
 
 public class DexReader<T extends DexBuffer> {
-    @Nonnull public final T dexBuf;
+    @Nonnull
+    public final T dexBuf;
     private int offset;
 
     public DexReader(@Nonnull T dexBuf, int offset) {

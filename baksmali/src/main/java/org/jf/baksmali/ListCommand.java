@@ -56,7 +56,8 @@ public class ListCommand extends Command {
         super(commandAncestors);
     }
 
-    @Override protected void setupCommand(JCommander jc) {
+    @Override
+    protected void setupCommand(JCommander jc) {
         List<JCommander> hierarchy = getCommandHierarchy();
 
         ExtendedCommands.addExtendedCommand(jc, new ListStringsCommand(hierarchy));
@@ -72,7 +73,8 @@ public class ListCommand extends Command {
         ExtendedCommands.addExtendedCommand(jc, new ListHlepCommand(hierarchy));
     }
 
-    @Override public void run() {
+    @Override
+    public void run() {
         JCommander jc = getJCommander();
         if (help || jc.getParsedCommand() == null) {
             usage();

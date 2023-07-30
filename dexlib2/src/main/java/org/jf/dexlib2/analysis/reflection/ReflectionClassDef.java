@@ -65,12 +65,15 @@ public class ReflectionClassDef extends BaseTypeReference implements ClassDef {
         this.cls = cls;
     }
 
-    @Override public int getAccessFlags() {
+    @Override 
+    public int getAccessFlags() {
         // the java modifiers appear to be the same as the dex access flags
         return cls.getModifiers();
     }
 
-    @Nullable @Override public String getSuperclass() {
+    @Nullable
+    @Override
+    public String getSuperclass() {
         if (Modifier.isInterface(cls.getModifiers())) {
             return "Ljava/lang/Object;";
         }
@@ -81,7 +84,9 @@ public class ReflectionClassDef extends BaseTypeReference implements ClassDef {
         return ReflectionUtils.javaToDexName(superClass.getName());
     }
 
-    @Nonnull @Override public List<String> getInterfaces() {
+    @Nonnull
+    @Override
+    public List<String> getInterfaces() {
         return ListUtil.copyOf(Iterables.transform(Iterables.forArray(cls.getInterfaces()), new Function<Class, String>() {
             @Nullable
             @Override
@@ -94,15 +99,21 @@ public class ReflectionClassDef extends BaseTypeReference implements ClassDef {
         }));
     }
 
-    @Nullable @Override public String getSourceFile() {
+    @Nullable
+    @Override
+    public String getSourceFile() {
         return null;
     }
 
-    @Nonnull @Override public Set<? extends Annotation> getAnnotations() {
+    @Nonnull
+    @Override
+    public Set<? extends Annotation> getAnnotations() {
         return EmptySet.of();
     }
 
-    @Nonnull @Override public Iterable<? extends Field> getStaticFields() {
+    @Nonnull
+    @Override
+    public Iterable<? extends Field> getStaticFields() {
         return new Iterable<Field>() {
             @Nonnull @Override public Iterator<Field> iterator() {
                 Iterator<java.lang.reflect.Field> staticFields = Iterables.filter(
@@ -127,7 +138,9 @@ public class ReflectionClassDef extends BaseTypeReference implements ClassDef {
         };
     }
 
-    @Nonnull @Override public Iterable<? extends Field> getInstanceFields() {
+    @Nonnull
+    @Override
+    public Iterable<? extends Field> getInstanceFields() {
         return new Iterable<Field>() {
             @Nonnull @Override public Iterator<Field> iterator() {
                 Iterator<java.lang.reflect.Field> staticFields = Iterables.filter(
@@ -151,7 +164,9 @@ public class ReflectionClassDef extends BaseTypeReference implements ClassDef {
         };
     }
 
-    @Nonnull @Override public Set<? extends Field> getFields() {
+    @Nonnull
+    @Override
+    public Set<? extends Field> getFields() {
         return new AbstractSet<Field>() {
             @Nonnull @Override public Iterator<Field> iterator() {
                 return Iterables.transform(Iterables.forArray(cls.getDeclaredFields()),
@@ -169,7 +184,9 @@ public class ReflectionClassDef extends BaseTypeReference implements ClassDef {
     }
 
     private static final int DIRECT_MODIFIERS = Modifier.PRIVATE | Modifier.STATIC;
-    @Nonnull @Override public Iterable<? extends Method> getDirectMethods() {
+    @Nonnull
+    @Override
+    public Iterable<? extends Method> getDirectMethods() {
         return new Iterable<Method>() {
             @Nonnull @Override public Iterator<Method> iterator() {
                 Iterator<Method> constructorIterator =
@@ -200,7 +217,9 @@ public class ReflectionClassDef extends BaseTypeReference implements ClassDef {
         };
     }
 
-    @Nonnull @Override public Iterable<? extends Method> getVirtualMethods() {
+    @Nonnull
+    @Override
+    public Iterable<? extends Method> getVirtualMethods() {
         return new Iterable<Method>() {
             @Nonnull @Override public Iterator<Method> iterator() {
                 Iterator<java.lang.reflect.Method> directMethods = Iterables.filter(
@@ -222,7 +241,9 @@ public class ReflectionClassDef extends BaseTypeReference implements ClassDef {
         };
     }
 
-    @Nonnull @Override public Set<? extends Method> getMethods() {
+    @Nonnull
+    @Override
+    public Set<? extends Method> getMethods() {
         return new AbstractSet<Method>() {
             @Nonnull @Override public Iterator<Method> iterator() {
                 Iterator<? extends Method> constructorIterator =
@@ -252,7 +273,9 @@ public class ReflectionClassDef extends BaseTypeReference implements ClassDef {
         };
     }
 
-    @Nonnull @Override public String getType() {
+    @Nonnull
+    @Override
+    public String getType() {
         return ReflectionUtils.javaToDexName(cls.getName());
     }
 }

@@ -55,5 +55,7 @@ public abstract class BuilderSwitchPayload extends BuilderInstruction implements
         return referrer;
     }
 
-    @Nonnull @Override public abstract List<? extends BuilderSwitchElement> getSwitchElements();
+    @Nonnull
+    @Override
+    public abstract List<? extends BuilderSwitchElement> getSwitchElements();
 }

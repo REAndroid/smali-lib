@@ -48,7 +48,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DexBackedCallSiteReference extends BaseCallSiteReference {
-    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
     public final int callSiteIndex;
     public final int callSiteIdOffset;
     private int callSiteOffset = -1;

@@ -55,8 +55,11 @@ public class BuilderInstruction22t extends BuilderOffsetInstruction implements I
         this.registerB = Preconditions.checkNibbleRegister(registerB);
     }
 
-    @Override public int getRegisterA() { return registerA; }
-    @Override public int getRegisterB() { return registerB; }
+    @Override
+    public int getRegisterA() { return registerA; }
+    @Override
+    public int getRegisterB() { return registerB; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override
+    public Format getFormat() { return FORMAT; }
 }

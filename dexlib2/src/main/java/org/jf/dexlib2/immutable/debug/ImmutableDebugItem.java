@@ -72,7 +72,8 @@ public abstract class ImmutableDebugItem implements DebugItem {
         }
     }
 
-    @Override public int getCodeAddress() { return codeAddress; }
+    @Override
+    public int getCodeAddress() { return codeAddress; }
 
     @Nonnull
     public static List<ImmutableDebugItem> immutableListOf(@Nullable Iterable<? extends DebugItem> list) {

@@ -34,7 +34,9 @@ package org.jf.dexlib2.rewriter;
 import javax.annotation.Nonnull;
 
 public class TypeRewriter implements Rewriter<String> {
-    @Nonnull @Override public String rewrite(@Nonnull String value) {
+    @Nonnull
+    @Override
+    public String rewrite(@Nonnull String value) {
         if (value.length() > 0 && value.charAt(0) == '[') {
             int dimensions = 0;
             while (value.charAt(dimensions) == '[') {
@@ -65,7 +67,8 @@ public class TypeRewriter implements Rewriter<String> {
      * @return The modified version of the unwrapped type. This will be re-array-ified if the original wrapped type was
      * an array.
      */
-    @Nonnull protected String rewriteUnwrappedType(@Nonnull String value) {
+    @Nonnull
+    protected String rewriteUnwrappedType(@Nonnull String value) {
         return value;
     }
 }

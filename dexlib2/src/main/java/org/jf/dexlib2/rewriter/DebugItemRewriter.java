@@ -40,13 +40,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DebugItemRewriter implements Rewriter<DebugItem> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public DebugItemRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public DebugItem rewrite(@Nonnull DebugItem value) {
+    @Nonnull
+    @Override
+    public DebugItem rewrite(@Nonnull DebugItem value) {
         switch (value.getDebugItemType()) {
             case DebugItemType.START_LOCAL:
                 return new RewrittenStartLocal((StartLocal)value);

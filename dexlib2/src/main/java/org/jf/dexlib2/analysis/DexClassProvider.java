@@ -50,7 +50,9 @@ public class DexClassProvider implements ClassProvider {
         }
     }
 
-    @Nullable @Override public ClassDef getClassDef(String type) {
+    @Nullable
+    @Override
+    public ClassDef getClassDef(String type) {
         return classMap.get(type);
     }
 }

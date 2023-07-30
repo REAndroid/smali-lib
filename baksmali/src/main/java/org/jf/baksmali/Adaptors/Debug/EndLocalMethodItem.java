@@ -39,8 +39,10 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 
 public class EndLocalMethodItem extends DebugMethodItem {
-    @Nonnull private final EndLocal endLocal;
-    @Nonnull private final RegisterFormatter registerFormatter;
+    @Nonnull
+    private final EndLocal endLocal;
+    @Nonnull
+    private final RegisterFormatter registerFormatter;
 
     public EndLocalMethodItem(int codeAddress, int sortOrder, @Nonnull RegisterFormatter registerFormatter,
                               @Nonnull EndLocal endLocal) {

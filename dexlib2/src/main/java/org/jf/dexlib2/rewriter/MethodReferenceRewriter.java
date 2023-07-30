@@ -40,13 +40,16 @@ import java.util.List;
 import java.util.function.Function;
 
 public class MethodReferenceRewriter implements Rewriter<MethodReference> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public MethodReferenceRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public MethodReference rewrite(@Nonnull MethodReference methodReference) {
+    @Nonnull
+    @Override
+    public MethodReference rewrite(@Nonnull MethodReference methodReference) {
         return new RewrittenMethodReference(methodReference);
     }
 

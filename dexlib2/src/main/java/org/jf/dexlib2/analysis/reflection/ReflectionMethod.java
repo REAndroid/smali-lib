@@ -54,7 +54,9 @@ public class ReflectionMethod extends BaseMethodReference implements Method {
         this.method = method;
     }
 
-    @Nonnull @Override public List<? extends MethodParameter> getParameters() {
+    @Nonnull
+    @Override
+    public List<? extends MethodParameter> getParameters() {
         final java.lang.reflect.Method method = this.method;
         return new AbstractList<MethodParameter>() {
             private final Class[] parameters = method.getParameterTypes();
@@ -81,27 +83,38 @@ public class ReflectionMethod extends BaseMethodReference implements Method {
         };
     }
 
-    @Override public int getAccessFlags() {
+    @Override
+    public int getAccessFlags() {
         return method.getModifiers();
     }
 
-    @Nonnull @Override public Set<? extends Annotation> getAnnotations() {
+    @Nonnull
+    @Override
+    public Set<? extends Annotation> getAnnotations() {
         return EmptySet.of();
     }
 
-    @Nullable @Override public MethodImplementation getImplementation() {
+    @Nullable
+    @Override
+    public MethodImplementation getImplementation() {
         return null;
     }
 
-    @Nonnull @Override public String getDefiningClass() {
+    @Nonnull
+    @Override
+    public String getDefiningClass() {
         return ReflectionUtils.javaToDexName(method.getDeclaringClass().getName());
     }
 
-    @Nonnull @Override public String getName() {
+    @Nonnull
+    @Override
+    public String getName() {
         return method.getName();
     }
 
-    @Nonnull @Override public List<String> getParameterTypes() {
+    @Nonnull
+    @Override
+    public List<String> getParameterTypes() {
         return new AbstractList<String>() {
             private final List<? extends MethodParameter> parameters = getParameters();
 
@@ -115,11 +128,15 @@ public class ReflectionMethod extends BaseMethodReference implements Method {
         };
     }
 
-    @Nonnull @Override public String getReturnType() {
+    @Nonnull
+    @Override
+    public String getReturnType() {
         return ReflectionUtils.javaToDexName(method.getReturnType().getName());
     }
 
-    @Nonnull @Override public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
+    @Nonnull
+    @Override
+    public Set<HiddenApiRestriction> getHiddenApiRestrictions() {
         return EmptySet.of();
     }
 }

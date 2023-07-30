@@ -58,8 +58,11 @@ public class ImmutableExceptionHandler extends BaseExceptionHandler implements E
                 exceptionHandler.getHandlerCodeAddress());
     }
 
-    @Nullable @Override public String getExceptionType() { return exceptionType; }
-    @Override public int getHandlerCodeAddress() { return handlerCodeAddress; }
+    @Nullable
+    @Override
+    public String getExceptionType() { return exceptionType; }
+    @Override
+    public int getHandlerCodeAddress() { return handlerCodeAddress; }
 
     @Nonnull
     public static List<ImmutableExceptionHandler> immutableListOf(

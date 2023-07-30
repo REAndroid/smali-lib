@@ -39,13 +39,16 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class TryBlockRewriter implements Rewriter<TryBlock<? extends ExceptionHandler>> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public TryBlockRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public TryBlock<? extends ExceptionHandler> rewrite(
+    @Nonnull
+    @Override
+    public TryBlock<? extends ExceptionHandler> rewrite(
             @Nonnull TryBlock<? extends ExceptionHandler> tryBlock) {
         return new RewrittenTryBlock(tryBlock);
     }

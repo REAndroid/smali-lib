@@ -38,7 +38,8 @@ import org.jf.dexlib2.immutable.reference.ImmutableFieldReference;
 import javax.annotation.Nonnull;
 
 public class ImmutableFieldEncodedValue extends BaseFieldEncodedValue implements ImmutableEncodedValue {
-    @Nonnull protected final ImmutableFieldReference value;
+    @Nonnull
+    protected final ImmutableFieldReference value;
 
     public ImmutableFieldEncodedValue(@Nonnull ImmutableFieldReference value) {
         this.value = value;
@@ -51,5 +52,7 @@ public class ImmutableFieldEncodedValue extends BaseFieldEncodedValue implements
         return new ImmutableFieldEncodedValue(ImmutableFieldReference.of(fieldEncodedValue.getValue()));
     }
 
-    @Nonnull @Override public ImmutableFieldReference getValue() { return value; }
+    @Nonnull
+    @Override
+    public ImmutableFieldReference getValue() { return value; }
 }

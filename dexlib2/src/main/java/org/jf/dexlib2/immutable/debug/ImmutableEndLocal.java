@@ -77,10 +77,18 @@ public class ImmutableEndLocal extends ImmutableDebugItem implements EndLocal {
                 endLocal.getSignature());
     }
 
-    @Override public int getRegister() { return register; }
-    @Nullable @Override public String getName() { return name; }
-    @Nullable @Override public String getType() { return type; }
-    @Nullable @Override public String getSignature() { return signature; }
+    @Override
+    public int getRegister() { return register; }
+    @Nullable
+    @Override
+    public String getName() { return name; }
+    @Nullable
+    @Override
+    public String getType() { return type; }
+    @Nullable
+    @Override
+    public String getSignature() { return signature; }
 
-    @Override public int getDebugItemType() { return DebugItemType.END_LOCAL; }
+    @Override
+    public int getDebugItemType() { return DebugItemType.END_LOCAL; }
 }

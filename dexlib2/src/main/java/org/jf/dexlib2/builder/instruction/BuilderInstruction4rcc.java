@@ -46,8 +46,10 @@ public class BuilderInstruction4rcc extends BuilderInstruction implements Instru
     protected final int startRegister;
     protected final int registerCount;
 
-    @Nonnull protected final Reference reference;
-    @Nonnull protected final Reference reference2;
+    @Nonnull
+    protected final Reference reference;
+    @Nonnull
+    protected final Reference reference2;
 
     public BuilderInstruction4rcc(@Nonnull Opcode opcode,
                                   int startRegister,
@@ -61,12 +63,21 @@ public class BuilderInstruction4rcc extends BuilderInstruction implements Instru
         this.reference2 = reference2;
     }
 
-    @Override public int getStartRegister() { return startRegister; }
-    @Override public int getRegisterCount() { return registerCount; }
-    @Nonnull @Override public Reference getReference() { return reference; }
-    @Override public int getReferenceType() { return opcode.referenceType; }
-    @Nonnull @Override public Reference getReference2() { return reference2; }
-    @Override public int getReferenceType2() { return opcode.referenceType2; }
+    @Override 
+    public int getStartRegister() { return startRegister; }
+    @Override 
+    public int getRegisterCount() { return registerCount; }
+    @Nonnull
+    @Override
+    public Reference getReference() { return reference; }
+    @Override 
+    public int getReferenceType() { return opcode.referenceType; }
+    @Nonnull
+    @Override
+    public Reference getReference2() { return reference2; }
+    @Override 
+    public int getReferenceType2() { return opcode.referenceType2; }
 
-    @Override public Format getFormat() { return FORMAT; }
+    @Override 
+    public Format getFormat() { return FORMAT; }
 }

@@ -41,10 +41,14 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ImmutableMethodReference extends BaseMethodReference implements ImmutableReference {
-    @Nonnull protected final String definingClass;
-    @Nonnull protected final String name;
-    @Nonnull protected final List<String> parameters;
-    @Nonnull protected final String returnType;
+    @Nonnull
+    protected final String definingClass;
+    @Nonnull
+    protected final String name;
+    @Nonnull
+    protected final List<String> parameters;
+    @Nonnull
+    protected final String returnType;
 
     public ImmutableMethodReference(@Nonnull String definingClass,
                                     @Nonnull String name,
@@ -78,10 +82,18 @@ public class ImmutableMethodReference extends BaseMethodReference implements Imm
                 methodReference.getReturnType());
     }
 
-    @Nonnull @Override public String getDefiningClass() { return definingClass; }
-    @Nonnull @Override public String getName() { return name; }
-    @Nonnull @Override public List<String> getParameterTypes() { return parameters; }
-    @Nonnull @Override public String getReturnType() { return returnType; }
+    @Nonnull
+    @Override
+    public String getDefiningClass() { return definingClass; }
+    @Nonnull
+    @Override
+    public String getName() { return name; }
+    @Nonnull
+    @Override
+    public List<String> getParameterTypes() { return parameters; }
+    @Nonnull
+    @Override
+    public String getReturnType() { return returnType; }
 
 
 }

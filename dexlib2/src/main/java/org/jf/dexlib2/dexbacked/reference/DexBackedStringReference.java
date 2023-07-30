@@ -39,7 +39,8 @@ import org.jf.dexlib2.dexbacked.raw.StringIdItem;
 import javax.annotation.Nonnull;
 
 public class DexBackedStringReference extends BaseStringReference {
-    @Nonnull public final DexBackedDexFile dexFile;
+    @Nonnull
+    public final DexBackedDexFile dexFile;
     public final int stringIndex;
 
     public DexBackedStringReference(@Nonnull DexBackedDexFile dexBuf,
@@ -60,18 +61,6 @@ public class DexBackedStringReference extends BaseStringReference {
      *
      * @return size in bytes
      */
-    public int getSize() {
-        int size = StringIdItem.ITEM_SIZE; //uint for string_data_off
-        //add the string data length:
-        int stringOffset = dexFile.getStringSection().getOffset(stringIndex);
-        int stringDataOffset = dexFile.getBuffer().readSmallUint(stringOffset);
-        DexReader reader = dexFile.getDataBuffer().readerAt(stringDataOffset);
-        size += reader.peekSmallUleb128Size();
-        int utf16Length = reader.readSmallUleb128();
-        //and string data itself:
-        size += reader.peekStringLength(utf16Length);
-        return size;
-    }
 
     @Override
     public void validateReference() throws InvalidReferenceException {

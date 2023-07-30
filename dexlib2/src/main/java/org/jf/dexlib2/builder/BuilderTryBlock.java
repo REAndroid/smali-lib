@@ -70,15 +70,19 @@ public class BuilderTryBlock extends BaseTryBlock<BuilderExceptionHandler> {
         this.exceptionHandler = BuilderExceptionHandler.newExceptionHandler(handler);
     }
 
-    @Override public int getStartCodeAddress() {
+    @Override
+    public int getStartCodeAddress() {
         return start.getCodeAddress();
     }
 
-    @Override public int getCodeUnitCount() {
+    @Override
+    public int getCodeUnitCount() {
         return end.getCodeAddress() - start.getCodeAddress();
     }
 
-    @Nonnull @Override public List<? extends BuilderExceptionHandler> getExceptionHandlers() {
+    @Nonnull
+    @Override
+    public List<? extends BuilderExceptionHandler> getExceptionHandlers() {
         return ListUtil.newArrayList(exceptionHandler);
     }
 }

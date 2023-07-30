@@ -45,13 +45,16 @@ import java.util.List;
 import java.util.Set;
 
 public class ClassDefRewriter implements Rewriter<ClassDef> {
-    @Nonnull protected final Rewriters rewriters;
+    @Nonnull
+    protected final Rewriters rewriters;
 
     public ClassDefRewriter(@Nonnull Rewriters rewriters) {
         this.rewriters = rewriters;
     }
 
-    @Nonnull @Override public ClassDef rewrite(@Nonnull ClassDef classDef) {
+    @Nonnull
+    @Override
+    public ClassDef rewrite(@Nonnull ClassDef classDef) {
         return new RewrittenClassDef(classDef);
     }
 

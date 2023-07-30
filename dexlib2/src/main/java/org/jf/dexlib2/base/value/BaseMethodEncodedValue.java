@@ -63,7 +63,8 @@ public abstract class BaseMethodEncodedValue implements MethodEncodedValue {
 
     public int getValueType() { return ValueType.METHOD; }
 
-    @Override public String toString() {
+    @Override 
+    public String toString() {
         return DexFormatter.INSTANCE.getEncodedValue(this);
     }
 }

@@ -38,8 +38,10 @@ import java.io.IOException;
 import java.util.BitSet;
 
 public class PostInstructionRegisterInfoMethodItem extends MethodItem {
-    @Nonnull private final RegisterFormatter registerFormatter;
-    @Nonnull private final AnalyzedInstruction analyzedInstruction;
+    @Nonnull
+    private final RegisterFormatter registerFormatter;
+    @Nonnull
+    private final AnalyzedInstruction analyzedInstruction;
 
     public PostInstructionRegisterInfoMethodItem(@Nonnull RegisterFormatter registerFormatter,
                                                  @Nonnull AnalyzedInstruction analyzedInstruction,
