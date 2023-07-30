@@ -52,16 +52,17 @@ public class FieldDefinition {
         int accessFlags = field.getAccessFlags();
 
         boolean isLikelyResourceIdField = false;
-        if (setInStaticConstructor &&
+        if (initialValue != null &&
                 AccessFlags.STATIC.isSet(accessFlags) &&
-                AccessFlags.FINAL.isSet(accessFlags) &&
-                initialValue != null) {
-            if (!EncodedValueUtils.isDefaultValue(initialValue)) {
-                writer.write("# The value of this static final field might be set in the static constructor\n");
-            } else {
-                // don't write out the default initial value for static final fields that get set in the static
-                // constructor
-                initialValue = null;
+                AccessFlags.FINAL.isSet(accessFlags)) {
+            if(setInStaticConstructor){
+                if (!EncodedValueUtils.isDefaultValue(initialValue)) {
+                    writer.write("# The value of this static final field might be set in the static constructor\n");
+                } else {
+                    // don't write out the default initial value for static final fields that get set in the static
+                    // constructor
+                    initialValue = null;
+                }
             }
             isLikelyResourceIdField = AccessFlags.PUBLIC.isSet(accessFlags);
         }
@@ -72,10 +73,12 @@ public class FieldDefinition {
         writer.write(':');
         writer.writeType(field.getType());
 
-        if (isLikelyResourceIdField && initialValue != null) {
+        if (initialValue != null) {
             writer.write(" = ");
             writer.writeEncodedValue(initialValue);
-            writeResourceIdCommentIfRequired(writer, initialValue);
+            if(isLikelyResourceIdField){
+                writeResourceIdCommentIfRequired(writer, initialValue);
+            }
         }
 
         writer.write('\n');
