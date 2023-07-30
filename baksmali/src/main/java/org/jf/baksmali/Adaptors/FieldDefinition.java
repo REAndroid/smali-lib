@@ -28,12 +28,17 @@
 
 package org.jf.baksmali.Adaptors;
 
+import org.jf.baksmali.BaksmaliOptions;
+import org.jf.baksmali.CommentProvider;
 import org.jf.baksmali.formatter.BaksmaliWriter;
 import org.jf.dexlib2.AccessFlags;
 import org.jf.dexlib2.HiddenApiRestriction;
+import org.jf.dexlib2.ValueType;
 import org.jf.dexlib2.iface.Annotation;
 import org.jf.dexlib2.iface.Field;
 import org.jf.dexlib2.iface.value.EncodedValue;
+import org.jf.dexlib2.iface.value.IntEncodedValue;
+import org.jf.dexlib2.iface.value.LongEncodedValue;
 import org.jf.dexlib2.util.EncodedValueUtils;
 
 import java.io.IOException;
@@ -46,6 +51,7 @@ public class FieldDefinition {
         EncodedValue initialValue = field.getInitialValue();
         int accessFlags = field.getAccessFlags();
 
+        boolean isLikelyResourceIdField = false;
         if (setInStaticConstructor &&
                 AccessFlags.STATIC.isSet(accessFlags) &&
                 AccessFlags.FINAL.isSet(accessFlags) &&
@@ -57,6 +63,7 @@ public class FieldDefinition {
                 // constructor
                 initialValue = null;
             }
+            isLikelyResourceIdField = AccessFlags.PUBLIC.isSet(accessFlags);
         }
 
         writer.write(".field ");
@@ -65,9 +72,10 @@ public class FieldDefinition {
         writer.write(':');
         writer.writeType(field.getType());
 
-        if (initialValue != null) {
+        if (isLikelyResourceIdField && initialValue != null) {
             writer.write(" = ");
             writer.writeEncodedValue(initialValue);
+            writeResourceIdCommentIfRequired(writer, initialValue);
         }
 
         writer.write('\n');
@@ -80,6 +88,25 @@ public class FieldDefinition {
             writer.deindent(4);
             writer.write(".end field\n");
         }
+    }
+    private static void writeResourceIdCommentIfRequired(BaksmaliWriter writer, EncodedValue initialValue) throws IOException {
+        int type = initialValue.getValueType();
+        int value;
+        if(type == ValueType.INT){
+            value = ((IntEncodedValue) initialValue).getValue();
+        }else if(type == ValueType.LONG){
+            value = (int) ((LongEncodedValue) initialValue).getValue();
+        }else {
+            return;
+        }
+        BaksmaliOptions options = writer.getOptions();
+        CommentProvider commentProvider = options.getCommentProvider();
+        String comment = commentProvider.getComment(value);
+        if(comment == null){
+            return;
+        }
+        writer.write(" # ");
+        writer.write(comment);
     }
 
     private static void writeAccessFlagsAndRestrictions(
