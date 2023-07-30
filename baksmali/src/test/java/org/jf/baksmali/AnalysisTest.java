@@ -31,22 +31,19 @@
 
 package org.jf.baksmali;
 
-import junit.framework.Assert;
 import org.jf.baksmali.Adaptors.ClassDefinition;
 import org.jf.baksmali.formatter.BaksmaliWriter;
 import org.jf.dexlib2.DexFileFactory;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.analysis.ClassPath;
-import org.jf.dexlib2.analysis.ClassProvider;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.iface.DexFile;
 import org.jf.util.io.ByteStreams;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Nonnull;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -102,7 +99,7 @@ public class AnalysisTest {
         if (registerInfo) {
             options.registerInfo = BaksmaliOptions.ALL | BaksmaliOptions.FULLMERGE;
             if (isArt) {
-                options.classPath = new ClassPath(new ArrayList<ClassProvider>(), true, 56);
+                options.classPath = new ClassPath(new ArrayList<>(), true, 56);
             } else {
                 options.classPath = new ClassPath();
             }
@@ -130,12 +127,33 @@ public class AnalysisTest {
     private File findResource(String resource) throws URISyntaxException {
         ClassLoader loader = getClass().getClassLoader();
         URL resUrl = loader.getResource(resource);
+        if(resUrl == null){
+            throw new URISyntaxException("Failed to find ULR of resource: ", resource);
+        }
         return new File(resUrl.toURI());
     }
 
     @Nonnull
     private String readResource(String resource) throws IOException {
-        byte[] bytes = ByteStreams.toByteArray(AnalysisTest.class.getResourceAsStream(resource));
+        InputStream inputStream = null;
+        try {
+            ClassLoader loader = getClass().getClassLoader();
+            inputStream = loader.getResourceAsStream(resource);
+        } catch (Exception ignored) {
+        }
+        if(inputStream == null){
+            try {
+                File file = findResource(resource);
+                if(file.isFile()){
+                    inputStream = new FileInputStream(file);
+                }
+            } catch (URISyntaxException ignored) {
+            }
+        }
+        if(inputStream == null){
+            throw new IOException("Failed to find resource: " + resource);
+        }
+        byte[] bytes = ByteStreams.toByteArray(inputStream);
         return new String(bytes, 0, bytes.length, StandardCharsets.UTF_8);
     }
 }
