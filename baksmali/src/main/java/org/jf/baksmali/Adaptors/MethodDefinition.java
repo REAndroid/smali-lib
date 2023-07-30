@@ -29,6 +29,8 @@
 package org.jf.baksmali.Adaptors;
 
 import org.jf.baksmali.Adaptors.Debug.DebugMethodItem;
+import org.jf.baksmali.Adaptors.Debug.LineNumberMethodItem;
+import org.jf.baksmali.Adaptors.Format.InstructionMethodItem;
 import org.jf.baksmali.Adaptors.Format.InstructionMethodItemFactory;
 import org.jf.baksmali.formatter.BaksmaliWriter;
 import org.jf.dexlib2.*;
@@ -151,7 +153,8 @@ public class MethodDefinition {
             } catch (Exception ex2) {
                 throw ExceptionWithContext.withContext(ex, "Error while processing method");
             }
-            throw ExceptionWithContext.withContext(ex, "Error while processing method %s", methodString);
+            throw ExceptionWithContext.withContext(ex, "Error while processing method %s",
+                    methodString + "\n" + ex.toString());
         }
     }
 
@@ -221,13 +224,56 @@ public class MethodDefinition {
         writer.write('\n');
 
         List<MethodItem> methodItems = getMethodItems();
+        if(classDef.options.autoLineNumbers){
+            writeMethodItemsAutoLineNumber(writer, methodItems);
+        }else {
+            writeMethodItems(writer, methodItems);
+        }
+        writer.deindent(4);
+        writer.write(".end method\n");
+    }
+    private void writeMethodItems(BaksmaliWriter writer, List<MethodItem> methodItems) throws IOException {
         for (MethodItem methodItem: methodItems) {
             if (methodItem.writeTo(writer)) {
                 writer.write('\n');
             }
         }
-        writer.deindent(4);
-        writer.write(".end method\n");
+    }
+    private void writeMethodItemsAutoLineNumber(BaksmaliWriter writer, List<MethodItem> methodItems) throws IOException {
+        boolean lineNoWritten = false;
+        boolean lineNoWrittenOnce = false;
+        MethodItem previous = null;
+        for (MethodItem methodItem: methodItems) {
+            if(methodItem instanceof LineNumberMethodItem){
+                if(lineNoWritten || (lineNoWrittenOnce && !isLineNumberRequired(previous))){
+                    continue;
+                }
+                LineNumberMethodItem lmi = (LineNumberMethodItem) methodItem;
+                lmi.setLineNumber(writer.getLineNumber());
+                lineNoWritten = true;
+                lineNoWrittenOnce = true;
+            }else {
+                previous = methodItem;
+                if(!lineNoWritten && isLineNumberRequired(methodItem)){
+                    LineNumberMethodItem lmi = new LineNumberMethodItem(writer.getLineNumber());
+                    if(lmi.writeTo(writer)){
+                        writer.write('\n');
+                    }
+                    lineNoWrittenOnce = true;
+                }
+                lineNoWritten = false;
+            }
+            if (methodItem.writeTo(writer)) {
+                writer.write('\n');
+            }
+        }
+    }
+    private boolean isLineNumberRequired(MethodItem methodItem){
+        if(!(methodItem instanceof InstructionMethodItem)){
+            return false;
+        }
+        Instruction instruction = ((InstructionMethodItem<?>)methodItem).getInstruction();
+        return instruction.getOpcode().referenceType != ReferenceType.NONE;
     }
 
     public Instruction findSwitchPayload(int targetOffset, Opcode type) {
@@ -337,7 +383,8 @@ public class MethodDefinition {
         }
     }
 
-    @Nonnull public LabelCache getLabelCache() {
+    @Nonnull
+    public LabelCache getLabelCache() {
         return labelCache;
     }
 
@@ -373,8 +420,26 @@ public class MethodDefinition {
         }
 
         Collections.sort(methodItems);
-
+        if(classDef.options.skipDuplicateLineNumbers){
+            return clearDuplicateLineNumbers(methodItems);
+        }
         return methodItems;
+    }
+    private List<MethodItem> clearDuplicateLineNumbers(List<MethodItem> methodItems){
+        List<MethodItem> results = new ArrayList<>(methodItems.size());
+        boolean lineNoItem = false;
+        for(MethodItem methodItem : methodItems){
+            if(methodItem instanceof LineNumberMethodItem){
+                if(lineNoItem){
+                    continue;
+                }
+                lineNoItem = true;
+            }else {
+                lineNoItem = false;
+            }
+            results.add(methodItem);
+        }
+        return results;
     }
 
     private boolean needsAnalyzed() {

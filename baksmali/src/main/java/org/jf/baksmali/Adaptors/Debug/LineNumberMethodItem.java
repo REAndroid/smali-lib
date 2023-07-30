@@ -44,6 +44,10 @@ public class LineNumberMethodItem extends DebugMethodItem {
         super(codeAddress, sortOrder);
         this.lineNumber = lineNumber.getLineNumber();
     }
+    public LineNumberMethodItem(int lineNumber) {
+        super(0, 0);
+        this.lineNumber = lineNumber;
+    }
 
     public int getLineNumber() {
         return lineNumber;

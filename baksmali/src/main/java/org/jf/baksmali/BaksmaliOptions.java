@@ -73,7 +73,11 @@ public class BaksmaliOptions {
     public int registerInfo = 0;
 
     public Map<Integer,String> resourceIds = new HashMap<Integer,String>();
+
     private CommentProvider commentProvider;
+    public boolean autoLineNumbers = false;
+    public boolean skipDuplicateLineNumbers = false;
+
     public InlineMethodResolver inlineResolver = null;
     public ClassPath classPath = null;
     public SyntheticAccessorResolver syntheticAccessorResolver = null;

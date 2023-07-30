@@ -48,12 +48,21 @@ import javax.annotation.Nonnull;
 import java.io.IOException;
 
 public class InstructionMethodItem<T extends Instruction> extends MethodItem {
-    @Nonnull protected final MethodDefinition methodDef;
-    @Nonnull protected final T instruction;
+    @Nonnull
+    protected final MethodDefinition methodDef;
+    @Nonnull
+    protected T instruction;
 
     public InstructionMethodItem(@Nonnull MethodDefinition methodDef, int codeAddress, @Nonnull T instruction) {
         super(codeAddress);
         this.methodDef = methodDef;
+        this.instruction = instruction;
+    }
+    @Nonnull
+    public T getInstruction() {
+        return instruction;
+    }
+    public void setInstruction(T instruction){
         this.instruction = instruction;
     }
 

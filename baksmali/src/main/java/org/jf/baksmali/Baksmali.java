@@ -37,6 +37,7 @@ import org.jf.util.collection.ListUtil;
 
 import javax.annotation.Nullable;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -151,13 +152,15 @@ public class Baksmali {
                     return false;
                 }
             }
-
             BufferedWriter bufWriter = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(smaliFile), "UTF8"));
+                    new FileOutputStream(smaliFile), StandardCharsets.UTF_8));
 
             writer = new BaksmaliWriter(
                     bufWriter,
                     options.implicitReferences ? classDef.getType() : null);
+
+            writer.setOptions(classDefinition.options);
+
             classDefinition.writeTo(writer);
         } catch (Exception ex) {
             System.err.println("\n\nError occurred while disassembling class " + classDescriptor.replace('/', '.') + " - skipping class");
