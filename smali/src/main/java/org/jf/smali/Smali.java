@@ -106,13 +106,13 @@ public class Smali {
         if(files == null){
             return false;
         }
-        boolean success = files.length == 0;
+        boolean has_error = false;
         for(File file : files){
-            if(assemble(dexBuilder, file, options)){
-                success = true;
+            if(!assemble(dexBuilder, file, options)){
+                has_error = true;
             }
         }
-        return success;
+        return !has_error;
     }
 
     /**
