@@ -174,6 +174,9 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
     }
     @Override
     public int compare(T t1, T t2) {
+        if(t1 == t2){
+            return 0;
+        }
         if(t1 instanceof Comparable && t2 instanceof Comparable){
             Comparable comparable1 = (Comparable) t1;
             return comparable1.compareTo(t2);
@@ -195,13 +198,31 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
         if(obj == this){
             return true;
         }
-        if(obj instanceof ArraySet){
-            return hashCode() == obj.hashCode();
+        if(!(obj instanceof Set)){
+            return false;
         }
-        if(obj instanceof Set){
-            return hashCode() == ArraySet.hashCode((Set<?>) obj);
+        Set<?> set = (Set<?>) obj;
+        int size = this.size();
+        if(set.size() != size){
+            return false;
         }
-        return false;
+        if(size == 0){
+            return true;
+        }
+        if(getHashCode(set) != hashCode()){
+            return false;
+        }
+        Iterator<?> iterator1 = this.iterator();
+        Iterator<?> iterator2 = set.iterator();
+        while (iterator1.hasNext()){
+            if(!iterator2.hasNext()){
+                return false;
+            }
+            if(!iterator1.next().equals(iterator2.next())){
+                return false;
+            }
+        }
+        return true;
     }
     @Override
     public int hashCode(){
@@ -210,6 +231,12 @@ public class ArraySet<T> implements Set<T>, Comparator<T>{
             mHashCodeStamp = items.size();
         }
         return mHashCode;
+    }
+    private static int getHashCode(Set<?> set) {
+        if(set instanceof ArraySet){
+            return set.hashCode();
+        }
+        return hashCode(set);
     }
     public static int hashCode(Set<?> set) {
         int[] hashArray = sortedHashCode(set);
