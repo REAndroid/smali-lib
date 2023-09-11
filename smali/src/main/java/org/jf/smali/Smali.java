@@ -98,7 +98,7 @@ public class Smali {
 
         if(fileOrDir.isFile()){
             if(!fileOrDir.getName().endsWith(".smali")){
-                return false;
+                return true;
             }
             return assembleSmaliFile(fileOrDir, dexBuilder, options);
         }
