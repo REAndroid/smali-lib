@@ -444,6 +444,10 @@ public class MethodDefinition {
                     continue;
                 }
                 lineNoItem = true;
+                LineNumberMethodItem line = (LineNumberMethodItem) methodItem;
+                if((line.getLineNumber() & 0xffff0000) != 0){
+                    continue;
+                }
             }else {
                 lineNoItem = false;
             }
