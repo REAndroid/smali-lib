@@ -43,6 +43,7 @@ public class VersionMap {
             case 38:
                 return 27;
             case 39:
+            case 40:
                 return 28;
             default:
                 return NO_VERSION;
