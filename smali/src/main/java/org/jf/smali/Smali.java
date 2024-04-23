@@ -38,6 +38,7 @@ import org.antlr.runtime.TokenSource;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.jf.dexlib2.Opcodes;
+import org.jf.dexlib2.extra.DexMarker;
 import org.jf.dexlib2.writer.builder.DexBuilder;
 import org.jf.dexlib2.writer.io.FileDataStore;
 import org.jf.util.StringUtils;
@@ -75,6 +76,10 @@ public class Smali {
     public static boolean assemble(final SmaliOptions options, List<String> input) throws IOException {
         boolean success = false;
         final DexBuilder dexBuilder = new DexBuilder(Opcodes.forApi(options.apiLevel));
+        if(options.markersListFile != null){
+            List<DexMarker> markerList = DexMarker.readMarkers(new File(options.markersListFile));
+            dexBuilder.addMarkers(markerList.iterator());
+        }
 
         for (String fileToProcess: input) {
             File argFile = new File(fileToProcess);

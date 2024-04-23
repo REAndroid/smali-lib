@@ -35,11 +35,13 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import com.beust.jcommander.validators.PositiveInteger;
+import org.jf.dexlib2.extra.DexMarker;
 import org.jf.util.jcommander.Command;
 import org.jf.util.jcommander.ExtendedParameter;
 import org.jf.util.jcommander.ExtendedParameters;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -68,6 +70,11 @@ public class AssembleCommand extends Command {
             description = "The name/path of the dex file to write.")
     @ExtendedParameter(argumentNames = "file")
     private String output = "out.dex";
+
+    @Parameter(names = {"-markers", "--markers"},
+            description = "The name/path of file containing line separated markers")
+    @ExtendedParameter(argumentNames = "file")
+    private String markers;
 
     @Parameter(names = "--verbose",
             description = "Generate verbose error messages.")
@@ -99,6 +106,20 @@ public class AssembleCommand extends Command {
             throw new RuntimeException(ex);
         }
     }
+    private String getMarkers(){
+        if(this.markers == null){
+            for(String inputPath : input){
+                File file = new File(inputPath);
+                file = new File(file, DexMarker.FILE_NAME);
+                if(file.isFile()){
+                    return file.getAbsolutePath();
+                }
+            }
+        }else if(this.markers.trim().length() == 0){
+            return null;
+        }
+        return this.markers;
+    }
 
     protected SmaliOptions getOptions() {
         SmaliOptions options = new SmaliOptions();
@@ -108,6 +129,7 @@ public class AssembleCommand extends Command {
         options.outputDexFile = output;
         options.allowOdexOpcodes = allowOdexOpcodes;
         options.verboseErrors = verbose;
+        options.markersListFile = getMarkers();
 
         return options;
     }

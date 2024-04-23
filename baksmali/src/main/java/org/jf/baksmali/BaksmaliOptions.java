@@ -82,6 +82,8 @@ public class BaksmaliOptions {
     public ClassPath classPath = null;
     public SyntheticAccessorResolver syntheticAccessorResolver = null;
 
+    public boolean dumpMarkers;
+
     public BaksmaliOptions(){
     }
 

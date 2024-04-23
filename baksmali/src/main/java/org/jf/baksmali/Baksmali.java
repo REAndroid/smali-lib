@@ -30,6 +30,7 @@ package org.jf.baksmali;
 
 import org.jf.baksmali.Adaptors.ClassDefinition;
 import org.jf.baksmali.formatter.BaksmaliWriter;
+import org.jf.dexlib2.extra.DexMarker;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.iface.DexFile;
 import org.jf.util.ClassFileNameHandler;
@@ -57,6 +58,14 @@ public class Baksmali {
         //baksmali/smali cycles for some reason. If a class with a colliding name is added or removed, the filenames
         //may still change of course
         List<? extends ClassDef> classDefs = ListUtil.sortedCopy(dexFile.getClasses());
+
+        if(options.dumpMarkers) {
+            File markerFile = new File(outputDir, DexMarker.FILE_NAME);
+            try {
+                DexMarker.writeMarkers(dexFile.getMarkers(), markerFile);
+            } catch (IOException ignored) {
+            }
+        }
 
         final ClassFileNameHandler fileNameHandler = new ClassFileNameHandler(outputDir, ".smali");
 

@@ -34,6 +34,7 @@ package org.jf.dexlib2.writer.builder;
 import org.jf.dexlib2.HiddenApiRestriction;
 import org.jf.dexlib2.Opcodes;
 import org.jf.dexlib2.ValueType;
+import org.jf.dexlib2.extra.DexMarker;
 import org.jf.dexlib2.iface.Annotation;
 import org.jf.dexlib2.iface.AnnotationElement;
 import org.jf.dexlib2.iface.MethodImplementation;
@@ -69,6 +70,17 @@ public class DexBuilder extends DexWriter<BuilderStringReference, BuilderStringR
 
     public DexBuilder(@Nonnull Opcodes opcodes) {
         super(opcodes);
+    }
+
+    public void addMarkers(Iterator<DexMarker> markers){
+        while (markers.hasNext()){
+            addMarker(markers.next());
+        }
+    }
+    public void addMarker(DexMarker marker){
+        if(marker != null){
+            stringSection.internString(marker.getMarker());
+        }
     }
 
     @Nonnull

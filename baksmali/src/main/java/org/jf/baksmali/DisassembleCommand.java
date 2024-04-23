@@ -142,6 +142,10 @@ public class DisassembleCommand extends DexInputCommand {
     @ExtendedParameter(argumentNames = "classes")
     private List<String> classes = null;
 
+    @Parameter(names = {"--dump-markers", "--markers"},
+            description = "Dump markers to file")
+    private boolean dumpMarkers = false;
+
     public DisassembleCommand(@Nonnull List<JCommander> commandAncestors) {
         super(commandAncestors);
     }
@@ -292,6 +296,8 @@ public class DisassembleCommand extends DexInputCommand {
         if (allowOdex) {
             options.allowOdex = true;
         }
+
+        options.dumpMarkers = dumpMarkers;
 
         return options;
     }

@@ -39,6 +39,7 @@ import org.jf.dexlib2.dexbacked.raw.*;
 import org.jf.dexlib2.dexbacked.reference.*;
 import org.jf.dexlib2.dexbacked.util.FixedSizeList;
 import org.jf.dexlib2.dexbacked.util.FixedSizeSet;
+import org.jf.dexlib2.extra.DexMarker;
 import org.jf.dexlib2.iface.DexFile;
 import org.jf.dexlib2.iface.reference.Reference;
 import org.jf.dexlib2.util.DexUtil;
@@ -227,7 +228,12 @@ public class DexBackedDexFile implements DexFile {
         return false;
     }
 
+    @Override
+    public List<DexMarker> getMarkers(){
+        return DexMarker.listMarkers(getStringSection().iterator());
+    }
     @Nonnull
+    @Override
     public Set<? extends DexBackedClassDef> getClasses() {
         return new FixedSizeSet<DexBackedClassDef>() {
             @Nonnull

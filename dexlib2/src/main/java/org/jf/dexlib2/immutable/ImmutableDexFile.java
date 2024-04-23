@@ -32,13 +32,16 @@
 package org.jf.dexlib2.immutable;
 
 import org.jf.dexlib2.Opcodes;
+import org.jf.dexlib2.extra.DexMarker;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.iface.DexFile;
 import org.jf.util.ImmutableUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 public class ImmutableDexFile implements DexFile {
@@ -46,6 +49,8 @@ public class ImmutableDexFile implements DexFile {
     protected final Set<? extends ImmutableClassDef> classes;
     @Nonnull
     private final Opcodes opcodes;
+
+    private List<DexMarker> markerList;
 
     public ImmutableDexFile(@Nonnull Opcodes opcodes, @Nullable Collection<? extends ClassDef> classes) {
         this.classes = ImmutableClassDef.immutableSetOf(classes);
@@ -61,9 +66,22 @@ public class ImmutableDexFile implements DexFile {
         if (dexFile instanceof ImmutableDexFile) {
             return (ImmutableDexFile)dexFile;
         }
-        return new ImmutableDexFile(dexFile.getOpcodes(), dexFile.getClasses());
+        ImmutableDexFile immutableDexFile = new ImmutableDexFile(dexFile.getOpcodes(), dexFile.getClasses());
+        immutableDexFile.setMarkerList(dexFile.getMarkers());
+        return immutableDexFile;
     }
 
+    public void setMarkerList(List<DexMarker> markerList) {
+        this.markerList = markerList;
+    }
+
+    @Override
+    public List<DexMarker> getMarkers() {
+        if(this.markerList == null){
+            this.markerList = new ArrayList<>();
+        }
+        return markerList;
+    }
     @Nonnull
     @Override
     public Set<? extends ImmutableClassDef> getClasses() { return classes; }

@@ -32,10 +32,13 @@
 package org.jf.dexlib2.rewriter;
 
 import org.jf.dexlib2.Opcodes;
+import org.jf.dexlib2.extra.DexMarker;
 import org.jf.dexlib2.iface.ClassDef;
 import org.jf.dexlib2.iface.DexFile;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class DexFileRewriter implements Rewriter<DexFile> {
@@ -53,17 +56,28 @@ public class DexFileRewriter implements Rewriter<DexFile> {
     }
 
     protected class RewrittenDexFile implements DexFile {
-        @Nonnull protected final DexFile dexFile;
+        @Nonnull
+        protected final DexFile dexFile;
+        private final List<DexMarker> markerList;
 
         public RewrittenDexFile(@Nonnull DexFile dexFile) {
             this.dexFile = dexFile;
+            this.markerList = new ArrayList<>(dexFile.getMarkers());
         }
 
-        @Override @Nonnull public Set<? extends ClassDef> getClasses() {
+        @Override
+        public List<DexMarker> getMarkers() {
+            return markerList;
+        }
+        @Nonnull
+        @Override
+        public Set<? extends ClassDef> getClasses() {
             return RewriterUtils.rewriteSet(rewriters.getClassDefRewriter(), dexFile.getClasses());
         }
 
-        @Nonnull @Override public Opcodes getOpcodes() {
+        @Nonnull
+        @Override
+        public Opcodes getOpcodes() {
             return dexFile.getOpcodes();
         }
     }

@@ -32,14 +32,18 @@
 package org.jf.dexlib2.iface;
 
 import org.jf.dexlib2.Opcodes;
+import org.jf.dexlib2.extra.DexMarker;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 import java.util.Set;
 
 /**
  * This class is a high level representation of a dex file - essentially a set of class definitions.
  */
 public interface DexFile {
+
+    List<DexMarker> getMarkers();
     /**
      * Get a set of the classes defined in this dex file.
      *
@@ -47,12 +51,14 @@ public interface DexFile {
      *
      * @return A set of the classes defined in this dex file
      */
-    @Nonnull Set<? extends ClassDef> getClasses();
+    @Nonnull
+    Set<? extends ClassDef> getClasses();
 
     /**
      * Get the Opcodes associated with this dex file
      *
      * @return The Opcodes instance representing the possible opcodes that can be encountered in this dex file
      */
-    @Nonnull Opcodes getOpcodes();
+    @Nonnull
+    Opcodes getOpcodes();
 }

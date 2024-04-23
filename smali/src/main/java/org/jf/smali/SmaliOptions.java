@@ -39,4 +39,6 @@ public class SmaliOptions {
     public boolean allowOdexOpcodes = false;
     public boolean verboseErrors = false;
     public boolean printTokens = false;
+
+    public String markersListFile;
 }
