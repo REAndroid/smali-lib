@@ -34,6 +34,8 @@ package org.jf.dexlib2.base.reference;
 import org.jf.dexlib2.formatter.DexFormatter;
 import org.jf.dexlib2.iface.reference.CallSiteReference;
 
+import static org.jf.dexlib2.writer.DexWriter.NO_INDEX;
+
 public abstract class BaseCallSiteReference extends BaseReference implements CallSiteReference {
     @Override
     public int hashCode() {

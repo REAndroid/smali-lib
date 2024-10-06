@@ -32,6 +32,7 @@
 package org.jf.dexlib2.writer.builder;
 
 import org.jf.dexlib2.base.reference.BaseCallSiteReference;
+import org.jf.dexlib2.iface.reference.CallSiteReference;
 import org.jf.dexlib2.iface.value.StringEncodedValue;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderArrayEncodedValue;
 import org.jf.dexlib2.writer.builder.BuilderEncodedValues.BuilderEncodedValue;
@@ -45,14 +46,17 @@ import java.util.List;
 import static org.jf.dexlib2.writer.DexWriter.NO_INDEX;
 
 public class BuilderCallSiteReference extends BaseCallSiteReference implements BuilderReference {
-    @Nonnull final String name;
-    @Nonnull final BuilderArrayEncodedValue encodedCallSite;
-    int index = NO_INDEX;
 
-    public BuilderCallSiteReference(@Nonnull String name,
-                                    @Nonnull BuilderArrayEncodedValue encodedCallSite) {
+    @Nonnull
+    final String name;
+    @Nonnull
+    final BuilderArrayEncodedValue encodedCallSite;
+    int index;
+
+    public BuilderCallSiteReference(@Nonnull String name, @Nonnull BuilderArrayEncodedValue encodedCallSite) {
         this.name = name;
         this.encodedCallSite = encodedCallSite;
+        this.index = CallSiteReference.parseIndex(name, NO_INDEX);
     }
 
     @Nonnull
@@ -88,12 +92,12 @@ public class BuilderCallSiteReference extends BaseCallSiteReference implements B
         return encodedCallSite.elements.subList(3, encodedCallSite.elements.size());
     }
 
-    @Override 
+    @Override
     public int getIndex() {
         return index;
     }
 
-    @Override 
+    @Override
     public void setIndex(int index) {
         this.index = index;
     }

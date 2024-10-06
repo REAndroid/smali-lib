@@ -199,9 +199,8 @@ public abstract class DexWriter<
             new Comparator<Entry<? extends CallSiteKey, Integer>>() {
                 @Override
                 public int compare(Entry<? extends CallSiteKey, Integer> o1, Entry<? extends CallSiteKey, Integer> o2) {
-                    int offset1 = encodedArraySection.getItemOffset(callSiteSection.getEncodedCallSite(o1.getKey()));
-                    int offset2 = encodedArraySection.getItemOffset(callSiteSection.getEncodedCallSite(o2.getKey()));
-                    return Integer.compare(offset1, offset2);
+                    return Long.compare(o1.getKey().getIndex() & 0xffffffffL,
+                            o2.getKey().getIndex() & 0xffffffffL);
                 }
             };
 

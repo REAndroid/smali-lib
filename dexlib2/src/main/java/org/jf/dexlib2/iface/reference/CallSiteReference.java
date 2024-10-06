@@ -37,6 +37,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static org.jf.dexlib2.writer.DexWriter.NO_INDEX;
+
 /**
  * This class represents a reference to a call site
  */
@@ -106,4 +108,27 @@ public interface CallSiteReference extends Reference {
      * @return true if the specified object is equal to this CallSiteReference
      */
     @Override boolean equals(@Nullable Object o);
+
+    /**
+     * Returns the index of this CallSiteReference
+     * */
+    int getIndex();
+
+
+
+    static int parseIndex(String name, int def) {
+        if (name == null) {
+            return def;
+        }
+        String prefix = "call_site_";
+        if (!name.startsWith(prefix)) {
+            return def;
+        }
+        name = name.substring(prefix.length());
+        try {
+            return Integer.parseInt(name);
+        } catch (NumberFormatException ignored) {
+            return def;
+        }
+    }
 }
