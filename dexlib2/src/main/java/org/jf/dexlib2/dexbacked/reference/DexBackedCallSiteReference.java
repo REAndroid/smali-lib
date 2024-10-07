@@ -79,7 +79,7 @@ public class DexBackedCallSiteReference extends BaseCallSiteReference {
             throw new ExceptionWithContext("Invalid call site item: must contain at least 3 entries.");
         }
 
-        EncodedValue encodedValue = getCallSiteIterator().getNextOrNull();
+        EncodedValue encodedValue = iter.getNextOrNull();
         assert encodedValue != null;
         if (encodedValue.getValueType() != ValueType.METHOD_HANDLE) {
             throw new ExceptionWithContext(
