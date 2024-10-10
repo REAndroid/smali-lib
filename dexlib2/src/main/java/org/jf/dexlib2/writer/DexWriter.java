@@ -1183,19 +1183,22 @@ public abstract class DexWriter<
             int codeUnitCount = 0;
             for (Instruction instruction: instructions) {
                 codeUnitCount += instruction.getCodeUnits();
-                if (instruction.getOpcode().referenceType == ReferenceType.METHOD) {
+                int referenceType = instruction.getOpcode().referenceType;
+                int paramCount = 0;
+                if (referenceType == ReferenceType.METHOD) {
                     ReferenceInstruction refInsn = (ReferenceInstruction)instruction;
                     MethodReference methodRef = (MethodReference)refInsn.getReference();
                     Opcode opcode = instruction.getOpcode();
-                    int paramCount;
                     if (InstructionUtil.isInvokePolymorphic(opcode)) {
                         paramCount = ((VariableRegisterInstruction)instruction).getRegisterCount();
                     } else {
                         paramCount = MethodUtil.getParameterRegisterCount(methodRef, InstructionUtil.isInvokeStatic(opcode));
                     }
-                    if (paramCount > outParamCount) {
-                        outParamCount = paramCount;
-                    }
+                } else if (referenceType == ReferenceType.CALL_SITE) {
+                    paramCount = ((VariableRegisterInstruction)instruction).getRegisterCount();
+                }
+                if (paramCount > outParamCount) {
+                    outParamCount = paramCount;
                 }
             }
 
