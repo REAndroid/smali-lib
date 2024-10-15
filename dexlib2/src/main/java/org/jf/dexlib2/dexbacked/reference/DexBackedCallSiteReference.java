@@ -66,7 +66,6 @@ public class DexBackedCallSiteReference extends BaseCallSiteReference {
         return String.format("call_site_%d", callSiteIndex);
     }
 
-    @Override
     public int getIndex() {
         return callSiteIndex;
     }

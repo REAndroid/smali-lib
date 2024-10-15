@@ -51,12 +51,11 @@ public class BuilderCallSiteReference extends BaseCallSiteReference implements B
     final String name;
     @Nonnull
     final BuilderArrayEncodedValue encodedCallSite;
-    int index;
+    int index = NO_INDEX;
 
     public BuilderCallSiteReference(@Nonnull String name, @Nonnull BuilderArrayEncodedValue encodedCallSite) {
         this.name = name;
         this.encodedCallSite = encodedCallSite;
-        this.index = CallSiteReference.parseIndex(name, NO_INDEX);
     }
 
     @Nonnull

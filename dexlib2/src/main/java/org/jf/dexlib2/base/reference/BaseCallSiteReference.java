@@ -33,10 +33,32 @@ package org.jf.dexlib2.base.reference;
 
 import org.jf.dexlib2.formatter.DexFormatter;
 import org.jf.dexlib2.iface.reference.CallSiteReference;
+import org.jf.util.CollectionUtils;
 
-import static org.jf.dexlib2.writer.DexWriter.NO_INDEX;
+import javax.annotation.Nonnull;
+
 
 public abstract class BaseCallSiteReference extends BaseReference implements CallSiteReference {
+
+    @Override
+    public int compareTo(@Nonnull CallSiteReference callSiteReference) {
+        if (callSiteReference == this) {
+            return 0;
+        }
+        int i = this.getMethodHandle().compareTo(callSiteReference.getMethodHandle());
+        if (i != 0) {
+            return i;
+        }
+        i = CollectionUtils.compareAsList(this.getExtraArguments(), callSiteReference.getExtraArguments());
+        if (i != 0) {
+            return i;
+        }
+        i = this.getMethodName().compareTo(callSiteReference.getMethodName());
+        if (i != 0) {
+            return i;
+        }
+        return this.getMethodProto().compareTo(callSiteReference.getMethodProto());
+    }
     @Override
     public int hashCode() {
         int hashCode = getName().hashCode();
@@ -49,7 +71,7 @@ public abstract class BaseCallSiteReference extends BaseReference implements Cal
 
     @Override
     public boolean equals(Object o) {
-        if (o != null && o instanceof CallSiteReference) {
+        if (o instanceof CallSiteReference) {
             CallSiteReference other = (CallSiteReference) o;
             return getMethodHandle().equals(other.getMethodHandle()) &&
                     getMethodName().equals(other.getMethodName()) &&

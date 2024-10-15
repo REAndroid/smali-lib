@@ -32,17 +32,17 @@
 package org.jf.dexlib2.iface.reference;
 
 import org.jf.dexlib2.iface.value.EncodedValue;
+import org.jf.util.CollectionUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static org.jf.dexlib2.writer.DexWriter.NO_INDEX;
 
 /**
  * This class represents a reference to a call site
  */
-public interface CallSiteReference extends Reference {
+public interface CallSiteReference extends Reference, Comparable<CallSiteReference> {
 
     /**
      * Gets a name for this call site.
@@ -110,25 +110,8 @@ public interface CallSiteReference extends Reference {
     @Override boolean equals(@Nullable Object o);
 
     /**
-     * Returns the index of this CallSiteReference
+     * Compares this to other CallSiteReference
      * */
-    int getIndex();
-
-
-
-    static int parseIndex(String name, int def) {
-        if (name == null) {
-            return def;
-        }
-        String prefix = "call_site_";
-        if (!name.startsWith(prefix)) {
-            return def;
-        }
-        name = name.substring(prefix.length());
-        try {
-            return Integer.parseInt(name);
-        } catch (NumberFormatException ignored) {
-            return def;
-        }
-    }
+    @Override
+    int compareTo(@Nonnull CallSiteReference callSiteReference);
 }

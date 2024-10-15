@@ -56,8 +56,6 @@ public class ImmutableCallSiteReference extends BaseCallSiteReference implements
     @Nonnull
     protected final List<? extends ImmutableEncodedValue> extraArguments;
 
-    private final int mIndex;
-
     public ImmutableCallSiteReference(@Nonnull String name, @Nonnull MethodHandleReference methodHandle,
                                       @Nonnull String methodName, @Nonnull MethodProtoReference methodProto,
                                       @Nonnull Iterable<? extends EncodedValue> extraArguments) {
@@ -67,7 +65,6 @@ public class ImmutableCallSiteReference extends BaseCallSiteReference implements
         this.methodProto = ImmutableMethodProtoReference.of(methodProto);
         this.extraArguments = ImmutableEncodedValueFactory.immutableListOf(extraArguments);
 
-        this.mIndex = CallSiteReference.parseIndex(name, -1);
     }
 
     public ImmutableCallSiteReference(@Nonnull String name, @Nonnull ImmutableMethodHandleReference methodHandle,
@@ -79,19 +76,6 @@ public class ImmutableCallSiteReference extends BaseCallSiteReference implements
         this.methodProto = methodProto;
         this.extraArguments = ImmutableUtils.nullToEmptyList(extraArguments);
 
-        this.mIndex = CallSiteReference.parseIndex(name, -1);
-    }
-
-    public ImmutableCallSiteReference(@Nonnull String name, @Nonnull ImmutableMethodHandleReference methodHandle,
-                                      @Nonnull String methodName, @Nonnull ImmutableMethodProtoReference methodProto,
-                                      @Nullable List<? extends ImmutableEncodedValue> extraArguments, int index) {
-        this.name = name;
-        this.methodHandle = methodHandle;
-        this.methodName = methodName;
-        this.methodProto = methodProto;
-        this.extraArguments = ImmutableUtils.nullToEmptyList(extraArguments);
-
-        this.mIndex = index;
     }
 
     @Nonnull
@@ -103,17 +87,12 @@ public class ImmutableCallSiteReference extends BaseCallSiteReference implements
                 ImmutableMethodHandleReference.of(callSiteReference.getMethodHandle()),
                 callSiteReference.getMethodName(),
                 ImmutableMethodProtoReference.of(callSiteReference.getMethodProto()),
-                ImmutableEncodedValueFactory.immutableListOf(callSiteReference.getExtraArguments()),
-                callSiteReference.getIndex());
+                ImmutableEncodedValueFactory.immutableListOf(callSiteReference.getExtraArguments()));
     }
 
     @Nonnull
     @Override
     public String getName() { return name; }
-    @Override
-    public int getIndex() {
-        return mIndex;
-    }
 
     @Nonnull
     @Override

@@ -195,12 +195,11 @@ public abstract class DexWriter<
     protected abstract void writeEncodedValue(@Nonnull InternalEncodedValueWriter writer,
                                               @Nonnull EncodedValue encodedValue) throws IOException;
 
-    private Comparator<Map.Entry<? extends CallSiteKey, Integer>> callSiteComparator =
+    private final Comparator<Map.Entry<? extends CallSiteKey, Integer>> callSiteComparator =
             new Comparator<Entry<? extends CallSiteKey, Integer>>() {
                 @Override
                 public int compare(Entry<? extends CallSiteKey, Integer> o1, Entry<? extends CallSiteKey, Integer> o2) {
-                    return Long.compare(o1.getKey().getIndex() & 0xffffffffL,
-                            o2.getKey().getIndex() & 0xffffffffL);
+                    return o1.getKey().compareTo(o2.getKey());
                 }
             };
 
@@ -720,7 +719,7 @@ public abstract class DexWriter<
 
         List<Map.Entry<? extends CallSiteKey, Integer>> callSiteEntries =
                 ListUtil.newArrayList(callSiteSection.getItems());
-        Collections.sort(callSiteEntries, callSiteComparator);
+        callSiteEntries.sort(callSiteComparator);
 
         int index = 0;
 
