@@ -25,7 +25,7 @@ task fatJar(type: Jar) {
     from sourceSets.main.output
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 
-    classifier = 'fat'
+    archiveClassifier = 'fat'
 
     manifest {
         attributes('Main-Class': 'org.jf.baksmali.Main')
@@ -36,6 +36,10 @@ task fatJar(type: Jar) {
             ant.symlink(link: file("${destinationDirectory.get()}/baksmali.jar"), resource: archivePath, overwrite: true)
         }
     }
+
+    // Necessary on Gradle 7 to eplicitly set dependency
+    dependsOn project(':util').jar
+    dependsOn project(':dexlib2').jar
 }
 tasks.getByPath('build').dependsOn(fatJar)
 
