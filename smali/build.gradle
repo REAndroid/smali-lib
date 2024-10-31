@@ -57,13 +57,17 @@ dependencies {
 
 processResources.inputs.property('version', version)
 processResources.expand('version': version)
+processResources.configure {
+    // Necessary on Gradle 7 to eplicitly set dependency
+    dependsOn generateGrammarSource
+}
 
 // Build a separate jar that contains all dependencies
 task fatJar(type: Jar, dependsOn: jar) {
     from sourceSets.main.output
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 
-    classifier = 'fat'
+    archiveClassifier = 'fat'
 
     manifest {
         attributes('Main-Class': 'org.jf.smali.Main')
@@ -74,6 +78,11 @@ task fatJar(type: Jar, dependsOn: jar) {
             ant.symlink(link: file("${destinationDirectory.get()}/smali.jar"), resource: archivePath, overwrite: true)
         }
     }
+
+    // Necessary on Gradle 7 to eplicitly set dependency
+    dependsOn project(':util').jar
+    dependsOn project(':dexlib2').jar
+    dependsOn project(':baksmali').jar
 }
 tasks.getByPath('build').dependsOn(fatJar)
 

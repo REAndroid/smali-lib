@@ -18,4 +18,7 @@ task ragel(type:Exec) {
             'SyntheticAccessorFSM.rl'
 }
 
-
+test {
+    // Since Java 9, this is needed. See https://stackoverflow.com/a/41265267
+    jvmArgs '--add-opens', 'java.base/java.lang=ALL-UNNAMED'
+}
