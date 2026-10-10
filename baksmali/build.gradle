@@ -22,10 +22,11 @@ processResources.expand('version': version)
 
 // Build a separate jar that contains all dependencies
 task fatJar(type: Jar) {
+    dependsOn configurations.runtimeClasspath
     from sourceSets.main.output
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
 
-    classifier = 'fat'
+    archiveClassifier.set('fat')
 
     manifest {
         attributes('Main-Class': 'org.jf.baksmali.Main')
